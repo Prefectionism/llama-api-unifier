@@ -1,0 +1,12 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  server:
+    cmds:
+      - llama-server 
+        --port 9082
+        --log-disable
+        --embedding
+        -
