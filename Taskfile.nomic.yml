@@ -15,4 +15,4 @@ tasks:
         --rope-freq-scale .75
         --hf-repo nomic-ai/nomic-embed-text-v1.5-GGUF
         --hf-file nomic-embed-text-v1.5.Q4_K_M.gguf
-        --mod
+        --model ./models/nomic-embed-text-v1.5.Q4_K_M.gguf

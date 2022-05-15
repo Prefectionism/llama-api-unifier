@@ -1,0 +1,12 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  server:
+    deps: [ download-model ]
+    cmds:
+      - whisper-server
+        --port 9083
+        --convert
+        --model ./models/whispe
