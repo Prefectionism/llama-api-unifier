@@ -9,4 +9,10 @@ tasks:
         --port 9082
         --log-disable
         --embedding
-        -
+        --ctx-size 8192
+        --batch-size 8192
+        --rope-scaling yarn
+        --rope-freq-scale .75
+        --hf-repo nomic-ai/nomic-embed-text-v1.5-GGUF
+        --hf-file nomic-embed-text-v1.5.Q4_K_M.gguf
+        --mod
