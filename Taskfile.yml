@@ -1,0 +1,48 @@
+
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  REPOSITORY: adrianliechti/llama-platform
+
+includes:
+  llama:
+    taskfile: ./Taskfile.llama.yml
+  
+  nomic:
+    taskfile: ./Taskfile.nomic.yml
+  
+  whisper:
+    taskfile: ./Taskfile.whisper.yml
+  
+  mimic:
+    taskfile: ./Taskfile.minic.yml
+  
+  unstructured:
+    taskfile: ./Taskfile.unstructured.yml
+  
+  chroma:
+    taskfile: ./Taskfile.chroma.yml
+  
+  weaviate:
+    taskfile: ./Taskfile.weaviate.yml
+
+tasks:
+  publish:
+    cmds:
+      - docker buildx build . --push --platform linux/amd64,linux/arm64 --tag {{.REPOSITORY}}
+
+  server:
+    dotenv: ['.env' ]
+    
+    cmds:
+      - go run cmd/server/main.go
+
+  client:
+    cmds:
+      - go run cmd/client/main.go
+
+  webui:
+    cmds:
+      - docker run -it --rm --pull always -p 8501:8501 -e OPENAI_BASE_URL=http://host.docker.internal:8080/oai/v1 adrianliechti/llama-streamlit

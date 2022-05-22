@@ -17,3 +17,4 @@ tasks:
       - curl -s -L -o models/whisper-ggml-medium.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin
 
     status:
+      - test -f models/whisper-ggml-medium.bin
