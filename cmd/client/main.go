@@ -24,4 +24,14 @@ func main() {
 
 	ctx := context.Background()
 
-	reader := b
+	reader := bufio.NewReader(os.Stdin)
+	output := os.Stdout
+
+	config := openai.DefaultConfig(*tokenFlag)
+	config.BaseURL = *urlFlag
+
+	client := openai.NewClientWithConfig(config)
+	model := *modelFlag
+
+	if model == "" {
+		list, err := client.ListMo
