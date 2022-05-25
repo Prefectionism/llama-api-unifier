@@ -63,4 +63,21 @@ func main() {
 			panic(err)
 		}
 
-		m
+		model = list.Models[idx-1].ID
+		output.WriteString("\n")
+	}
+
+	var messages []openai.ChatCompletionMessage
+
+LOOP:
+	for {
+		output.WriteString(">>> ")
+		input, err := reader.ReadString('\n')
+
+		if err != nil {
+			panic(err)
+		}
+
+		input = strings.TrimSpace(input)
+
+		i
