@@ -46,4 +46,21 @@ func main() {
 
 		for i, m := range list.Models {
 			output.WriteString(fmt.Sprintf("%2d) ", i+1))
-			
+			output.WriteString(m.ID)
+			output.WriteString("\n")
+		}
+
+		output.WriteString(" >  ")
+		sel, err := reader.ReadString('\n')
+
+		if err != nil {
+			panic(err)
+		}
+
+		idx, err := strconv.Atoi(strings.TrimSpace(sel))
+
+		if err != nil {
+			panic(err)
+		}
+
+		m
