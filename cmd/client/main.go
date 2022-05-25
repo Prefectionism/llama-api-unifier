@@ -34,4 +34,16 @@ func main() {
 	model := *modelFlag
 
 	if model == "" {
-		list, err := client.ListMo
+		list, err := client.ListModels(ctx)
+
+		if err != nil {
+			panic(err)
+		}
+
+		sort.SliceStable(list.Models, func(i, j int) bool {
+			return list.Models[i].ID < list.Models[j].ID
+		})
+
+		for i, m := range list.Models {
+			output.WriteString(fmt.Sprintf("%2d) ", i+1))
+			
