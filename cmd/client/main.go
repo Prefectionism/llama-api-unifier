@@ -105,4 +105,16 @@ LOOP:
 			Content: input,
 		})
 
-		req :
+		req := openai.ChatCompletionRequest{
+			Model:    model,
+			Messages: messages,
+		}
+
+		stream, err := client.CreateChatCompletionStream(ctx, req)
+
+		if err != nil {
+			output.WriteString(err.Error() + "\n")
+			continue LOOP
+		}
+
+		defe
