@@ -80,4 +80,16 @@ LOOP:
 
 		input = strings.TrimSpace(input)
 
-		i
+		if strings.HasPrefix(input, "/") {
+			switch strings.ToLower(input) {
+			case "/reset":
+				messages = nil
+				continue LOOP
+
+			case "/repeat":
+				if len(messages) == 0 {
+					continue LOOP
+				}
+
+				input = messages[len(messages)-1].Content
+				message
