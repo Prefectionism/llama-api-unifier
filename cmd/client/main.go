@@ -92,4 +92,17 @@ LOOP:
 				}
 
 				input = messages[len(messages)-1].Content
-				message
+				messages = messages[:len(messages)-1]
+
+			default:
+				output.WriteString("Unknown command\n")
+				continue LOOP
+			}
+		}
+
+		messages = append(messages, openai.ChatCompletionMessage{
+			Role:    openai.ChatMessageRoleUser,
+			Content: input,
+		})
+
+		req :
