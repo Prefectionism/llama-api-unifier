@@ -117,4 +117,20 @@ LOOP:
 			continue LOOP
 		}
 
-		defe
+		defer stream.Close()
+
+		var buffer strings.Builder
+
+		for {
+			resp, err := stream.Recv()
+
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			if err != nil {
+				output.WriteString(err.Error() + "\n")
+				continue LOOP
+			}
+
+			content := resp
