@@ -189,3 +189,19 @@ func Parse(path string) (*Config, error) {
 
 	if err := c.registerExtractors(file); err != nil {
 		return nil, err
+	}
+
+	if err := c.registerClassifiers(file); err != nil {
+		return nil, err
+	}
+
+	if err := c.registerTools(file); err != nil {
+		return nil, err
+	}
+
+	if err := c.registerChains(file); err != nil {
+		return nil, err
+	}
+
+	return c, nil
+}
