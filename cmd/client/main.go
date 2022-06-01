@@ -133,4 +133,15 @@ LOOP:
 				continue LOOP
 			}
 
-			content := resp
+			content := resp.Choices[0].Delta.Content
+
+			buffer.WriteString(content)
+			output.WriteString(content)
+		}
+
+		messages = append(messages, openai.ChatCompletionMessage{
+			Role:    openai.ChatMessageRoleAssistant,
+			Content: strings.TrimSpace(buffer.String()),
+		})
+
+		output.WriteS
