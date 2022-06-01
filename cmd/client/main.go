@@ -144,4 +144,7 @@ LOOP:
 			Content: strings.TrimSpace(buffer.String()),
 		})
 
-		output.WriteS
+		output.WriteString("\n")
+		output.WriteString("\n")
+	}
+}
