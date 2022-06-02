@@ -15,4 +15,17 @@ func (cfg *Config) RegisterClassifier(model string, c classifier.Provider) {
 		cfg.classifiers = make(map[string]classifier.Provider)
 	}
 
-	cfg.classifiers[model]
+	cfg.classifiers[model] = c
+}
+
+type classifierContext struct {
+	Completer provider.Completer
+
+	Template *prompt.Template
+	Messages []provider.Message
+}
+
+func (cfg *Config) registerClassifiers(f *configFile) error {
+	for id, c := range f.Classifiers {
+		var err error
+
