@@ -185,3 +185,28 @@ func ragChain(cfg chainConfig, context chainContext) (chain.Provider, error) {
 	if cfg.Temperature != nil {
 		options = append(options, rag.WithTemperature(*cfg.Temperature))
 	}
+
+	for k, v := range cfg.Filters {
+		options = append(options, rag.WithFilter(k, context.Classifiers[v.Classifier]))
+	}
+
+	return rag.New(options...)
+}
+
+func toolboxChain(cfg chainConfig, context chainContext) (chain.Provider, error) {
+	var options []toolbox.Option
+
+	if context.Completer != nil {
+		options = append(options, toolbox.WithCompleter(context.Completer))
+	}
+
+	if context.Tools != nil {
+		options = append(options, toolbox.WithTools(to.Values(context.Tools)...))
+	}
+
+	if cfg.Temperature != nil {
+		options = append(options, toolbox.WithTemperature(*cfg.Temperature))
+	}
+
+	return toolbox.New(options...)
+}
