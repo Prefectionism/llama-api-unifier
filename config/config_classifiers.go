@@ -7,4 +7,12 @@ import (
 	"github.com/adrianliechti/llama/pkg/classifier"
 	"github.com/adrianliechti/llama/pkg/classifier/llm"
 	"github.com/adrianliechti/llama/pkg/prompt"
-	"githu
+	"github.com/adrianliechti/llama/pkg/provider"
+)
+
+func (cfg *Config) RegisterClassifier(model string, c classifier.Provider) {
+	if cfg.classifiers == nil {
+		cfg.classifiers = make(map[string]classifier.Provider)
+	}
+
+	cfg.classifiers[model]
