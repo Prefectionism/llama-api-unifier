@@ -55,4 +55,16 @@ func (cfg *Config) registerClassifiers(f *configFile) error {
 			return err
 		}
 
-		cfg.RegisterClassifier(id, classifi
+		cfg.RegisterClassifier(id, classifier)
+	}
+
+	return nil
+}
+
+func createClassifier(cfg classifierConfig, context classifierContext) (classifier.Provider, error) {
+	switch strings.ToLower(cfg.Type) {
+	case "llm":
+		return llmClassifier(cfg, context)
+
+	default:
+		return nil, errors.New("i
