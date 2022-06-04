@@ -43,4 +43,16 @@ func (cfg *Config) registerClassifiers(f *configFile) error {
 			}
 		}
 
-		if c.Me
+		if c.Messages != nil {
+			if context.Messages, err = parseMessages(c.Messages); err != nil {
+				return err
+			}
+		}
+
+		classifier, err := createClassifier(c, context)
+
+		if err != nil {
+			return err
+		}
+
+		cfg.RegisterClassifier(id, classifi
