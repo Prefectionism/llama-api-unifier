@@ -29,3 +29,18 @@ func (cfg *Config) registerClassifiers(f *configFile) error {
 	for id, c := range f.Classifiers {
 		var err error
 
+		context := classifierContext{}
+
+		if c.Model != "" {
+			if context.Completer, err = cfg.Completer(c.Model); err != nil {
+				return err
+			}
+		}
+
+		if c.Template != "" {
+			if context.Template, err = parseTemplate(c.Template); err != nil {
+				return err
+			}
+		}
+
+		if c.Me
