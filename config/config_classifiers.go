@@ -89,3 +89,7 @@ func llmClassifier(cfg classifierConfig, context classifierContext) (classifier.
 		}
 
 		options = append(options, llm.WithClasses(classes...))
+	}
+
+	return llm.New(options...)
+}
