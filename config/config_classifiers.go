@@ -67,4 +67,15 @@ func createClassifier(cfg classifierConfig, context classifierContext) (classifi
 		return llmClassifier(cfg, context)
 
 	default:
-		return nil, errors.New("i
+		return nil, errors.New("invalid index type: " + cfg.Type)
+	}
+}
+
+func llmClassifier(cfg classifierConfig, context classifierContext) (classifier.Provider, error) {
+	var options []llm.Option
+
+	if context.Completer != nil {
+		options = append(options, llm.WithCompleter(context.Completer))
+	}
+
+	if 
