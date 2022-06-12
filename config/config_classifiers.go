@@ -78,4 +78,14 @@ func llmClassifier(cfg classifierConfig, context classifierContext) (classifier.
 		options = append(options, llm.WithCompleter(context.Completer))
 	}
 
-	if 
+	if cfg.Classes != nil {
+		var classes []classifier.Class
+
+		for k, v := range cfg.Classes {
+			classes = append(classes, classifier.Class{
+				Name:        k,
+				Description: v,
+			})
+		}
+
+		options = append(options, llm.WithClasses(classes...))
