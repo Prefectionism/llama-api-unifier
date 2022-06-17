@@ -42,3 +42,15 @@ func createExtractor(cfg extractorConfig) (extractor.Provider, error) {
 		return codeExtractor(cfg)
 
 	case "tesseract":
+		return tesseractExtractor(cfg)
+
+	case "unstructured":
+		return unstructuredExtractor(cfg)
+
+	default:
+		return nil, errors.New("invalid extractor type: " + cfg.Type)
+	}
+}
+
+func textExtractor(cfg extractorConfig) (extractor.Provider, error) {
+	var opt
