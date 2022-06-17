@@ -27,4 +27,18 @@ func (cfg *Config) registerExtractors(f *configFile) error {
 			return err
 		}
 
-		cfg.RegisterExtractor(i
+		cfg.RegisterExtractor(id, extractor)
+	}
+
+	return nil
+}
+
+func createExtractor(cfg extractorConfig) (extractor.Provider, error) {
+	switch strings.ToLower(cfg.Type) {
+	case "text":
+		return textExtractor(cfg)
+
+	case "code":
+		return codeExtractor(cfg)
+
+	case "tesseract":
