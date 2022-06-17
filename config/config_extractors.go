@@ -13,4 +13,18 @@ import (
 
 func (cfg *Config) RegisterExtractor(model string, e extractor.Provider) {
 	if cfg.extractors == nil {
-		cfg.extractors = make(map[strin
+		cfg.extractors = make(map[string]extractor.Provider)
+	}
+
+	cfg.extractors[model] = e
+}
+
+func (cfg *Config) registerExtractors(f *configFile) error {
+	for id, c := range f.Extractors {
+		extractor, err := createExtractor(c)
+
+		if err != nil {
+			return err
+		}
+
+		cfg.RegisterExtractor(i
