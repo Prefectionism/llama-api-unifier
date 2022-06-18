@@ -53,4 +53,17 @@ func createExtractor(cfg extractorConfig) (extractor.Provider, error) {
 }
 
 func textExtractor(cfg extractorConfig) (extractor.Provider, error) {
-	var opt
+	var options []text.Option
+
+	if cfg.ChunkSize != nil {
+		options = append(options, text.WithChunkSize(*cfg.ChunkSize))
+	}
+
+	if cfg.ChunkOverlap != nil {
+		options = append(options, text.WithChunkOverlap(*cfg.ChunkOverlap))
+	}
+
+	return text.New(options...)
+}
+
+func codeExtractor(
