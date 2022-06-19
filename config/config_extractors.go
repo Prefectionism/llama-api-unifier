@@ -85,3 +85,16 @@ func tesseractExtractor(cfg extractorConfig) (extractor.Provider, error) {
 
 	if cfg.ChunkSize != nil {
 		options = append(options, tesseract.WithChunkSize(*cfg.ChunkSize))
+	}
+
+	if cfg.ChunkOverlap != nil {
+		options = append(options, tesseract.WithChunkOverlap(*cfg.ChunkOverlap))
+	}
+
+	return tesseract.New(cfg.URL, options...)
+}
+
+func unstructuredExtractor(cfg extractorConfig) (extractor.Provider, error) {
+	var options []unstructured.Option
+
+	if cfg.Chu
