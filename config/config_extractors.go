@@ -74,4 +74,14 @@ func codeExtractor(cfg extractorConfig) (extractor.Provider, error) {
 	}
 
 	if cfg.ChunkOverlap != nil {
-		options = append(options, code.Wit
+		options = append(options, code.WithChunkOverlap(*cfg.ChunkOverlap))
+	}
+
+	return code.New(options...)
+}
+
+func tesseractExtractor(cfg extractorConfig) (extractor.Provider, error) {
+	var options []tesseract.Option
+
+	if cfg.ChunkSize != nil {
+		options = append(options, tesseract.WithChunkSize(*cfg.ChunkSize))
