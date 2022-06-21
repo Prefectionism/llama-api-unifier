@@ -29,4 +29,12 @@ func parseFile(path string) (*configFile, error) {
 }
 
 type configFile struct {
-	Authorizers []authorizerConfig 
+	Authorizers []authorizerConfig `yaml:"authorizers"`
+
+	Providers []providerConfig `yaml:"providers"`
+
+	Indexes     map[string]indexConfig      `yaml:"indexes"`
+	Extractors  map[string]extractorConfig  `yaml:"extractors"`
+	Classifiers map[string]classifierConfig `yaml:"classifiers"`
+
+	To
