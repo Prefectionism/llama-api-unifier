@@ -105,4 +105,5 @@ func unstructuredExtractor(cfg extractorConfig) (extractor.Provider, error) {
 		options = append(options, unstructured.WithChunkOverlap(*cfg.ChunkOverlap))
 	}
 
-	return unstructured.New(c
+	return unstructured.New(cfg.URL, options...)
+}
