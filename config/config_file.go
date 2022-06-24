@@ -50,4 +50,18 @@ type authorizerConfig struct {
 	Audience string `yaml:"audience"`
 }
 
-type provi
+type providerConfig struct {
+	Type string `yaml:"type"`
+
+	URL   string `yaml:"url"`
+	Token string `yaml:"token"`
+
+	Models map[string]modelConfig `yaml:"models"`
+}
+
+type ModelType string
+
+const (
+	ModelTypeCompleter   ModelType = "completer"
+	ModelTypeEmbedder    ModelType = "embedder"
+	ModelTypeTransl
