@@ -37,4 +37,17 @@ type configFile struct {
 	Extractors  map[string]extractorConfig  `yaml:"extractors"`
 	Classifiers map[string]classifierConfig `yaml:"classifiers"`
 
-	To
+	Tools  map[string]toolConfig  `yaml:"tools"`
+	Chains map[string]chainConfig `yaml:"chains"`
+}
+
+type authorizerConfig struct {
+	Type string `yaml:"type"`
+
+	Token string `yaml:"token"`
+
+	Issuer   string `yaml:"issuer"`
+	Audience string `yaml:"audience"`
+}
+
+type provi
