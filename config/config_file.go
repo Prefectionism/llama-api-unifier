@@ -90,4 +90,18 @@ type indexConfig struct {
 }
 
 type extractorConfig struct {
-	Type string `yaml:"type"
+	Type string `yaml:"type"`
+
+	URL   string `yaml:"url"`
+	Token string `yaml:"token"`
+
+	ChunkSize    *int `yaml:"chunkSize"`
+	ChunkOverlap *int `yaml:"chunkOverlap"`
+}
+
+type classifierConfig struct {
+	Type string `yaml:"type"`
+
+	Model string `yaml:"model"`
+
+	Template string 
