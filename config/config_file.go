@@ -78,3 +78,16 @@ type modelConfig struct {
 
 	Adapter string `yaml:"adapter"`
 }
+
+type indexConfig struct {
+	Type string `yaml:"type"`
+
+	URL   string `yaml:"url"`
+	Token string `yaml:"token"`
+
+	Namespace string `yaml:"namespace"`
+	Embedding string `yaml:"embedding"`
+}
+
+type extractorConfig struct {
+	Type string `yaml:"type"
