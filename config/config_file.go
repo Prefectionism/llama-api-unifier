@@ -104,4 +104,15 @@ type classifierConfig struct {
 
 	Model string `yaml:"model"`
 
-	Template string 
+	Template string    `yaml:"template"`
+	Messages []message `yaml:"messages"`
+
+	Classes map[string]string `yaml:"classes"`
+}
+
+type chainConfig struct {
+	Type string `yaml:"type"`
+
+	Model     string `yaml:"model"`
+	Index     string `yaml:"index"`
+	Embedding string `yaml:"embedd
