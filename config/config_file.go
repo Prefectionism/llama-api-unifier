@@ -115,4 +115,15 @@ type chainConfig struct {
 
 	Model     string `yaml:"model"`
 	Index     string `yaml:"index"`
-	Embedding string `yaml:"embedd
+	Embedding string `yaml:"embedding"`
+
+	Template string    `yaml:"template"`
+	Messages []message `yaml:"messages"`
+
+	Tools []string `yaml:"tools"`
+
+	Limit       *int     `yaml:"limit"`
+	Distance    *float32 `yaml:"distance"`
+	Temperature *float32 `yaml:"temperature"`
+
+	Filters map[string]filterConfig `ya
