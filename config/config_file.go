@@ -126,4 +126,18 @@ type chainConfig struct {
 	Distance    *float32 `yaml:"distance"`
 	Temperature *float32 `yaml:"temperature"`
 
-	Filters map[string]filterConfig `ya
+	Filters map[string]filterConfig `yaml:"filters"`
+}
+
+type toolConfig struct {
+	Type string `yaml:"type"`
+
+	URL   string `yaml:"url"`
+	Token string `yaml:"token"`
+
+	Model string `yaml:"model"`
+	Index string `yaml:"index"`
+}
+
+type filterConfig struct {
+	Classifier string `yaml:"classi
