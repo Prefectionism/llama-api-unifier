@@ -140,4 +140,17 @@ type toolConfig struct {
 }
 
 type filterConfig struct {
-	Classifier string `yaml:"classi
+	Classifier string `yaml:"classifier"`
+}
+
+type message struct {
+	Role    string `yaml:"role"`
+	Content string `yaml:"content"`
+}
+
+func parseTemplate(val string) (*prompt.Template, error) {
+	if val == "" {
+		return nil, errors.New("empty prompt")
+	}
+
+	if data, err := os.ReadFi
