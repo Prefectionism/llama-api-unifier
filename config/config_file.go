@@ -164,4 +164,20 @@ func parseMessages(messages []message) ([]provider.Message, error) {
 	result := make([]provider.Message, 0)
 
 	for _, m := range messages {
-		message, err 
+		message, err := parseMessage(m)
+
+		if err != nil {
+			return nil, err
+
+		}
+
+		result = append(result, *message)
+	}
+
+	return result, nil
+}
+
+func parseMessage(message message) (*provider.Message, error) {
+	var role provider.MessageRole
+
+	if strings.EqualFold(message.Role, string(provide
