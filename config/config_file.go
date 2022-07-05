@@ -153,4 +153,15 @@ func parseTemplate(val string) (*prompt.Template, error) {
 		return nil, errors.New("empty prompt")
 	}
 
-	if data, err := os.ReadFi
+	if data, err := os.ReadFile(val); err == nil {
+		return prompt.NewTemplate(string(data))
+	}
+
+	return prompt.NewTemplate(val)
+}
+
+func parseMessages(messages []message) ([]provider.Message, error) {
+	result := make([]provider.Message, 0)
+
+	for _, m := range messages {
+		message, err 
