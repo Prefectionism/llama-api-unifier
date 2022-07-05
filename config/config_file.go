@@ -180,4 +180,12 @@ func parseMessages(messages []message) ([]provider.Message, error) {
 func parseMessage(message message) (*provider.Message, error) {
 	var role provider.MessageRole
 
-	if strings.EqualFold(message.Role, string(provide
+	if strings.EqualFold(message.Role, string(provider.MessageRoleSystem)) {
+		role = provider.MessageRoleSystem
+	}
+
+	if strings.EqualFold(message.Role, string(provider.MessageRoleUser)) {
+		role = provider.MessageRoleUser
+	}
+
+	if strings.EqualFold(message.Role, string(provider.MessageRo
