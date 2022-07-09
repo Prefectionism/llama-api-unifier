@@ -188,4 +188,16 @@ func parseMessage(message message) (*provider.Message, error) {
 		role = provider.MessageRoleUser
 	}
 
-	if strings.EqualFold(message.Role, string(provider.MessageRo
+	if strings.EqualFold(message.Role, string(provider.MessageRoleAssistant)) {
+		role = provider.MessageRoleAssistant
+	}
+
+	if role == "" {
+		return nil, errors.New("invalid message role: " + message.Role)
+	}
+
+	return &provider.Message{
+		Role:    role,
+		Content: message.Content,
+	}, nil
+}
