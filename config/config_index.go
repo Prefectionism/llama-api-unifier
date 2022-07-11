@@ -25,4 +25,15 @@ func (cfg *Config) RegisterIndex(id string, i index.Provider) {
 	cfg.indexes[id] = i
 }
 
-type
+type indexContext struct {
+	Embedder index.Embedder
+}
+
+func (cfg *Config) registerIndexes(f *configFile) error {
+	for id, i := range f.Indexes {
+		var err error
+
+		context := indexContext{}
+
+		if i.Embedding != "" {
+			if context.Embedder, err = cfg.Embed
