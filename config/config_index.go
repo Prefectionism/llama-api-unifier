@@ -36,4 +36,21 @@ func (cfg *Config) registerIndexes(f *configFile) error {
 		context := indexContext{}
 
 		if i.Embedding != "" {
-			if context.Embedder, err = cfg.Embed
+			if context.Embedder, err = cfg.Embedder(i.Embedding); err != nil {
+				return err
+			}
+		}
+
+		index, err := createIndex(i, context)
+
+		if err != nil {
+			return err
+		}
+
+		cfg.RegisterIndex(id, index)
+	}
+
+	return nil
+}
+
+func createIndex(cfg indexConfig, context indexCo
