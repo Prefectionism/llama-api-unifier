@@ -53,4 +53,16 @@ func (cfg *Config) registerIndexes(f *configFile) error {
 	return nil
 }
 
-func createIndex(cfg indexConfig, context indexCo
+func createIndex(cfg indexConfig, context indexContext) (index.Provider, error) {
+	switch strings.ToLower(cfg.Type) {
+	case "chroma":
+		return chromaIndex(cfg, context)
+
+	case "elasticsearch":
+		return elasticsearchIndex(cfg)
+
+	case "memory":
+		return memoryIndex(cfg, context)
+
+	case "weaviate":
+	
