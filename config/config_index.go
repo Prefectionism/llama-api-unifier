@@ -65,4 +65,19 @@ func createIndex(cfg indexConfig, context indexContext) (index.Provider, error) 
 		return memoryIndex(cfg, context)
 
 	case "weaviate":
-	
+		return weaviateIndex(cfg, context)
+
+	case "aisearch":
+		return aisearchIndex(cfg)
+
+	case "bing":
+		return bingIndex(cfg)
+
+	case "duckduckgo":
+		return duckduckgoIndex(cfg)
+
+	case "tavily":
+		return tavilyIndex(cfg)
+
+	case "wikipedia":
+		return wikip
