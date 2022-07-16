@@ -110,4 +110,14 @@ func memoryIndex(cfg indexConfig, context indexContext) (index.Provider, error) 
 	var options []memory.Option
 
 	if context.Embedder != nil {
-		options = append(options, memory.W
+		options = append(options, memory.WithEmbedder(context.Embedder))
+	}
+
+	return memory.New(options...)
+}
+
+func weaviateIndex(cfg indexConfig, context indexContext) (index.Provider, error) {
+	var options []weaviate.Option
+
+	if context.Embedder != nil {
+		options = append(options, weaviate.WithEmbedder(contex
