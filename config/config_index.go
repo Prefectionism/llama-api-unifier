@@ -80,4 +80,15 @@ func createIndex(cfg indexConfig, context indexContext) (index.Provider, error) 
 		return tavilyIndex(cfg)
 
 	case "wikipedia":
-		return wikip
+		return wikipediaIndex(cfg)
+
+	case "custom":
+		return customIndex(cfg)
+
+	default:
+		return nil, errors.New("invalid index type: " + cfg.Type)
+	}
+}
+
+func chromaIndex(cfg indexConfig, context indexContext) (index.Provider, error) {
+	var options []chroma.Opti
