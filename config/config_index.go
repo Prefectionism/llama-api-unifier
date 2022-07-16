@@ -91,4 +91,14 @@ func createIndex(cfg indexConfig, context indexContext) (index.Provider, error) 
 }
 
 func chromaIndex(cfg indexConfig, context indexContext) (index.Provider, error) {
-	var options []chroma.Opti
+	var options []chroma.Option
+
+	if context.Embedder != nil {
+		options = append(options, chroma.WithEmbedder(context.Embedder))
+	}
+
+	return chroma.New(cfg.URL, cfg.Namespace, options...)
+}
+
+func elasticsearchIndex(cfg indexConfig) (index.Provider, error) {
+	va
