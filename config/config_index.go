@@ -120,4 +120,15 @@ func weaviateIndex(cfg indexConfig, context indexContext) (index.Provider, error
 	var options []weaviate.Option
 
 	if context.Embedder != nil {
-		options = append(options, weaviate.WithEmbedder(contex
+		options = append(options, weaviate.WithEmbedder(context.Embedder))
+	}
+
+	return weaviate.New(cfg.URL, cfg.Namespace, options...)
+}
+
+func aisearchIndex(cfg indexConfig) (index.Provider, error) {
+	var options []aisearch.Option
+
+	return aisearch.New(cfg.URL, cfg.Namespace, cfg.Token, options...)
+}
+
