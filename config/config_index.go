@@ -141,4 +141,16 @@ func bingIndex(cfg indexConfig) (index.Provider, error) {
 func duckduckgoIndex(cfg indexConfig) (index.Provider, error) {
 	var options []duckduckgo.Option
 
-	return duckduckgo.New(
+	return duckduckgo.New(options...)
+}
+
+func tavilyIndex(cfg indexConfig) (index.Provider, error) {
+	var options []tavily.Option
+
+	return tavily.New(cfg.Token, options...)
+}
+
+func wikipediaIndex(cfg indexConfig) (index.Provider, error) {
+	var options []wikipedia.Option
+
+	r
