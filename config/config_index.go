@@ -132,3 +132,13 @@ func aisearchIndex(cfg indexConfig) (index.Provider, error) {
 	return aisearch.New(cfg.URL, cfg.Namespace, cfg.Token, options...)
 }
 
+func bingIndex(cfg indexConfig) (index.Provider, error) {
+	var options []bing.Option
+
+	return bing.New(cfg.Token, options...)
+}
+
+func duckduckgoIndex(cfg indexConfig) (index.Provider, error) {
+	var options []duckduckgo.Option
+
+	return duckduckgo.New(
