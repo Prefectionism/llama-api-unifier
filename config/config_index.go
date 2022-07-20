@@ -153,4 +153,11 @@ func tavilyIndex(cfg indexConfig) (index.Provider, error) {
 func wikipediaIndex(cfg indexConfig) (index.Provider, error) {
 	var options []wikipedia.Option
 
-	r
+	return wikipedia.New(options...)
+}
+
+func customIndex(cfg indexConfig) (*custom.Client, error) {
+	var options []custom.Option
+
+	return custom.New(cfg.URL, options...)
+}
