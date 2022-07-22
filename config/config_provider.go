@@ -302,3 +302,64 @@ func groqProvider(cfg providerConfig, model string) (*groq.Client, error) {
 }
 
 func coquiProvider(cfg providerConfig) (*coqui.Client, error) {
+	var options []coqui.Option
+
+	return coqui.New(cfg.URL, options...)
+}
+
+func mimicProvider(cfg providerConfig) (*mimic.Client, error) {
+	var options []mimic.Option
+
+	return mimic.New(cfg.URL, options...)
+}
+
+func whisperProvider(cfg providerConfig) (*whisper.Client, error) {
+	var options []whisper.Option
+
+	return whisper.New(cfg.URL, options...)
+}
+
+func azuretranslatorProvider(cfg providerConfig, model string) (*azuretranslator.Client, error) {
+	var options []azuretranslator.Option
+
+	if cfg.Token != "" {
+		options = append(options, azuretranslator.WithToken(cfg.Token))
+	}
+
+	if model != "" {
+		options = append(options, azuretranslator.WithLanguage(model))
+	}
+
+	return azuretranslator.New(cfg.URL, options...)
+}
+
+func deeplProvider(cfg providerConfig, model string) (*deepl.Client, error) {
+	var options []deepl.Option
+
+	if cfg.Token != "" {
+		options = append(options, deepl.WithToken(cfg.Token))
+	}
+
+	if model != "" {
+		options = append(options, deepl.WithLanguage(model))
+	}
+
+	return deepl.New(cfg.URL, options...)
+}
+
+func customProvider(cfg providerConfig, model string) (*custom.Client, error) {
+	var options []custom.Option
+
+	return custom.New(cfg.URL, options...)
+}
+
+func createCompleterAdapter(name string, completer provider.Completer) (adapter.Provider, error) {
+	switch strings.ToLower(name) {
+
+	case "hermesfn", "hermes-function-calling":
+		return hermesfn.New(completer)
+
+	default:
+		return nil, errors.New("invalid adapter type: " + name)
+	}
+}
