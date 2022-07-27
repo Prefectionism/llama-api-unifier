@@ -20,3 +20,15 @@ func (c *Config) RegisterTool(id string, val tool.Tool) {
 }
 
 type toolContext struct {
+	Index     index.Provider
+	Completer provider.Completer
+}
+
+func (cfg *Config) registerTools(f *configFile) error {
+	for id, t := range f.Tools {
+		var err error
+
+		context := toolContext{}
+
+		if t.Index != "" {
+			if context.Index, err = cfg.Index(t.
