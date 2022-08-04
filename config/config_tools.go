@@ -48,4 +48,16 @@ func (cfg *Config) registerTools(f *configFile) error {
 			return err
 		}
 
-		cfg.RegisterT
+		cfg.RegisterTool(id, tool)
+	}
+
+	return nil
+}
+
+func createTool(cfg toolConfig, context toolContext) (tool.Tool, error) {
+	switch strings.ToLower(cfg.Type) {
+	case "search":
+		return searchTool(cfg, context)
+
+	case "custom":
+		return customTool(cfg, contex
