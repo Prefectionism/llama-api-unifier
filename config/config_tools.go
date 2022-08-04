@@ -60,4 +60,15 @@ func createTool(cfg toolConfig, context toolContext) (tool.Tool, error) {
 		return searchTool(cfg, context)
 
 	case "custom":
-		return customTool(cfg, contex
+		return customTool(cfg, context)
+
+	default:
+		return nil, errors.New("invalid tool type: " + cfg.Type)
+	}
+}
+
+func searchTool(cfg toolConfig, context toolContext) (tool.Tool, error) {
+	return search.New(context.Index)
+}
+
+func customTool(cfg toolConfig, cont
