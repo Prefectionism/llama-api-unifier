@@ -31,4 +31,21 @@ func (cfg *Config) registerTools(f *configFile) error {
 		context := toolContext{}
 
 		if t.Index != "" {
-			if context.Index, err = cfg.Index(t.
+			if context.Index, err = cfg.Index(t.Index); err != nil {
+				return err
+			}
+		}
+
+		if t.Model != "" {
+			if context.Completer, err = cfg.Completer(t.Model); err != nil {
+				return err
+			}
+		}
+
+		tool, err := createTool(t, context)
+
+		if err != nil {
+			return err
+		}
+
+		cfg.RegisterT
