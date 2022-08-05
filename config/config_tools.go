@@ -71,4 +71,8 @@ func searchTool(cfg toolConfig, context toolContext) (tool.Tool, error) {
 	return search.New(context.Index)
 }
 
-func customTool(cfg toolConfig, cont
+func customTool(cfg toolConfig, context toolContext) (tool.Tool, error) {
+	var options []custom.Option
+
+	return custom.New(cfg.URL, options...)
+}
