@@ -17,4 +17,17 @@ services:
     ports:
       - 8501:8501
     environment:
-      - O
+      - OPENAI_BASE_URL=http://platform:8080/oai/v1
+    depends_on:
+      - platform
+  
+configs:
+  platform:
+    content: |
+      providers:
+        - type: openai
+          url: ${OPENAI_BASE_URL}
+          token: ${OPENAI_API_KEY}
+ 
+          models:
+  
