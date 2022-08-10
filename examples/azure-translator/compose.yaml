@@ -1,3 +1,4 @@
+
 services:
   platform:
     image: adrianliechti/llama-platform
@@ -25,13 +26,11 @@ configs:
   platform:
     content: |
       providers:
-        - type: openai
-          url: ${OPENAI_BASE_URL}
-          token: ${OPENAI_API_KEY}
- 
+        - type: azure-translator
+          token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          url: https://xxxxxxxx.cognitiveservices.azure.com/
           models:
-            gpt-3.5-turbo:
-              id: gpt-35-turbo
- 
-            gpt-4-turbo:
-              id: gpt-4-turbo
+            english-translator:
+              id: en
+            german-translator:
+              id: de
