@@ -35,4 +35,17 @@ type Server struct {
 
 func (*Server) Complete(r *custom.CompletionRequest, stream custom.Completer_CompleteServer) error {
 	for _, m := range r.Messages {
-		println(m.Role.String() + ": " + m.
+		println(m.Role.String() + ": " + m.Content)
+	}
+
+	println("")
+	println("")
+
+	last := r.Messages[len(r.Messages)-1]
+
+	completion := &custom.Completion{
+		Id: fmt.Sprintf("%d", time.Now().UnixMicro()),
+
+		Message: &custom.Message{
+			Role:    custom.Role_ROLE_ASSISTANT,
+	
