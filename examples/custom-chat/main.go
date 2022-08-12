@@ -24,4 +24,15 @@ func main() {
 
 	custom.RegisterCompleterServer(server, s)
 
-	if err := server.Serve(l
+	if err := server.Serve(l); err != nil {
+		panic(err)
+	}
+}
+
+type Server struct {
+	custom.UnsafeCompleterServer
+}
+
+func (*Server) Complete(r *custom.CompletionRequest, stream custom.Completer_CompleteServer) error {
+	for _, m := range r.Messages {
+		println(m.Role.String() + ": " + m.
