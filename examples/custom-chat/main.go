@@ -48,4 +48,9 @@ func (*Server) Complete(r *custom.CompletionRequest, stream custom.Completer_Com
 
 		Message: &custom.Message{
 			Role:    custom.Role_ROLE_ASSISTANT,
-	
+			Content: strings.ToUpper(last.Content) + "!!!",
+		},
+	}
+
+	return stream.Send(completion)
+}
