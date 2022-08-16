@@ -5,4 +5,16 @@ services:
     build:
       context: ../../
       dockerfile: Dockerfile
-    p
+    ports:
+      - 8080:8080
+    configs:
+      - source: platform
+        target: /config.yaml
+  
+  web:
+    image: adrianliechti/llama-streamlit
+    pull_policy: always
+    ports:
+      - 8501:8501
+    environment:
+      - OPENAI_BASE_URL=http://
