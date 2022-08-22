@@ -17,3 +17,9 @@ services:
     command: --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --model /models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
     volumes:
       - ../../models:/models
+              
+  nomic-embed-text:
+    image: ghcr.io/ggerganov/llama.cpp:server
+    pull_policy: always
+    entrypoint: ""
+    command: /bin/bash -c "apt-get update && apt-get install locales && locale-gen en_US.UTF-8 && update-locale && /server
