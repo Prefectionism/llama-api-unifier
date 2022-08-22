@@ -23,4 +23,14 @@ services:
     pull_policy: always
     entrypoint: ""
     command: /bin/bash -c "apt-get update && apt-get install locales && locale-gen en_US.UTF-8 && update-locale && /server --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --embedding --model ./models/nomic-embed-text-v1.5.Q4_K_M.gguf"
-    #command: --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --embedding --model /models/nomic-embed-text-v1.5.
+    #command: --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --embedding --model /models/nomic-embed-text-v1.5.Q4_K_M.gguf
+    volumes:
+      - ../../models:/models
+  
+  web:
+    image: adrianliechti/llama-streamlit
+    pull_policy: always
+    ports:
+      - 8501:8501
+    environment:
+      - OPENAI_BASE_URL=http://platform
