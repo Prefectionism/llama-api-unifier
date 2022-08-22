@@ -10,4 +10,10 @@ services:
     configs:
       - source: platform
         target: /config.yaml
- 
+  
+  mistral-7b-instruct:
+    image: ghcr.io/ggerganov/llama.cpp:server
+    pull_policy: always
+    command: --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --model /models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+    volumes:
+      - ../../models:/models
