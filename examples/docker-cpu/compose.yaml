@@ -22,4 +22,5 @@ services:
     image: ghcr.io/ggerganov/llama.cpp:server
     pull_policy: always
     entrypoint: ""
-    command: /bin/bash -c "apt-get update && apt-get install locales && locale-gen en_US.UTF-8 && update-locale && /server
+    command: /bin/bash -c "apt-get update && apt-get install locales && locale-gen en_US.UTF-8 && update-locale && /server --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --embedding --model ./models/nomic-embed-text-v1.5.Q4_K_M.gguf"
+    #command: --host 0.0.0.0 --port 8000 --log-disable --ctx-size 8192 --embedding --model /models/nomic-embed-text-v1.5.
