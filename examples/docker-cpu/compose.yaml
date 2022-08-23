@@ -46,4 +46,9 @@ configs:
           models:
             mistral-7b-instruct:
               id: default
-     
+        
+        - type: llama
+          url: http://nomic-embed-text:8000
+          models:
+            nomic-embed-text:
+              id: default
