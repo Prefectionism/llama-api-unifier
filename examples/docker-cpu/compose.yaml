@@ -33,4 +33,17 @@ services:
     ports:
       - 8501:8501
     environment:
-      - OPENAI_BASE_URL=http://platform
+      - OPENAI_BASE_URL=http://platform:8080/oai/v1
+    depends_on:
+      - platform
+  
+configs:
+  platform:
+    content: |
+      providers:
+        - type: llama
+          url: http://mistral-7b-instruct:8000
+          models:
+            mistral-7b-instruct:
+              id: default
+     
