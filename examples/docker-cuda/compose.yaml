@@ -29,4 +29,16 @@ services:
   nomic-embed-text:
     image: ghcr.io/huggingface/text-embeddings-inference:1.2
     pull_policy: always
-    command: --hostname 0.0.0.0 --model-id no
+    command: --hostname 0.0.0.0 --model-id nomic-ai/nomic-embed-text-v1.5
+    shm_size: 1g
+    volumes:
+      - /models:/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+  
+ 
