@@ -41,4 +41,11 @@ services:
               count: all
               capabilities: [gpu]
   
+  whisper:
+    image: ghcr.io/ggerganov/whisper.cpp:main-cuda
+    pull_policy: always
+    entrypoint: /app/server
+    command: --host 0.0.0.0 --port 8000 --convert --model /models/whisper-ggml-medium.bin
+    volumes:
+      - /models:/models
  
