@@ -70,4 +70,14 @@ services:
               capabilities: [gpu]
   
   web:
- 
+    image: adrianliechti/llama-streamlit
+    pull_policy: always
+    ports:
+      - 8501:8501
+    environment:
+      - OPENAI_BASE_URL=http://platform:8080/oai/v1
+    depends_on:
+      - platform
+  
+configs:
+  platform:
