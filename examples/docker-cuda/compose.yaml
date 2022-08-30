@@ -81,3 +81,13 @@ services:
   
 configs:
   platform:
+    content: |
+      providers:
+        - type: huggingface
+          url: http://mistral-7b-instruct
+          models:
+            mistral-7b-instruct:
+              id: tgi
+        
+        - type: huggingface
+         
