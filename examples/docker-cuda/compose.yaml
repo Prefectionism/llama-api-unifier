@@ -101,4 +101,8 @@ configs:
             whisper-1:
               id: default
         
-        - type: m
+        - type: mimic
+          url: http://mimic:59125
+          models:
+            tts-1:
+              id: default
