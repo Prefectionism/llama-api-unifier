@@ -32,4 +32,5 @@ configs:
             llama3-70b-instruct:
               id: llama3-70b-8192
             
-            mixtral-8x7b-i
+            mixtral-8x7b-instruct:
+              id: mixtral-8x7b-32768
