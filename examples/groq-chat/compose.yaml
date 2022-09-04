@@ -18,4 +18,18 @@ services:
       - 8501:8501
     environment:
       - OPENAI_BASE_URL=http://platform:8080/oai/v1
-    depe
+    depends_on:
+      - platform
+  
+configs:
+  platform:
+    content: |
+      providers:
+        - type: groq
+          token: ${GROQ_API_TOKEN}
+
+          models:
+            llama3-70b-instruct:
+              id: llama3-70b-8192
+            
+            mixtral-8x7b-i
