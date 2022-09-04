@@ -24,4 +24,10 @@ curl http://localhost:8080/oai/v1/chat/completions \
 ```
 
 ```shell
-curl http://localhost:808
+curl http://localhost:8080/oai/v1/embeddings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "all-mpnet-base-v2",
+    "input": "Hello!"
+  }'
+```
