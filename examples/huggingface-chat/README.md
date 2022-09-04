@@ -10,4 +10,18 @@ open [localhost:8501](http://localhost:8501) in your favorite browser
 
 
 ```shell
-curl http:/
+curl http://localhost:8080/oai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "llama3-8b-instruct",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
+
+```shell
+curl http://localhost:808
