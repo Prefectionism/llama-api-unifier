@@ -4,4 +4,15 @@
 - Meta Llama 3 8B
 - Microsoft Phi 3 Mini
 
-## Inst
+## Installation
+
+```shell
+kubectl create namespace llm-demo
+kubectl apply -n llm-demo -k https://github.com/adrianliechti/llama/examples/kubernetes-chat/
+kubectl port-forward service/chat 8501:80 -n llm-demo
+```
+
+## Demo Client
+
+```shell
+kubectl port-forw
