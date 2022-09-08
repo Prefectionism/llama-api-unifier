@@ -15,4 +15,7 @@ kubectl port-forward service/chat 8501:80 -n llm-demo
 ## Demo Client
 
 ```shell
-kubectl port-forw
+kubectl port-forward service/chat :80 -n llm-demo
+```
+
+Open http://localhost:8501 in your favorite browser
