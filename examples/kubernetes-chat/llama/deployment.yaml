@@ -19,4 +19,11 @@ spec:
             - "--port"
             - "8080"
             - "--log-disable"
- 
+            - "--model"
+            - "/models/llama-3-8b-instruct.gguf"
+            - "--ctx-size"
+            - "8192"
+            - "--hf-repo"
+            - "NousResearch/Meta-Llama-3-8B-Instruct-GGUF"
+            - "--hf-file"
+            - "Meta-Lla
