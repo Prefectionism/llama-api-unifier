@@ -35,4 +35,6 @@ spec:
               mountPath: "/models"
           resources: {}
       volumes:
-   
+        - name: data
+          persistentVolumeClaim:
+            claimName: llama-data
