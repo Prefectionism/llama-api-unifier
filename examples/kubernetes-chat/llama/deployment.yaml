@@ -26,4 +26,13 @@ spec:
             - "--hf-repo"
             - "NousResearch/Meta-Llama-3-8B-Instruct-GGUF"
             - "--hf-file"
-            - "Meta-Lla
+            - "Meta-Llama-3-8B-Instruct-Q5_K_M.gguf"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: data
+              subPath: models
+              mountPath: "/models"
+          resources: {}
+      volumes:
+   
