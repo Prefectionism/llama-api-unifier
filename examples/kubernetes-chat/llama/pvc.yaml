@@ -1,1 +1,10 @@
-apiVersion
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: llama-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
