@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform
+data:
+  config.yaml: |
+    providers:
+      - type: llama
+        url: http://phi
+   
