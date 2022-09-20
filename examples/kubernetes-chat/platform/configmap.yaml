@@ -7,4 +7,12 @@ data:
     providers:
       - type: llama
         url: http://phi
-   
+        models:
+          phi-3-mini-instruct:
+            id: default
+            
+      - type: llama
+        url: http://llama
+        models:
+          llama-3-8b-instruct:
+            id: default
