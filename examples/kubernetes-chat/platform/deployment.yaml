@@ -1,2 +1,16 @@
 apiVersion: apps/v1
-kind: 
+kind: Deployment
+metadata:
+  name: platform
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+        - name: server
+          image: adrianliechti/llama-platform
+          imagePullPolicy: Always
+          p
