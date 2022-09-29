@@ -13,4 +13,14 @@ spec:
         - name: server
           image: adrianliechti/llama-platform
           imagePullPolicy: Always
-          p
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              subPath: config.yaml
+              mountPath: /config.yaml
+          resources: {}
+      volumes:
+        - name: config
+          configMap:
+            name: platform
