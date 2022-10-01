@@ -7,4 +7,26 @@
 
 Start Ollama Server
 
+```shell
+$ ollama start
 ```
+
+Download [Mistral](https://mistral.ai) Model
+
+```shell
+$ ollama pull mistral
+```
+
+Start Example Application
+
+```shell
+docker compose up
+```
+
+## Open Web UI
+
+```shell
+$ open http://localhost:8501
+```
+
+## Compl
