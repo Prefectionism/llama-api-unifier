@@ -44,4 +44,9 @@ curl http://localhost:8080/oai/v1/chat/completions \
         "content": "You are a helpful assistant."
       },
       {
-  
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
