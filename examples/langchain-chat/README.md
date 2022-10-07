@@ -29,4 +29,9 @@ docker compose up
 $ open http://localhost:8501
 ```
 
-## Compl
+## Completion API
+
+The Completion API provides compatibility for the OpenAI API standard, allowing easier integrations into existing applications. (Documentation: https://platform.openai.com/docs/api-reference/chat/create)
+
+```shell
+curl http://loc
