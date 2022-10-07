@@ -34,4 +34,14 @@ $ open http://localhost:8501
 The Completion API provides compatibility for the OpenAI API standard, allowing easier integrations into existing applications. (Documentation: https://platform.openai.com/docs/api-reference/chat/create)
 
 ```shell
-curl http://loc
+curl http://localhost:8080/oai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "langchain",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+  
