@@ -6,4 +6,15 @@ services:
       context: ../../
       dockerfile: Dockerfile
     ports:
-      - 
+      - 8080:8080
+    configs:
+      - source: platform
+        target: /config.yaml
+  
+  langserve:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - OPENAI_API_BASE=http://platform:8080/oai/v1
+      - OPENAI_API
