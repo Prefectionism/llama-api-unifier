@@ -14,4 +14,10 @@ from langchain_core.messages import AIMessage, FunctionMessage, HumanMessage
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain_community.tools import DuckDuckGoSearchResults
 
-llm = ChatOp
+llm = ChatOpenAI(model_name=os.environ['MODEL_NAME'], temperature=0, streaming=True)
+
+# https://smith.langchain.com/hub/hwchase17/react-chat
+prompt = hub.pull("hwchase17/react-chat")
+
+tools = [DuckDuckGoSearchResults(max_results=1)]
+agent = create_react_agent(llm, to
