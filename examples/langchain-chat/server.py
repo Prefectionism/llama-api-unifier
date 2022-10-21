@@ -29,4 +29,14 @@ app = FastAPI(title="LangChain Server")
 class Input(BaseModel):
     input: str
 
-    chat_history: List[Union[HumanMessage, AIMessage, Functio
+    chat_history: List[Union[HumanMessage, AIMessage, FunctionMessage]] = Field(
+        ...,
+        extra={"widget": {"type": "chat", "input": "input", "output": "output"}},
+    )
+
+class Output(BaseModel):
+    output: Any
+
+add_routes(
+    app,
+    runnable.with_types(input_type=Input, output_type=Output).with
