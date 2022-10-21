@@ -20,4 +20,13 @@ llm = ChatOpenAI(model_name=os.environ['MODEL_NAME'], temperature=0, streaming=T
 prompt = hub.pull("hwchase17/react-chat")
 
 tools = [DuckDuckGoSearchResults(max_results=1)]
-agent = create_react_agent(llm, to
+agent = create_react_agent(llm, tools, prompt)
+
+runnable = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
+
+app = FastAPI(title="LangChain Server")
+
+class Input(BaseModel):
+    input: str
+
+    chat_history: List[Union[HumanMessage, AIMessage, Functio
