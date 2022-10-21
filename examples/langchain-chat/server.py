@@ -39,4 +39,10 @@ class Output(BaseModel):
 
 add_routes(
     app,
-    runnable.with_types(input_type=Input, output_type=Output).with
+    runnable.with_types(input_type=Input, output_type=Output).with_config(
+        {"run_name": "agent"}
+    ),
+)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
