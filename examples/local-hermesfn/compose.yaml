@@ -11,4 +11,13 @@ services:
       - source: platform
         target: /config.yaml
   
-configs
+configs:
+  platform:
+    content: |
+      providers:
+        - type: llama
+          url: http://host.docker.internal:9081
+          models:
+            hermes-2-pro:
+              id: hermes
+              adapter: hermesfn
