@@ -47,4 +47,6 @@ configs:
           - role: user
             content: pwd
           - role: assistant
-            content: /home/use
+            content: /home/user
+
+        
