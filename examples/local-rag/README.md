@@ -8,4 +8,22 @@
 Start Ollama Server
 
 ```shell
-$ ollama
+$ ollama start
+```
+
+Download [Mistral](https://mistral.ai) Model
+
+```shell
+$ ollama pull mistral
+$ ollama pull nomic-embed-text
+```
+
+Start Example Application
+
+```shell
+docker compose up
+```
+
+## Upload Documents
+
+| Category  | Document Types          
