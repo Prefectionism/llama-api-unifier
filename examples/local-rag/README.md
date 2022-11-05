@@ -26,4 +26,6 @@ docker compose up
 
 ## Upload Documents
 
-| Category  | Document Types          
+| Category  | Document Types                                                                     |
+|-----------|------------------------------------------------------------------------------------|
+| Text      | `.txt`, `.eml`, `.msg`, `.html`, `.md`, `.rst`, `.rtf`                          
