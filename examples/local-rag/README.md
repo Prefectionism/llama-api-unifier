@@ -28,4 +28,9 @@ docker compose up
 
 | Category  | Document Types                                                                     |
 |-----------|------------------------------------------------------------------------------------|
-| Text      | `.txt`, `.eml`, `.msg`, `.html`, `.md`, `.rst`, `.rtf`                          
+| Text      | `.txt`, `.eml`, `.msg`, `.html`, `.md`, `.rst`, `.rtf`                             |
+| Images    | `.jpeg`, `.png`                                                                    |
+| Documents | `.doc`, `.docx`, `.ppt`, `.pptx`, `.pdf`, `.odt`, `.epub`, `.csv`, `.tsv`, `.xlsx` |
+
+```shell
+curl http://localhost:8080
