@@ -45,4 +45,5 @@ go run . -url http://localhost:8080 -index docs -path $HOME/Documents
 ## Open Web UI
 
 ```shell
-$ open htt
+$ open http://localhost:8501
+```
