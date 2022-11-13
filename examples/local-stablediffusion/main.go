@@ -15,4 +15,17 @@ func main() {
 	model := "stable-diffusion"
 	prompt := "a cute baby sea otter"
 
-	client := openai.NewClie
+	client := openai.NewClientWithConfig(config)
+
+	image, err := client.CreateImage(context.Background(), openai.ImageRequest{
+		Model:  model,
+		Prompt: prompt,
+
+		ResponseFormat: openai.CreateImageResponseFormatB64JSON,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	da
