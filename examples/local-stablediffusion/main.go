@@ -28,4 +28,13 @@ func main() {
 		panic(err)
 	}
 
-	da
+	data, err := base64.StdEncoding.DecodeString(image.Data[0].B64JSON)
+
+	if err != nil {
+		panic(err)
+	}
+
+	if err := os.WriteFile("output.png", data, 0644); err != nil {
+		panic(err)
+	}
+}
