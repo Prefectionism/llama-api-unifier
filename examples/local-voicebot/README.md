@@ -20,4 +20,15 @@ Start Mimic Server
 ```
 mkdir -p mimic3
 chmod 777 mimic3
-docker run -it -p 59125:59125 -v $(pwd)/mimic3:/home/mimic3/.local/share/mycroft/mimic3 mycroftai/mim
+docker run -it -p 59125:59125 -v $(pwd)/mimic3:/home/mimic3/.local/share/mycroft/mimic3 mycroftai/mimic3
+```
+
+Start Example Application
+
+```shell
+docker compose up
+```
+
+## Transcription API
+
+The Transcription API provides compatibility for the OpenAI API standard, allowing easier integrations into existing applications. (Documentation: http
