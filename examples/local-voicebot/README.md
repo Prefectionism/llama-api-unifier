@@ -31,4 +31,11 @@ docker compose up
 
 ## Transcription API
 
-The Transcription API provides compatibility for the OpenAI API standard, allowing easier integrations into existing applications. (Documentation: http
+The Transcription API provides compatibility for the OpenAI API standard, allowing easier integrations into existing applications. (Documentation: https://platform.openai.com/docs/api-reference/audio/createTranscription)
+
+```shell
+# Download Sample File
+curl -Lo jfk.wav https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.wav
+
+# Run Transcriptions
+curl http://localhos
