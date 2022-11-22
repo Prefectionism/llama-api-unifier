@@ -103,3 +103,109 @@ func main() {
 			}
 
 			f, err := os.CreateTemp("", "voicebot-*.wav")
+
+			if err != nil {
+				println(err.Error())
+				return
+			}
+
+			if _, err := io.Copy(f, data); err != nil {
+				println(err.Error())
+				return
+			}
+
+			f.Close()
+
+			play(ctx, f.Name())
+
+			//say(ctx, answer)
+		}()
+
+		waitForEnter()
+		recordCancel()
+	}
+}
+
+func record(ctx context.Context) (string, error) {
+	output := strings.ReplaceAll(uuid.NewString(), "-", "") + ".wav"
+
+	args := []string{
+		"-loglevel", "-0",
+		"-f", "avfoundation",
+		"-i", ":0",
+		"-ar", "16000",
+		"-ac", "1",
+		"-c:a", "pcm_s16le",
+		"-flush_packets", "1",
+		"-y",
+		output,
+	}
+
+	ffmpeg := exec.Command("ffmpeg", args...)
+	//ffmpeg.Stdout = os.Stdout
+	//ffmpeg.Stderr = os.Stderr
+
+	go func() {
+		<-ctx.Done()
+		ffmpeg.Process.Signal(os.Interrupt)
+	}()
+
+	ffmpeg.Run()
+
+	return output, nil
+}
+
+func transcribe(ctx context.Context, client *openai.Client, model, file string) (openai.AudioResponse, error) {
+	return client.CreateTranscription(ctx, openai.AudioRequest{
+		Model:    model,
+		FilePath: file,
+	})
+}
+
+func complete(ctx context.Context, client *openai.Client, model string, messages []openai.ChatCompletionMessage) (openai.ChatCompletionResponse, error) {
+	return client.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+		Model:    model,
+		Messages: messages,
+	})
+}
+
+func synthesize(ctx context.Context, client *openai.Client, model, voice, text string) (io.ReadCloser, error) {
+	return client.CreateSpeech(ctx, openai.CreateSpeechRequest{
+		Input: text,
+
+		Model: openai.SpeechModel(model),
+		Voice: openai.SpeechVoice(voice),
+	})
+}
+
+func play(ctx context.Context, path string) error {
+	if runtime.GOOS == "darwin" {
+		return exec.CommandContext(ctx, "afplay", path).Run()
+	}
+
+	if runtime.GOOS == "linux" {
+		return exec.CommandContext(ctx, "aplay", path).Run()
+	}
+
+	if runtime.GOOS == "windows" {
+		return exec.CommandContext(ctx, "powershell", "-c", "(New-Object Media.SoundPlayer \""+path+"\").PlaySync()").Run()
+	}
+
+	return nil
+}
+
+func waitForEnter() {
+	var b []byte = make([]byte, 1)
+
+	for {
+		os.Stdin.Read(b)
+
+		if len(b) == 0 {
+			continue
+		}
+
+		if b[0] == 10 {
+			break
+		}
+	}
+}
