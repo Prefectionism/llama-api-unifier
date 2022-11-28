@@ -24,4 +24,20 @@ curl http://localhost:8080/oai/v1/chat/completions \
     "messages": [
       {
         "role": "system",
-        "content": "You are a helpful
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
+
+## Vision API
+
+https://platform.openai.com/docs/guides/vision
+
+```shell
+curl http://localhost:8080/oai/v1/chat/completions \
+  -H "Content-Type: app
