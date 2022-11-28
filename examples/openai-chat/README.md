@@ -40,4 +40,16 @@ https://platform.openai.com/docs/guides/vision
 
 ```shell
 curl http://localhost:8080/oai/v1/chat/completions \
-  -H "Content-Type: app
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4-turbo",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "What’s in this image?"
+          },
+          {
+            
