@@ -52,4 +52,7 @@ curl http://localhost:8080/oai/v1/chat/completions \
             "text": "What’s in this image?"
           },
           {
-            
+            "type": "image_url",
+            "image_url": {
+              "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+            }
