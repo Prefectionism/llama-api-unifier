@@ -56,3 +56,18 @@ curl http://localhost:8080/oai/v1/chat/completions \
             "image_url": {
               "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
             }
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+## Transcription API
+
+```shell
+# Download Sample File
+curl -o jfk.wav https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.wav
+
+# Run Transcriptions
+curl http://localhost:8080/oai/v1/audio/transcriptions \
