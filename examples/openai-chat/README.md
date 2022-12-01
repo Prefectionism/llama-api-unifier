@@ -71,3 +71,7 @@ curl -o jfk.wav https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.
 
 # Run Transcriptions
 curl http://localhost:8080/oai/v1/audio/transcriptions \
+  -H "Content-Type: multipart/form-data" \
+  -F file="@jfk.wav" \
+  -F model="whisper-1"
+```
