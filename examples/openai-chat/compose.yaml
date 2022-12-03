@@ -54,4 +54,7 @@ configs:
               id: whisper-1
             
             dall-e-2:
-       
+              id: dall-e-2
+      
+            dall-e-3:
+              id: dall-e-3
