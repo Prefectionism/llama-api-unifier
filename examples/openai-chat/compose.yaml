@@ -42,4 +42,16 @@ configs:
               id: text-embedding-3-small
 
             text-embedding-3-large:
-     
+              id: text-embedding-3-large
+            
+            tts-1:
+              id: tts-1
+      
+            tts-1-hd:
+              id: tts-1-hd
+            
+            whisper-1:
+              id: whisper-1
+            
+            dall-e-2:
+       
