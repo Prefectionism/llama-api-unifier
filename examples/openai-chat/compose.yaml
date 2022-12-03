@@ -32,4 +32,14 @@ configs:
             gpt-3.5-turbo:
               id: gpt-3.5-turbo
 
-            gpt-4-
+            gpt-4-turbo:
+              id: gpt-4-turbo
+
+            text-embedding-ada-002:
+              id: text-embedding-ada-002
+
+            text-embedding-3-small:
+              id: text-embedding-3-small
+
+            text-embedding-3-large:
+     
