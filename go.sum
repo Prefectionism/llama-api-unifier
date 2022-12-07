@@ -1,3 +1,5 @@
 github.com/adrianliechti/go-openai v0.0.0-20240322224346-47657b844843 h1:NEDS7WPExJ+zM1cYupatYlJ/Vk0nksIaZhxuPpmfbOU=
 github.com/adrianliechti/go-openai v0.0.0-20240322224346-47657b844843/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=
-githu
+github.com/coreos/go-oidc/v3 v3.10.0 h1:tDnXHnLyiTVyT/2zLDGj09pFPkhND8Gl8lnTRhoEaJU=
+github.com/coreos/go-oidc/v3 v3.10.0/go.mod h1:5j11xcw0D3+SGxn6Z/WFADsgcWVMyNAlSQupk0KK3ac=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOw
