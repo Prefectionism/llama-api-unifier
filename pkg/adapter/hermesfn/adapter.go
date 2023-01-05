@@ -18,4 +18,14 @@ type Adapter struct {
 	completer provider.Completer
 }
 
-func New(completer provider.Completer) (*Ad
+func New(completer provider.Completer) (*Adapter, error) {
+	a := &Adapter{
+		completer: completer,
+	}
+
+	return a, nil
+}
+
+func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = ne
