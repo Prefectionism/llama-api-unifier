@@ -37,4 +37,19 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 		system = messages[0].Content
 	}
 
-	prompt, err := convertSystemPrompt(system, op
+	prompt, err := convertSystemPrompt(system, options.Functions)
+
+	if err != nil {
+		return nil, err
+	}
+
+	input := []provider.Message{
+		{
+			Role:    provider.MessageRoleSystem,
+			Content: prompt,
+		},
+	}
+
+	for _, m := range messages {
+		if m.Role == provider.MessageRoleUser {
+			input = append(inpu
