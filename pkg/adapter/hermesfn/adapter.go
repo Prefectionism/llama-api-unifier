@@ -61,4 +61,20 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 
 		if m.Role == provider.MessageRoleFunction {
 			if m.Function == "" {
-				return nil, errors.New("function is r
+				return nil, errors.New("function is required")
+			}
+
+			prompt, err := convertToolPrompt(m.Function, m.Content)
+
+			if err != nil {
+				return nil, err
+			}
+
+			input = append(input, provider.Message{
+				Role:    provider.MessageRoleFunction,
+				Content: prompt,
+			})
+		}
+	}
+
+	completion, err := a.completer.C
