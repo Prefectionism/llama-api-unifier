@@ -52,4 +52,13 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 
 	for _, m := range messages {
 		if m.Role == provider.MessageRoleUser {
-			input = append(inpu
+			input = append(input, m)
+		}
+
+		if m.Role == provider.MessageRoleAssistant {
+			input = append(input, m)
+		}
+
+		if m.Role == provider.MessageRoleFunction {
+			if m.Function == "" {
+				return nil, errors.New("function is r
