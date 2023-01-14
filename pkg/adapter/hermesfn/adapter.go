@@ -28,4 +28,13 @@ func New(completer provider.Completer) (*Adapter, error) {
 
 func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
 	if options == nil {
-		options = ne
+		options = new(provider.CompleteOptions)
+	}
+
+	var system string
+
+	if len(messages) > 0 && messages[0].Role == provider.MessageRoleSystem {
+		system = messages[0].Content
+	}
+
+	prompt, err := convertSystemPrompt(system, op
