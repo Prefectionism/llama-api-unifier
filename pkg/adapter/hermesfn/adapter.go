@@ -92,4 +92,13 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 		return nil, err
 	}
 
-	if call, err := e
+	if call, err := extractToolCall(completion.Message); err == nil {
+		completion = &provider.Completion{
+			ID: completion.ID,
+
+			Reason: provider.CompletionReasonFunction,
+
+			Message: provider.Message{
+				Role: provider.MessageRoleFunction,
+
+	
