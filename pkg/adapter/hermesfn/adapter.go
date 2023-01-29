@@ -101,4 +101,17 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 			Message: provider.Message{
 				Role: provider.MessageRoleFunction,
 
-	
+				Function: call.Name,
+
+				FunctionCalls: []provider.FunctionCall{
+					*call,
+				},
+			},
+		}
+	}
+
+	return completion, nil
+}
+
+func convertSystemPrompt(prompt string, functions []provider.Function) (string, error) {
+	var result
