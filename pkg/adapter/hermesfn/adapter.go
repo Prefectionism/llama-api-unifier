@@ -122,4 +122,10 @@ func convertSystemPrompt(prompt string, functions []provider.Function) (string, 
 
 	result += "You are a function calling AI model. "
 	result += `You are provided with function signatures within <tools></tools> XML tags. `
-	result += `You may call one
+	result += `You may call one or more functions to assist with the user query. `
+	result += `Don't make assumptions about what values to plug into functions. `
+
+	result += `Here are the available tools:\n`
+	result += `<tools>\n`
+
+	for _, f := range functions 
