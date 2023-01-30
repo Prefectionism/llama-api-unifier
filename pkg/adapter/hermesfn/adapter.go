@@ -114,4 +114,12 @@ func (a *Adapter) Complete(ctx context.Context, messages []provider.Message, opt
 }
 
 func convertSystemPrompt(prompt string, functions []provider.Function) (string, error) {
-	var result
+	var result string
+
+	if prompt != "" {
+		result += strings.TrimSpace(prompt) + "\n"
+	}
+
+	result += "You are a function calling AI model. "
+	result += `You are provided with function signatures within <tools></tools> XML tags. `
+	result += `You may call one
