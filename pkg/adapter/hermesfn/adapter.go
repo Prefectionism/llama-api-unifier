@@ -128,4 +128,17 @@ func convertSystemPrompt(prompt string, functions []provider.Function) (string, 
 	result += `Here are the available tools:\n`
 	result += `<tools>\n`
 
-	for _, f := range functions 
+	for _, f := range functions {
+		if f.Name == "" {
+			return "", errors.New("function name is required")
+		}
+
+		if f.Description == "" {
+			return "", errors.New("function description is required")
+		}
+
+		if len(f.Parameters.Properties) == 0 {
+			return "", errors.New("function parameters are required")
+		}
+
+		to
