@@ -141,4 +141,20 @@ func convertSystemPrompt(prompt string, functions []provider.Function) (string, 
 			return "", errors.New("function parameters are required")
 		}
 
-		to
+		tool := Tool{
+			Type: "function",
+
+			Function: &ToolFunction{
+				Name:        f.Name,
+				Description: f.Description,
+				Parameters:  f.Parameters,
+			},
+		}
+
+		data, err := encodeJSON(tool)
+
+		if err != nil {
+			return "", err
+		}
+
+		result += data
