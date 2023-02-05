@@ -162,4 +162,8 @@ func convertSystemPrompt(prompt string, functions []provider.Function) (string, 
 
 	result += `</tools> `
 
-	result += `Use the following pydantic model json schema for each tool call you will make: {"properties": {"arguments": {"title": "Arguments", "type": "object"}, "name": {"title": "Name", "type": "string"}}, "required": ["arguments", "na
+	result += `Use the following pydantic model json schema for each tool call you will make: {"properties": {"arguments": {"title": "Arguments", "type": "object"}, "name": {"title": "Name", "type": "string"}}, "required": ["arguments", "name"], "title": "FunctionCall", "type": "object"} `
+
+	result += `For each function call return a json object with function name and arguments within <tool_call></tool_call> XML tags as follows:\n`
+	result += `<tool_call>\n`
+	result += `{"argument
