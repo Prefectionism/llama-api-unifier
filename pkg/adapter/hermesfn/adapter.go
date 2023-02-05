@@ -166,4 +166,18 @@ func convertSystemPrompt(prompt string, functions []provider.Function) (string, 
 
 	result += `For each function call return a json object with function name and arguments within <tool_call></tool_call> XML tags as follows:\n`
 	result += `<tool_call>\n`
-	result += `{"argument
+	result += `{"arguments": <args-dict>, "name": <function-name>}`
+	result += `\n</tool_call>`
+
+	return result, nil
+}
+
+func convertToolPrompt(name string, content string) (string, error) {
+	callback := &ToolCallback{
+		Name:    name,
+		Content: []byte(content),
+	}
+
+	var result string
+
+	
