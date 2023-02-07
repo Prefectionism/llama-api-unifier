@@ -180,4 +180,15 @@ func convertToolPrompt(name string, content string) (string, error) {
 
 	var result string
 
-	
+	result += "<tool_response>\n"
+
+	data, _ := encodeJSON(callback)
+	result += data
+
+	result += "</tool_response>"
+
+	return result, nil
+}
+
+func extractToolCall(message provider.Message) (*provider.FunctionCall, error) {
+	re := regexp.MustCompile(`(?s)<tool_call>(
