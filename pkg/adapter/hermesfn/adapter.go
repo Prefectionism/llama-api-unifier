@@ -191,4 +191,15 @@ func convertToolPrompt(name string, content string) (string, error) {
 }
 
 func extractToolCall(message provider.Message) (*provider.FunctionCall, error) {
-	re := regexp.MustCompile(`(?s)<tool_call>(
+	re := regexp.MustCompile(`(?s)<tool_call>(.*?)</tool_call>`)
+	match := re.FindStringSubmatch(message.Content)
+
+	if len(match) == 0 {
+		return nil, errors.New("no tool call found")
+	}
+
+	content := match[1]
+	content = strings.ReplaceAll(content, "\\n", "")
+	content = strings.ReplaceAll(content, "\n", "")
+
+	var result Too
