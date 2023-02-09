@@ -202,4 +202,16 @@ func extractToolCall(message provider.Message) (*provider.FunctionCall, error) {
 	content = strings.ReplaceAll(content, "\\n", "")
 	content = strings.ReplaceAll(content, "\n", "")
 
-	var result Too
+	var result ToolCall
+
+	if err := json.Unmarshal([]byte(content), &result); err != nil {
+		return nil, err
+	}
+
+	return &provider.FunctionCall{
+		ID: result.Name,
+
+		Name:      result.Name,
+		Arguments: string(result.Arguments),
+	}, nil
+}
