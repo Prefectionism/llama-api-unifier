@@ -44,4 +44,16 @@ func WithCompleter(completer provider.Completer) Option {
 }
 
 func WithTemplate(template *prompt.Template) Option {
-	r
+	return func(c *Chain) {
+		c.template = template
+	}
+}
+
+func WithMessages(messages ...provider.Message) Option {
+	return func(c *Chain) {
+		c.messages = messages
+	}
+}
+
+func WithTemperature(temperature float32) Option {
+	return func(c
