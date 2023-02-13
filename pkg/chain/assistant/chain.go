@@ -30,4 +30,18 @@ func New(options ...Option) (*Chain, error) {
 		option(c)
 	}
 
-	if c.compl
+	if c.completer == nil {
+		return nil, errors.New("missing completer provider")
+	}
+
+	return c, nil
+}
+
+func WithCompleter(completer provider.Completer) Option {
+	return func(c *Chain) {
+		c.completer = completer
+	}
+}
+
+func WithTemplate(template *prompt.Template) Option {
+	r
