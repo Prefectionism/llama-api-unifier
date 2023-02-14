@@ -56,4 +56,14 @@ func WithMessages(messages ...provider.Message) Option {
 }
 
 func WithTemperature(temperature float32) Option {
-	return func(c
+	return func(c *Chain) {
+		c.temperature = &temperature
+	}
+}
+
+func (c *Chain) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	if options.Temperature == 
