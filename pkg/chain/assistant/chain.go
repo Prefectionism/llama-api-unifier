@@ -66,4 +66,13 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 		options = new(provider.CompleteOptions)
 	}
 
-	if options.Temperature == 
+	if options.Temperature == nil {
+		options.Temperature = c.temperature
+	}
+
+	if len(c.messages) > 0 && messages[0].Role != provider.MessageRoleSystem {
+		messages = slices.Concat(c.messages, messages)
+	}
+
+	return c.completer.Complete(ctx, messages, options)
+}
