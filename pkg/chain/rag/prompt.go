@@ -9,4 +9,15 @@ var (
 	promptTemplate string
 )
 
-type promptData st
+type promptData struct {
+	Input   string
+	Results []promptResult
+}
+
+type promptResult struct {
+	Title    string
+	Content  string
+	Location string
+
+	Metadata map[string]string
+}
