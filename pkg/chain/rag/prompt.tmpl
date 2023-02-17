@@ -1,3 +1,8 @@
 {{- if .Results -}}
 Use the provided search results delimited by triple quotes to answer questions."
-{
+{{ range .Results }}
+"""{{ .Content }}"""
+{{ end }}
+{{- end -}}
+
+Question: {{ .Input }}
