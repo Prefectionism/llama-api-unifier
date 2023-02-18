@@ -24,4 +24,17 @@ type Chain struct {
 
 type Option func(*Chain)
 
-func New(o
+func New(options ...Option) (*Chain, error) {
+	c := &Chain{
+		tools: make(map[string]tool.Tool),
+	}
+
+	for _, option := range options {
+		option(c)
+	}
+
+	if c.completer == nil {
+		return nil, errors.New("missing completer provider")
+	}
+
+	return c, 
