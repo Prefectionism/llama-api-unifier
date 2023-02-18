@@ -37,4 +37,16 @@ func New(options ...Option) (*Chain, error) {
 		return nil, errors.New("missing completer provider")
 	}
 
-	return c, 
+	return c, nil
+}
+
+func WithCompleter(completer provider.Completer) Option {
+	return func(c *Chain) {
+		c.completer = completer
+	}
+}
+
+func WithTools(tool ...tool.Tool) Option {
+	return func(c *Chain) {
+		for _, t := range tool {
+			c.tools[t.Name()] = t
