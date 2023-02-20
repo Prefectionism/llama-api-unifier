@@ -50,3 +50,14 @@ func WithTools(tool ...tool.Tool) Option {
 	return func(c *Chain) {
 		for _, t := range tool {
 			c.tools[t.Name()] = t
+		}
+	}
+}
+
+func WithTemperature(temperature float32) Option {
+	return func(c *Chain) {
+		c.temperature = &temperature
+	}
+}
+
+func (c *Chain) Complete(ctx context.Context, messages []provider.Message, options *provider.Complet
