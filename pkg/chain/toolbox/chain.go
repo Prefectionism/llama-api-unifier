@@ -60,4 +60,16 @@ func WithTemperature(temperature float32) Option {
 	}
 }
 
-func (c *Chain) Complete(ctx context.Context, messages []provider.Message, options *provider.Complet
+func (c *Chain) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	if options.Temperature == nil {
+		options.Temperature = c.temperature
+	}
+
+	functions := make(map[string]provider.Function)
+
+	for _, f := range c.tools {
+		functions[f.Name(
