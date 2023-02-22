@@ -86,4 +86,18 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 
 	input := slices.Clone(messages)
 
-	inputOptions := &provider.CompleteOptio
+	inputOptions := &provider.CompleteOptions{
+		Temperature: options.Temperature,
+		Functions:   to.Values(functions),
+	}
+
+	for {
+		completion, err := c.completer.Complete(ctx, input, inputOptions)
+
+		if err != nil {
+			return nil, err
+		}
+
+		var loop bool
+
+		if completion.Reason == provider.CompletionReasonF
