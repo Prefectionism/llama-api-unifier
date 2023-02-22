@@ -72,4 +72,18 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 	functions := make(map[string]provider.Function)
 
 	for _, f := range c.tools {
-		functions[f.Name(
+		functions[f.Name()] = provider.Function{
+			Name:        f.Name(),
+			Description: f.Description(),
+
+			Parameters: f.Parameters(),
+		}
+	}
+
+	for _, f := range options.Functions {
+		functions[f.Name] = f
+	}
+
+	input := slices.Clone(messages)
+
+	inputOptions := &provider.CompleteOptio
