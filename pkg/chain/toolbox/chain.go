@@ -109,4 +109,19 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 			})
 
 			for _, f := range completion.Message.FunctionCalls {
-				tool, found 
+				tool, found := c.tools[f.Name]
+
+				if !found {
+					continue
+				}
+
+				var params map[string]any
+
+				if err := json.Unmarshal([]byte(f.Arguments), &params); err != nil {
+					return nil, err
+				}
+
+				result, err := tool.Execute(ctx, params)
+
+				if err != nil {
+		
