@@ -100,4 +100,13 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 
 		var loop bool
 
-		if completion.Reason == provider.CompletionReasonF
+		if completion.Reason == provider.CompletionReasonFunction {
+			input = append(input, provider.Message{
+				Role: provider.MessageRoleAssistant,
+
+				Content:       completion.Message.Content,
+				FunctionCalls: completion.Message.FunctionCalls,
+			})
+
+			for _, f := range completion.Message.FunctionCalls {
+				tool, found 
