@@ -124,4 +124,18 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 				result, err := tool.Execute(ctx, params)
 
 				if err != nil {
-		
+					return nil, err
+				}
+
+				data, err := json.Marshal(result)
+
+				if err != nil {
+					return nil, err
+				}
+
+				input = append(input, provider.Message{
+					Role: provider.MessageRoleFunction,
+
+					Function: f.ID,
+					Content:  string(data),
+				})
