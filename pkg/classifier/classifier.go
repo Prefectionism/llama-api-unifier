@@ -11,4 +11,5 @@ type Provider interface {
 type Class struct {
 	Name string
 
-	Descr
+	Description string
+}
