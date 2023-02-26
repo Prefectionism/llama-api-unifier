@@ -139,3 +139,13 @@ func (c *Chain) Complete(ctx context.Context, messages []provider.Message, optio
 					Function: f.ID,
 					Content:  string(data),
 				})
+
+				loop = true
+			}
+		}
+
+		if !loop {
+			return completion, nil
+		}
+	}
+}
