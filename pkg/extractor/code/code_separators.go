@@ -189,3 +189,78 @@ var (
 		// Split along class definitions
 		"\nclass ",
 		"\nobject ",
+		// Split along method definitions
+		"\ndef ",
+		"\nval ",
+		"\nvar ",
+		// Split along control flow statements
+		"\nif ",
+		"\nfor ",
+		"\nwhile ",
+		"\nmatch ",
+		"\ncase ",
+		// Split by the normal type of lines
+		"\n\n",
+		"\n",
+		" ",
+		"",
+	}
+
+	languageSwift = []string{
+		// Split along function definitions
+		"\nfunc ",
+		// Split along class definitions
+		"\nclass ",
+		"\nstruct ",
+		"\nenum ",
+		// Split along control flow statements
+		"\nif ",
+		"\nfor ",
+		"\nwhile ",
+		"\ndo ",
+		"\nswitch ",
+		"\ncase ",
+		// Split by the normal type of lines
+		"\n\n",
+		"\n",
+		" ",
+		"",
+	}
+
+	languageCSharp = []string{
+		"\ninterface ",
+		"\nenum ",
+		"\nimplements ",
+		"\ndelegate ",
+		"\nevent ",
+		// Split along class definitions
+		"\nclass ",
+		"\nabstract ",
+		// Split along method definitions
+		"\npublic ",
+		"\nprotected ",
+		"\nprivate ",
+		"\nstatic ",
+		"\nreturn ",
+		// Split along control flow statements
+		"\nif ",
+		"\ncontinue ",
+		"\nfor ",
+		"\nforeach ",
+		"\nwhile ",
+		"\nswitch ",
+		"\nbreak ",
+		"\ncase ",
+		"\nelse ",
+		// Split by exceptions
+		"\ntry ",
+		"\nthrow ",
+		"\nfinally ",
+		"\ncatch ",
+		// Split by the normal type of lines
+		"\n\n",
+		"\n",
+		" ",
+		"",
+	}
+)
