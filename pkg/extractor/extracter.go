@@ -12,4 +12,20 @@ type Provider interface {
 type ExtractOptions struct {
 }
 
-type 
+type File struct {
+	ID string
+
+	Name    string
+	Content io.Reader
+}
+
+type Document struct {
+	Name string
+
+	Blocks []Block
+}
+
+type Block struct {
+	ID      string
+	Content string
+}
