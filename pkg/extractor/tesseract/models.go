@@ -7,4 +7,7 @@ type Result struct {
 		// 	Signal any `json:"signal"`
 		// } `json:"exit"`
 
-		Stderr string `
+		Stderr string `json:"stderr"`
+		Stdout string `json:"stdout"`
+	} `json:"data"`
+}
