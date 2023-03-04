@@ -28,4 +28,19 @@ func New(options ...Option) (*Provider, error) {
 		option(p)
 	}
 
-	
+	return p, nil
+}
+
+func WithChunkSize(size int) Option {
+	return func(p *Provider) {
+		p.chunkSize = size
+	}
+}
+
+func WithChunkOverlap(overlap int) Option {
+	return func(p *Provider) {
+		p.chunkOverlap = overlap
+	}
+}
+
+func (p *Provider
