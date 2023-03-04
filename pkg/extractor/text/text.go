@@ -9,4 +9,23 @@ import (
 	"github.com/adrianliechti/llama/pkg/text"
 )
 
-var _ extractor.Provider = &Provi
+var _ extractor.Provider = &Provider{}
+
+type Provider struct {
+	chunkSize    int
+	chunkOverlap int
+}
+
+type Option func(*Provider)
+
+func New(options ...Option) (*Provider, error) {
+	p := &Provider{
+		chunkSize:    4000,
+		chunkOverlap: 200,
+	}
+
+	for _, option := range options {
+		option(p)
+	}
+
+	
