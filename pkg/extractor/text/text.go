@@ -51,4 +51,17 @@ func (p *Provider) Extract(ctx context.Context, input extractor.File, options *e
 	data, err := io.ReadAll(input.Content)
 
 	if err != nil {
-		r
+		return nil, err
+	}
+
+	result := extractor.Document{
+		Name: input.Name,
+	}
+
+	splitter := text.NewSplitter()
+	splitter.ChunkSize = p.chunkSize
+	splitter.ChunkOverlap = p.chunkOverlap
+
+	chunks := splitter.Split(string(data))
+
+	for i, chunk := range 
