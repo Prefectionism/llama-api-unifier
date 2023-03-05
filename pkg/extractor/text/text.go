@@ -43,4 +43,12 @@ func WithChunkOverlap(overlap int) Option {
 	}
 }
 
-func (p *Provider
+func (p *Provider) Extract(ctx context.Context, input extractor.File, options *extractor.ExtractOptions) (*extractor.Document, error) {
+	if options == nil {
+		options = &extractor.ExtractOptions{}
+	}
+
+	data, err := io.ReadAll(input.Content)
+
+	if err != nil {
+		r
