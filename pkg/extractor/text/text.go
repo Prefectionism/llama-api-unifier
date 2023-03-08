@@ -64,4 +64,16 @@ func (p *Provider) Extract(ctx context.Context, input extractor.File, options *e
 
 	chunks := splitter.Split(string(data))
 
-	for i, chunk := range 
+	for i, chunk := range chunks {
+		block := []extractor.Block{
+			{
+				ID:      fmt.Sprintf("%s#%d", result.Name, i),
+				Content: chunk,
+			},
+		}
+
+		result.Blocks = append(result.Blocks, block...)
+	}
+
+	return &result, nil
+}
