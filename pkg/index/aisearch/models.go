@@ -22,4 +22,21 @@ func (r Result) String(name string) string {
 	return data
 }
 
-func (r Result) ID() string
+func (r Result) ID() string {
+	if val := r.String("Id"); val != "" {
+		return val
+	}
+
+	if val := r.String("id"); val != "" {
+		return val
+	}
+
+	return ""
+}
+
+func (r Result) Title() string {
+	if val := r.String("title"); val != "" {
+		return val
+	}
+
+	return ""
