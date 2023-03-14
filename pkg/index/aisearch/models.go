@@ -40,3 +40,20 @@ func (r Result) Title() string {
 	}
 
 	return ""
+}
+
+func (r Result) Content() string {
+	if val := r.String("content"); val != "" {
+		return val
+	}
+
+	return ""
+}
+
+func (r Result) Location() string {
+	if val := r.String("source"); val != "" {
+		return val
+	}
+
+	return ""
+}
