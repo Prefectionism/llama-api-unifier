@@ -8,4 +8,8 @@ type SearchResponse struct {
 
 type WebPage struct {
 	ID  string `json:"id"`
-	URL string `jso
+	URL string `json:"url"`
+
+	Name    string `json:"name"`
+	Snippet string `json:"snippet"`
+}
