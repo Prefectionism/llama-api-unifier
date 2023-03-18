@@ -11,4 +11,20 @@ import (
 
 	"github.com/adrianliechti/llama/pkg/index"
 
-	"g
+	"github.com/google/uuid"
+)
+
+var _ index.Provider = &Client{}
+
+type Client struct {
+	url string
+
+	client   *http.Client
+	embedder index.Embedder
+
+	namespace string
+}
+
+type Option func(*Client)
+
+func New(url, namespace string, options ...Option) (*Client
