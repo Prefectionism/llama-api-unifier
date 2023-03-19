@@ -27,4 +27,24 @@ type Client struct {
 
 type Option func(*Client)
 
-func New(url, namespace string, options ...Option) (*Client
+func New(url, namespace string, options ...Option) (*Client, error) {
+	c := &Client{
+		url: url,
+
+		client: http.DefaultClient,
+
+		namespace: namespace,
+	}
+
+	for _, option := range options {
+		option(c)
+	}
+
+	if c.embedder == nil {
+		return nil, errors.New("embedder is required")
+	}
+
+	return c, nil
+}
+
+func WithC
