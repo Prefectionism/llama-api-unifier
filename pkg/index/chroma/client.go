@@ -47,4 +47,16 @@ func New(url, namespace string, options ...Option) (*Client, error) {
 	return c, nil
 }
 
-func WithC
+func WithClient(client *http.Client) Option {
+	return func(c *Client) {
+		c.client = client
+	}
+}
+
+func WithEmbedder(embedder index.Embedder) Option {
+	return func(c *Client) {
+		c.embedder = embedder
+	}
+}
+
+func (c *Client) List(ctx context.Context,
