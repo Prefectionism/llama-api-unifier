@@ -70,4 +70,18 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 
 	body := map[string]any{}
 
-	r
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	var result getResult
+
+	if err := json.NewDeco
