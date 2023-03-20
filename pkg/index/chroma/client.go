@@ -59,4 +59,15 @@ func WithEmbedder(embedder index.Embedder) Option {
 	}
 }
 
-func (c *Client) List(ctx context.Context,
+func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.Document, error) {
+	col, err := c.createCollection(c.namespace)
+
+	if err != nil {
+		return nil, err
+	}
+
+	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/get")
+
+	body := map[string]any{}
+
+	r
