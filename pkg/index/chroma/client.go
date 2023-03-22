@@ -84,4 +84,18 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 
 	var result getResult
 
-	if err := json.NewDeco
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	results := make([]index.Document, 0)
+
+	for i := range result.IDs {
+		r := index.Document{
+			ID: result.IDs[i],
+
+			Content:  result.Documents[i],
+			Metadata: result.Metadatas[i],
+		}
+
+		
