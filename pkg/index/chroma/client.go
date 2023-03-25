@@ -111,4 +111,16 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 
 	col, err := c.createCollection(c.namespace)
 
-	if err != 
+	if err != nil {
+		return err
+	}
+
+	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/upsert")
+
+	body := embeddings{
+		IDs: make([]string, len(documents)),
+
+		Embeddings: make([][]float32, len(documents)),
+
+		Documents: make([]string, len(documents)),
+		Metadatas: ma
