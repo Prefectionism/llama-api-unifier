@@ -98,4 +98,17 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 			Metadata: result.Metadatas[i],
 		}
 
-		
+		results = append(results, r)
+	}
+
+	return results, nil
+}
+
+func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
+	if len(documents) == 0 {
+		return nil
+	}
+
+	col, err := c.createCollection(c.namespace)
+
+	if err != 
