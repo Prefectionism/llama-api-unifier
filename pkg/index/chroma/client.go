@@ -123,4 +123,16 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 		Embeddings: make([][]float32, len(documents)),
 
 		Documents: make([]string, len(documents)),
-		Metadatas: ma
+		Metadatas: make([]map[string]string, len(documents)),
+	}
+
+	for i, d := range documents {
+		if d.ID == "" {
+			d.ID = uuid.NewString()
+		}
+
+		if len(d.Embedding) == 0 && c.embedder != nil {
+			embedding, err := c.embedder.Embed(ctx, d.Content)
+
+			if err != nil {
+				
