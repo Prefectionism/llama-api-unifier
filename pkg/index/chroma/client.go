@@ -135,4 +135,20 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 			embedding, err := c.embedder.Embed(ctx, d.Content)
 
 			if err != nil {
-				
+				return err
+			}
+
+			d.Embedding = embedding
+		}
+
+		body.IDs[i] = d.ID
+
+		body.Embeddings[i] = d.Embedding
+
+		body.Documents[i] = d.Content
+		body.Metadatas[i] = d.Metadata
+	}
+
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil
