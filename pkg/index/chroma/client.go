@@ -151,4 +151,22 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 
 	resp, err := c.client.Post(u, "application/json", jsonReader(body))
 
-	if err != nil
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return convertError(resp)
+	}
+
+	return nil
+}
+
+func (c *Client) Delete(ctx context.Context, ids ...string) error {
+	if len(ids) == 0 {
+		return nil
+	}
+
+	col, err :
