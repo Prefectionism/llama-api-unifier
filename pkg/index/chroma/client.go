@@ -169,4 +169,18 @@ func (c *Client) Delete(ctx context.Context, ids ...string) error {
 		return nil
 	}
 
-	col, err :
+	col, err := c.createCollection(c.namespace)
+
+	if err != nil {
+		return err
+	}
+
+	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/delete")
+
+	body := map[string]any{
+		"ids": ids,
+	}
+
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err
