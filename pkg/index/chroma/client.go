@@ -183,4 +183,17 @@ func (c *Client) Delete(ctx context.Context, ids ...string) error {
 
 	resp, err := c.client.Post(u, "application/json", jsonReader(body))
 
-	if err
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
+func (c *Client) Query(ctx context.Context, query string, options *index.QueryOptions) ([]index.Result, error) {
+	if options == nil {
+		options = &index.QueryOptions{}
+	}
+
