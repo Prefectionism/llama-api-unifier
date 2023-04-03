@@ -197,3 +197,16 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		options = &index.QueryOptions{}
 	}
 
+	col, err := c.createCollection(c.namespace)
+
+	if err != nil {
+		return nil, err
+	}
+
+	embedding, err := c.embedder.Embed(ctx, query)
+
+	if err != nil {
+		return nil, err
+	}
+
+	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/query"
