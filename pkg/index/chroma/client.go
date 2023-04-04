@@ -209,4 +209,22 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		return nil, err
 	}
 
-	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/query"
+	u, _ := url.JoinPath(c.url, "/api/v1/collections/"+col.ID+"/query")
+
+	body := map[string]any{
+		"query_embeddings": [][]float32{
+			embedding,
+		},
+
+		"include": []string{
+			"documents",
+			"metadatas",
+			"distances",
+		},
+	}
+
+	if len(options.Filters) > 0 {
+		body["where"] = options.Filters
+	}
+
+	if options.Limit !
