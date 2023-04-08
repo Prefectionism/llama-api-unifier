@@ -240,4 +240,19 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, conve
+		return nil, convertError(resp)
+	}
+
+	var result queryResult
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	results := make([]index.Result, 0)
+
+	for i := range result.IDs {
+		for j := range result.IDs[i] {
+			id := result.IDs[i][j]
+
+			co
