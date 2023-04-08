@@ -227,4 +227,17 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		body["where"] = options.Filters
 	}
 
-	if options.Limit !
+	if options.Limit != nil {
+		body["n_results"] = *options.Limit
+	}
+
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, conve
