@@ -255,4 +255,17 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		for j := range result.IDs[i] {
 			id := result.IDs[i][j]
 
-			co
+			content := result.Documents[i][j]
+			metadata := result.Metadatas[i][j]
+
+			distance := result.Distances[i][j]
+
+			filename := metadata["filename"]
+			filepart := metadata["filepart"]
+
+			title := id
+			location := id
+
+			if filename != "" {
+				title = filename
+				
