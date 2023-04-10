@@ -268,4 +268,21 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 
 			if filename != "" {
 				title = filename
-				
+				location = filename
+			}
+
+			if filepart != "" {
+				if location != "" {
+					location += "#" + filepart
+				}
+			}
+
+			r := index.Result{
+				Distance: distance,
+
+				Document: index.Document{
+					ID: id,
+
+					Title:    title,
+					Content:  content,
+					Loc
