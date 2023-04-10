@@ -285,4 +285,23 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 
 					Title:    title,
 					Content:  content,
-					Loc
+					Location: location,
+
+					Metadata: metadata,
+				},
+			}
+
+			if options.Distance != nil {
+				if r.Distance > *options.Distance {
+					continue
+				}
+			}
+
+			results = append(results, r)
+		}
+	}
+
+	return results, nil
+}
+
+func (c *Client) createCollection(nam
