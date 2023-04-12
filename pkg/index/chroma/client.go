@@ -304,4 +304,16 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 	return results, nil
 }
 
-func (c *Client) createCollection(nam
+func (c *Client) createCollection(name string) (*collection, error) {
+	u, _ := url.JoinPath(c.url, "/api/v1/collections")
+
+	body := map[string]any{
+		"name":          name,
+		"get_or_create": true,
+
+		"metadata": map[string]any{
+			"hnsw:space": "cosine",
+		},
+	}
+
+	resp, err := 
