@@ -316,4 +316,18 @@ func (c *Client) createCollection(name string) (*collection, error) {
 		},
 	}
 
-	resp, err := 
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	var result collection
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	return
