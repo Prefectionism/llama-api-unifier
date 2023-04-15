@@ -330,4 +330,17 @@ func (c *Client) createCollection(name string) (*collection, error) {
 		return nil, err
 	}
 
-	return
+	return &result, nil
+}
+
+func convertError(resp *http.Response) error {
+	type resultType struct {
+		Errors []errorDetail `json:"detail"`
+	}
+
+	var result resultType
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err == nil {
+		var errs []error
+
+		for _, e := range
