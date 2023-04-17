@@ -357,4 +357,18 @@ func jsonReader(v any) io.Reader {
 	b := new(bytes.Buffer)
 
 	enc := json.NewEncoder(b)
-	enc.SetEscapeHTML
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+	return b
+}
+
+func toFloat32s(v []float64) []float32 {
+	result := make([]float32, len(v))
+
+	for i, x := range v {
+		result[i] = float32(x)
+	}
+
+	return result
+}
