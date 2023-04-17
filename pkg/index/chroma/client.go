@@ -343,4 +343,18 @@ func convertError(resp *http.Response) error {
 	if err := json.NewDecoder(resp.Body).Decode(&result); err == nil {
 		var errs []error
 
-		for _, e := range
+		for _, e := range result.Errors {
+			errs = append(errs, errors.New(e.Message))
+		}
+
+		return errors.Join(errs...)
+	}
+
+	return errors.New(http.StatusText(resp.StatusCode))
+}
+
+func jsonReader(v any) io.Reader {
+	b := new(bytes.Buffer)
+
+	enc := json.NewEncoder(b)
+	enc.SetEscapeHTML
