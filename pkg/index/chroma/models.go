@@ -10,4 +10,16 @@ type collection struct {
 	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
-type embeddings struc
+type embeddings struct {
+	IDs []string `json:"ids"`
+
+	Embeddings [][]float32 `json:"embeddings"`
+
+	Metadatas []map[string]string `json:"metadatas"`
+	Documents []string            `json:"documents"`
+}
+
+type getResult struct {
+	IDs []string `json:"ids"`
+
+	Di
