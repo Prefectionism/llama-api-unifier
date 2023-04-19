@@ -33,4 +33,14 @@ type getResult struct {
 type queryResult struct {
 	IDs [][]string `json:"ids"`
 
-	Distances
+	Distances [][]float32 `json:"distances,omitempty"`
+
+	Embeddings [][][]float64 `json:"embeddings"`
+
+	Metadatas [][]map[string]string `json:"metadatas"`
+	Documents [][]string            `json:"documents"`
+}
+
+type errorDetail struct {
+	Message string `json:"msg"`
+}
