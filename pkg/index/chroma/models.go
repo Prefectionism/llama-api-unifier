@@ -22,4 +22,15 @@ type embeddings struct {
 type getResult struct {
 	IDs []string `json:"ids"`
 
-	Di
+	Distances []float32 `json:"distances,omitempty"`
+
+	Embeddings [][]float64 `json:"embeddings"`
+
+	Metadatas []map[string]string `json:"metadatas"`
+	Documents []string            `json:"documents"`
+}
+
+type queryResult struct {
+	IDs [][]string `json:"ids"`
+
+	Distances
