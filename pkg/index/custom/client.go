@@ -21,4 +21,16 @@ type Client struct {
 	client IndexClient
 }
 
-type Option func(*Client
+type Option func(*Client)
+
+func New(url string, options ...Option) (*Client, error) {
+	if url == "" || !strings.HasPrefix(url, "grpc://") {
+		return nil, errors.New("invalid url")
+	}
+
+	c := &Client{
+		url: url,
+	}
+
+	for _, option := range options {
+		opti
