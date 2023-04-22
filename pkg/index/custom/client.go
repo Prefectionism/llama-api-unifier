@@ -33,4 +33,22 @@ func New(url string, options ...Option) (*Client, error) {
 	}
 
 	for _, option := range options {
-		opti
+		option(c)
+	}
+
+	url = strings.TrimPrefix(c.url, "grpc://")
+
+	conn, err := grpc.Dial(url,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	c.client = NewIndexClient(conn)
+
+	return c, nil
+}
+
+func (c *Client) List(ctx context.Context, options
