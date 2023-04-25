@@ -68,4 +68,20 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		options = new(index.QueryOptions)
 	}
 
-	var limit *in
+	var limit *int32
+	var distance *float32
+
+	if options.Limit != nil {
+		val := int32(*options.Limit)
+		limit = &val
+	}
+
+	if options.Distance != nil {
+		val := float32(*options.Distance)
+		distance = &val
+	}
+
+	data, err := c.client.Query(ctx, &QueryRequest{
+		Query: query,
+
+		Limit:
