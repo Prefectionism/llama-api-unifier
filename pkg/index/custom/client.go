@@ -84,4 +84,20 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 	data, err := c.client.Query(ctx, &QueryRequest{
 		Query: query,
 
-		Limit:
+		Limit:    limit,
+		Distance: distance,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	var results []index.Result
+
+	for _, r := range data.Results {
+		result := index.Result{
+			Document: index.Document{
+				ID: r.Document.Id,
+
+				Title:    r.Document.Title,
+				Content:  r.Document.
