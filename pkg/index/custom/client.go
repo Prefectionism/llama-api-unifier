@@ -100,4 +100,19 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 				ID: r.Document.Id,
 
 				Title:    r.Document.Title,
-				Content:  r.Document.
+				Content:  r.Document.Content,
+				Location: r.Document.Location,
+
+				Metadata: r.Document.Metadata,
+
+				Embedding: r.Document.Embedding,
+			},
+
+			Distance: r.Distance,
+		}
+
+		results = append(results, result)
+	}
+
+	return results, nil
+}
