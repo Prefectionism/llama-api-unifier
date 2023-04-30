@@ -16,4 +16,12 @@ import (
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
 // Requires gRPC-Go v1.32.0 or later.
-const _ = grpc.SupportPackag
+const _ = grpc.SupportPackageIsVersion7
+
+const (
+	Index_Query_FullMethodName = "/index.index/Query"
+)
+
+// IndexClient is the client API for Index service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.go
