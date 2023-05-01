@@ -24,4 +24,13 @@ const (
 
 // IndexClient is the client API for Index service.
 //
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.go
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type IndexClient interface {
+	Query(ctx context.Context, in *QueryRequest, opts ...grpc.CallOption) (*Results, error)
+}
+
+type indexClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewInde
