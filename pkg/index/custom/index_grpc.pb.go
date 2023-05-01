@@ -33,4 +33,10 @@ type indexClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewInde
+func NewIndexClient(cc grpc.ClientConnInterface) IndexClient {
+	return &indexClient{cc}
+}
+
+func (c *indexClient) Query(ctx context.Context, in *QueryRequest, opts ...grpc.CallOption) (*Results, error) {
+	out := new(Results)
+	err := c.cc.Invoke(ctx, Inde
