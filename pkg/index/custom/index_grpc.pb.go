@@ -39,4 +39,14 @@ func NewIndexClient(cc grpc.ClientConnInterface) IndexClient {
 
 func (c *indexClient) Query(ctx context.Context, in *QueryRequest, opts ...grpc.CallOption) (*Results, error) {
 	out := new(Results)
-	err := c.cc.Invoke(ctx, Inde
+	err := c.cc.Invoke(ctx, Index_Query_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// IndexServer is the server API for Index service.
+// All implementations must embed UnimplementedIndexServer
+// for forward compatibility
+type IndexServer interfac
