@@ -49,4 +49,13 @@ func (c *indexClient) Query(ctx context.Context, in *QueryRequest, opts ...grpc.
 // IndexServer is the server API for Index service.
 // All implementations must embed UnimplementedIndexServer
 // for forward compatibility
-type IndexServer interfac
+type IndexServer interface {
+	Query(context.Context, *QueryRequest) (*Results, error)
+	mustEmbedUnimplementedIndexServer()
+}
+
+// UnimplementedIndexServer must be embedded to have forward compatible implementations.
+type UnimplementedIndexServer struct {
+}
+
+func (Unimplemen
