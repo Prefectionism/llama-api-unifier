@@ -58,4 +58,9 @@ type IndexServer interface {
 type UnimplementedIndexServer struct {
 }
 
-func (Unimplemen
+func (UnimplementedIndexServer) Query(context.Context, *QueryRequest) (*Results, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
+}
+func (UnimplementedIndexServer) mustEmbedUnimplementedIndexServer() {}
+
+// UnsafeIndexServer may be embedd
