@@ -63,4 +63,8 @@ func (UnimplementedIndexServer) Query(context.Context, *QueryRequest) (*Results,
 }
 func (UnimplementedIndexServer) mustEmbedUnimplementedIndexServer() {}
 
-// UnsafeIndexServer may be embedd
+// UnsafeIndexServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to IndexServer will
+// result in compilation errors.
+type UnsafeIndexServer interface {
+	mustEmbedUnimplementedIndexSe
