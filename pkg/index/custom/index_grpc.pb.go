@@ -67,4 +67,11 @@ func (UnimplementedIndexServer) mustEmbedUnimplementedIndexServer() {}
 // Use of this interface is not recommended, as added methods to IndexServer will
 // result in compilation errors.
 type UnsafeIndexServer interface {
-	mustEmbedUnimplementedIndexSe
+	mustEmbedUnimplementedIndexServer()
+}
+
+func RegisterIndexServer(s grpc.ServiceRegistrar, srv IndexServer) {
+	s.RegisterService(&Index_ServiceDesc, srv)
+}
+
+func _Index_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnarySe
