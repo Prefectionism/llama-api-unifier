@@ -74,4 +74,13 @@ func RegisterIndexServer(s grpc.ServiceRegistrar, srv IndexServer) {
 	s.RegisterService(&Index_ServiceDesc, srv)
 }
 
-func _Index_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnarySe
+func _Index_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IndexServer).Query(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
