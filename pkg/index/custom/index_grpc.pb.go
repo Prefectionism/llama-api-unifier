@@ -96,4 +96,14 @@ func _Index_Query_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Index_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "
+	ServiceName: "index.index",
+	HandlerType: (*IndexServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Query",
+			Handler:    _Index_Query_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "index.proto",
+}
