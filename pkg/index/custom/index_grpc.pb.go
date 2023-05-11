@@ -92,4 +92,8 @@ func _Index_Query_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
-// I
+// Index_ServiceDesc is the grpc.ServiceDesc for Index service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Index_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "
