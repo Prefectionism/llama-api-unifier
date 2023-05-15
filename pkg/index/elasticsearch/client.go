@@ -48,4 +48,15 @@ func WithClient(client *http.Client) Option {
 	}
 }
 
-func (c *Client) List(ctx context.Context, opt
+func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.Document, error) {
+	u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_search")
+
+	body := map[string]any{
+		"size": 10000,
+		"from": 0,
+		"query": map[string]any{
+			"match_all": map[string]any{},
+		},
+	}
+
+	req, _ 
