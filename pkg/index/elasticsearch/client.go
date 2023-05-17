@@ -70,3 +70,15 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, convertError(resp)
+	}
+
+	var result SearchResult
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	var results []index.Document
+
+	for _, hit := range result.Hits.Hits {
+		results = append(re
