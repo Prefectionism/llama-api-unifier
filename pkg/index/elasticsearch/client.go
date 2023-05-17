@@ -59,4 +59,14 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 		},
 	}
 
-	req, _ 
+	req, _ := http.NewRequestWithContext(ctx, "GET", u, jsonReader(body))
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
