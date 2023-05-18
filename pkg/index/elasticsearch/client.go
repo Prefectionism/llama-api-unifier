@@ -81,4 +81,15 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 	var results []index.Document
 
 	for _, hit := range result.Hits.Hits {
-		results = append(re
+		results = append(results, index.Document{
+			ID:       hit.Document.ID,
+			Content:  hit.Document.Content,
+			Metadata: hit.Document.Metadata,
+		})
+	}
+
+	return results, nil
+}
+
+func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
+	if len(document
