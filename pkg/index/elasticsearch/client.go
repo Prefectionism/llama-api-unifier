@@ -92,4 +92,23 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 }
 
 func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
-	if len(document
+	if len(documents) == 0 {
+		return nil
+	}
+
+	for _, d := range documents {
+		if d.ID == "" {
+			d.ID = uuid.NewString()
+		}
+
+		body := Document{
+			ID: d.ID,
+
+			Title:    d.Title,
+			Content:  d.Content,
+			Location: d.Location,
+
+			Metadata: d.Metadata,
+		}
+
+		u, _ :
