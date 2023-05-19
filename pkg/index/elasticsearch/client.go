@@ -111,4 +111,12 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 			Metadata: d.Metadata,
 		}
 
-		u, _ :
+		u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_doc/"+convertID(d.ID))
+		resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+		if err != nil {
+			return err
+		}
+
+		if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+			return convert
