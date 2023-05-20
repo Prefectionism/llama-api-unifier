@@ -119,4 +119,16 @@ func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
 		}
 
 		if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
-			return convert
+			return convertError(resp)
+		}
+	}
+
+	return nil
+}
+
+func (c *Client) Delete(ctx context.Context, ids ...string) error {
+	var result error
+
+	for _, id := range ids {
+		u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_doc/"+convertID(id))
+		req, _ := http.NewRequestWi
