@@ -145,4 +145,14 @@ func (c *Client) Delete(ctx context.Context, ids ...string) error {
 				continue
 			}
 
-			result = errors.Join(r
+			result = errors.Join(result, errors.New("unable to delete object: "+id))
+		}
+	}
+
+	return result
+}
+
+func (c *Client) Query(ctx context.Context, query string, options *index.QueryOptions) ([]index.Result, error) {
+	u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_search")
+
+	body := 
