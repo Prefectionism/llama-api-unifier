@@ -131,4 +131,18 @@ func (c *Client) Delete(ctx context.Context, ids ...string) error {
 
 	for _, id := range ids {
 		u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_doc/"+convertID(id))
-		req, _ := http.NewRequestWi
+		req, _ := http.NewRequestWithContext(ctx, "DELETE", u, nil)
+
+		resp, err := c.client.Do(req)
+
+		if err != nil {
+			result = errors.Join(result, err)
+			continue
+		}
+
+		if resp.StatusCode != http.StatusOK {
+			if resp.StatusCode == http.StatusNotFound {
+				continue
+			}
+
+			result = errors.Join(r
