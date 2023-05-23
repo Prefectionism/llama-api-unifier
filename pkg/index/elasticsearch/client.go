@@ -155,4 +155,14 @@ func (c *Client) Delete(ctx context.Context, ids ...string) error {
 func (c *Client) Query(ctx context.Context, query string, options *index.QueryOptions) ([]index.Result, error) {
 	u, _ := url.JoinPath(c.url, "/"+c.namespace+"/_search")
 
-	body := 
+	body := map[string]any{
+		"query": map[string]any{
+			"multi_match": map[string]any{
+				"query":    query,
+				"fields":   []string{"content", "metadata.*"},
+				"analyzer": "english",
+			},
+		},
+	}
+
+	req, _ := http.NewRequestWithContext(ct
