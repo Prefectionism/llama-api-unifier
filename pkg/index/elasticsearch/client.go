@@ -180,4 +180,12 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 
 	var result SearchResult
 
-	if 
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	var results []index.Result
+
+	for _, hit := range result.Hits.Hits {
+		results = append(results, index.Result{
+			Document: index.Document{
