@@ -165,4 +165,19 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 		},
 	}
 
-	req, _ := http.NewRequestWithContext(ct
+	req, _ := http.NewRequestWithContext(ctx, "GET", u, jsonReader(body))
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	var result SearchResult
+
+	if 
