@@ -203,4 +203,22 @@ func (c *Client) Query(ctx context.Context, query string, options *index.QueryOp
 	return results, nil
 }
 
-func convertID(id strin
+func convertID(id string) string {
+	if id == "" {
+		return uuid.NewString()
+	}
+
+	return uuid.NewMD5(uuid.NameSpaceOID, []byte(id)).String()
+}
+
+func jsonReader(v any) io.Reader {
+	b := new(bytes.Buffer)
+
+	enc := json.NewEncoder(b)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+	return b
+}
+
+fun
