@@ -221,4 +221,15 @@ func jsonReader(v any) io.Reader {
 	return b
 }
 
-fun
+func convertError(resp *http.Response) error {
+	type resultType struct {
+		Error string `json:"error"`
+	}
+
+	var result resultType
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err == nil {
+		return errors.New(result.Error)
+	}
+
+	return errors.New(http.StatusText(resp.Stat
