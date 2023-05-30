@@ -156,3 +156,25 @@ func cosineSimilarity(a []float32, b []float32) float32 {
 	if len(a) != len(b) {
 		return 0.0
 	}
+
+	dotproduct := 0.0
+
+	magnitudeA := 0.0
+	magnitudeB := 0.0
+
+	for k := 0; k < len(a); k++ {
+		valA := float64(a[k])
+		valB := float64(b[k])
+
+		dotproduct += valA * valB
+
+		magnitudeA += math.Pow(valA, 2)
+		magnitudeB += math.Pow(valB, 2)
+	}
+
+	if magnitudeA == 0 || magnitudeB == 0 {
+		return 0.0
+	}
+
+	return float32(dotproduct / (math.Sqrt(magnitudeA) * math.Sqrt(magnitudeB)))
+}
