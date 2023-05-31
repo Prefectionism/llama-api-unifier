@@ -5,4 +5,12 @@ type SearchResult struct {
 
 	Answer string `json:"answer"`
 
-	
+	Results []struct {
+		URL string `json:"url"`
+
+		Title   string `json:"title"`
+		Content string `json:"content"`
+
+		Score float64 `json:"score"`
+	} `json:"results"`
+}
