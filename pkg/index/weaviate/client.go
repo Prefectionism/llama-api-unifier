@@ -89,3 +89,260 @@ func (c *Client) List(ctx context.Context, options *index.ListOptions) ([]index.
 
 		u, _ := url.JoinPath(c.url, "/v1/objects")
 		u += "?" + query.Encode()
+
+		resp, err := c.client.Get(u)
+
+		if err != nil {
+			return nil, err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			return nil, errors.New("bad request")
+		}
+
+		var page pageType
+
+		if err := json.NewDecoder(resp.Body).Decode(&page); err != nil {
+			return nil, err
+		}
+
+		for _, o := range page.Objects {
+			key := o.Properties["key"]
+			content := o.Properties["content"]
+
+			if key == "" {
+				key = o.ID
+			}
+
+			metadata := maps.Clone(o.Properties)
+			delete(metadata, "content")
+
+			d := index.Document{
+				ID:      key,
+				Content: content,
+			}
+
+			cursor = o.ID
+			results = append(results, d)
+		}
+
+		if len(page.Objects) < limit {
+			break
+		}
+	}
+
+	slices.Reverse(results)
+
+	return results, nil
+}
+
+func (c *Client) Index(ctx context.Context, documents ...index.Document) error {
+	for _, d := range documents {
+		if len(d.Embedding) == 0 && c.embedder != nil {
+			embedding, err := c.embedder.Embed(ctx, d.Content)
+
+			if err != nil {
+				return err
+			}
+
+			d.Embedding = embedding
+		}
+
+		if len(d.Embedding) == 0 {
+			continue
+		}
+
+		err := c.createObject(d)
+
+		if err != nil {
+			err = c.updateObject(ctx, d)
+		}
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (c *Client) Delete(ctx context.Context, ids ...string) error {
+	var result error
+
+	for _, id := range ids {
+		u, _ := url.JoinPath(c.url, "/v1/objects/"+c.class+"/"+convertID(id))
+		req, _ := http.NewRequestWithContext(ctx, "DELETE", u, nil)
+
+		resp, err := c.client.Do(req)
+
+		if err != nil {
+			result = errors.Join(result, err)
+			continue
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusNoContent {
+			if resp.StatusCode == http.StatusNotFound {
+				continue
+			}
+
+			result = errors.Join(result, errors.New("unable to delete object: "+id))
+		}
+	}
+
+	return result
+}
+
+func (c *Client) Query(ctx context.Context, query string, options *index.QueryOptions) ([]index.Result, error) {
+	var vector strings.Builder
+
+	embedding, err := c.embedder.Embed(ctx, query)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for i, v := range embedding {
+		if i > 0 {
+			vector.WriteString(", ")
+		}
+
+		vector.WriteString(fmt.Sprintf("%f", v))
+	}
+
+	data := executeQueryTemplate(queryData{
+		Class: c.class,
+
+		Query:  query,
+		Vector: embedding,
+
+		Limit: options.Limit,
+		Where: options.Filters,
+	})
+
+	body := map[string]any{
+		"query": data,
+	}
+
+	u, _ := url.JoinPath(c.url, "/v1/graphql")
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New("bad request")
+	}
+
+	type responseType struct {
+		Data struct {
+			Get map[string][]document `json:"Get"`
+		} `json:"data"`
+
+		Errors []errorDetail `json:"errors"`
+	}
+
+	var result responseType
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	if len(result.Errors) > 0 {
+		var errs []error
+
+		for _, e := range result.Errors {
+			errs = append(errs, errors.New(e.Message))
+		}
+
+		return nil, errors.Join(errs...)
+	}
+
+	results := make([]index.Result, 0)
+
+	for _, d := range result.Data.Get[c.class] {
+		key := d.Additional.ID
+		title := d.Additional.ID
+		location := d.Additional.ID
+
+		metadata := map[string]string{}
+
+		if d.Key != "" {
+			key = d.Key
+		}
+
+		if d.FileName != "" {
+			metadata["filename"] = d.FileName
+			title = d.FileName
+			location = d.FileName
+		}
+
+		if d.FilePart != "" {
+			metadata["filepart"] = d.FilePart
+
+			if location != "" {
+				location += "#" + d.FilePart
+			}
+		}
+
+		r := index.Result{
+			Document: index.Document{
+				ID: key,
+
+				Title:    title,
+				Content:  d.Content,
+				Location: location,
+
+				Metadata: metadata,
+			},
+
+			Distance: d.Additional.Distance,
+		}
+
+		results = append(results, r)
+	}
+
+	return results, nil
+}
+
+func convertID(id string) string {
+	if id == "" {
+		return uuid.NewString()
+	}
+
+	return uuid.NewMD5(uuid.NameSpaceOID, []byte(id)).String()
+}
+
+func (c *Client) createObject(d index.Document) error {
+	properties := maps.Clone(d.Metadata)
+
+	if properties == nil {
+		properties = map[string]string{}
+	}
+
+	properties["key"] = d.ID
+	properties["content"] = d.Content
+
+	filename := d.Metadata["filename"]
+	filepart := d.Metadata["filepart"]
+
+	if filename == "" {
+		filename = d.ID
+
+		if d.Location != "" {
+			filename = d.Location
+		}
+	}
+
+	if filepart == "" {
+		filepart = "0"
+	}
+
+	properties["filename"] = filename
+	properties["filepart"] = filepart
