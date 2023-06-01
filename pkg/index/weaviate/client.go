@@ -346,3 +346,120 @@ func (c *Client) createObject(d index.Document) error {
 
 	properties["filename"] = filename
 	properties["filepart"] = filepart
+
+	body := map[string]any{
+		"id": convertID(d.ID),
+
+		"class":  c.class,
+		"vector": d.Embedding,
+
+		"properties": properties,
+	}
+
+	u, _ := url.JoinPath(c.url, "/v1/objects")
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return convertError(resp)
+	}
+
+	return nil
+}
+
+func (c *Client) updateObject(ctx context.Context, d index.Document) error {
+	properties := maps.Clone(d.Metadata)
+
+	if properties == nil {
+		properties = map[string]string{}
+	}
+
+	properties["key"] = d.ID
+	properties["content"] = d.Content
+
+	body := map[string]any{
+		"id": convertID(d.ID),
+
+		"class":  c.class,
+		"vector": d.Embedding,
+
+		"properties": properties,
+	}
+
+	u, _ := url.JoinPath(c.url, "/v1/objects/"+c.class+"/"+d.ID)
+	req, err := http.NewRequestWithContext(ctx, "PUT", u, jsonReader(body))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.client.Do(req)
+
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return convertError(resp)
+	}
+
+	return nil
+}
+
+func convertError(resp *http.Response) error {
+	type resultType struct {
+		Errors []errorDetail `json:"error"`
+	}
+
+	var result resultType
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err == nil {
+		var errs []error
+
+		for _, e := range result.Errors {
+			errs = append(errs, errors.New(e.Message))
+		}
+
+		return errors.Join(errs...)
+	}
+
+	return errors.New(http.StatusText(resp.StatusCode))
+}
+
+type errorDetail struct {
+	Message string `json:"message"`
+}
+
+type document struct {
+	Key     string `json:"key"`
+	Content string `json:"content"`
+
+	// HACK
+	FileName string `json:"filename,omitempty"`
+	FilePart string `json:"filepart,omitempty"`
+
+	Additional additional `json:"_additional"`
+}
+
+type additional struct {
+	ID       string  `json:"id"`
+	Distance float32 `json:"distance"`
+}
+
+func jsonReader(v any) io.Reader {
+	b := new(bytes.Buffer)
+
+	enc := json.NewEncoder(b)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+	return b
+}
