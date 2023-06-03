@@ -10,4 +10,16 @@
         operator: And,
         operands: [
           {{- $sep := "" }}
-         
+          {{- range $key, $value := .Where }}
+          {
+            path: ["{{ $key }}"],
+            operator: Equal,
+            valueText: "{{ $value }}",
+          }
+          {{- $sep = "," }}
+          {{- end }}
+        ]
+      }
+      {{- end }}
+      
+      hybrid
