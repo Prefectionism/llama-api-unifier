@@ -26,4 +26,5 @@ func executeQueryTemplate(data queryData) string {
 	var buffer bytes.Buffer
 	queryTemplate.Execute(&buffer, data)
 
-	r
+	return buffer.String()
+}

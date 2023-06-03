@@ -1,0 +1,13 @@
+{
+  Get {
+    {{ .Class }} (
+      {{- if .Limit }}
+      limit: {{ .Limit }}
+      {{ end }}
+
+      {{- if .Where }}
+      where: {
+        operator: And,
+        operands: [
+          {{- $sep := "" }}
+         
