@@ -22,4 +22,19 @@
       }
       {{- end }}
       
-      hybrid
+      hybrid: {
+        query: "{{ .Query }}"
+        vector: {{ .Vector }}
+      }
+    ) {
+      key
+      content
+      filename
+      filepart
+      _additional {
+        id
+        distance
+      }
+    }
+  }
+}
