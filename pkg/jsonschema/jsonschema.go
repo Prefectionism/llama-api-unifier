@@ -13,4 +13,8 @@ const (
 )
 
 type Definition struct {
-	Type        DataType              `json:"type,omi
+	Type        DataType              `json:"type,omitempty"`
+	Description string                `json:"description,omitempty"`
+	Enum        []string              `json:"enum,omitempty"`
+	Properties  map[string]Definition `json:"properties,omitempty"`
+	Required    []string              `json:"require
