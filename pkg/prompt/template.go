@@ -42,4 +42,5 @@ func (t *Template) Execute(data any) (string, error) {
 		return "", err
 	}
 
-	return buffer.String(), n
+	return buffer.String(), nil
+}
