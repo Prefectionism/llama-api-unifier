@@ -28,4 +28,18 @@ func NewTemplate(text string) (*Template, error) {
 
 	return &Template{
 		tmpl: tmpl,
+	}, nil
+}
+
+func (t *Template) Execute(data any) (string, error) {
+	if data == nil {
+		data = map[string]any{}
 	}
+
+	var buffer bytes.Buffer
+
+	if err := t.tmpl.Execute(&buffer, data); err != nil {
+		return "", err
+	}
+
+	return buffer.String(), n
