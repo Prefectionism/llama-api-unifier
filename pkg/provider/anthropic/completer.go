@@ -37,4 +37,17 @@ func NewCompleter(options ...Option) (*Completer, error) {
 	}, nil
 }
 
-func (c *Completer) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, er
+func (c *Completer) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	url, _ := url.JoinPath(c.url, "/v1/messages")
+	body, err := convertChatRequest(c.model, messages, options)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if options.Stream == nil {
+		r
