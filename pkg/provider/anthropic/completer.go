@@ -55,4 +55,18 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 		req.Header.Set("anthropic-version", "2023-06-01")
 		req.Header.Set("content-type", "application/json")
 
-		resp, err := c.clie
+		resp, err := c.client.Do(req)
+
+		if err != nil {
+			return nil, err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			return nil, convertError(resp)
+		}
+
+		var response MessagesResponse
+
+		if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
