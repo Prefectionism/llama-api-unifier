@@ -80,4 +80,16 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 		role := provider.MessageRoleAssistant
 		content := response.Content[0].Text
 
-		return &provider
+		return &provider.Completion{
+			ID:     response.ID,
+			Reason: provider.CompletionReasonStop,
+
+			Message: provider.Message{
+				Role:    role,
+				Content: content,
+			},
+		}, nil
+	} else {
+		defer close(options.Stream)
+
+		req, _ := http.NewRequestWithContext(ctx, "POST", url, jsonReader(bod
