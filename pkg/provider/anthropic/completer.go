@@ -70,3 +70,14 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 		var response MessagesResponse
 
 		if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
+			return nil, err
+		}
+
+		if response.Role != MessageRoleAssistant || len(response.Content) != 1 {
+			return nil, errors.New("invalid complete response")
+		}
+
+		role := provider.MessageRoleAssistant
+		content := response.Content[0].Text
+
+		return &provider
