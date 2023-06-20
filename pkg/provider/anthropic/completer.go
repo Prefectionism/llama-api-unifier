@@ -103,4 +103,15 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 			return nil, err
 		}
 
-		defer resp
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			return nil, convertError(resp)
+		}
+
+		reader := bufio.NewReader(resp.Body)
+
+		var resultID string
+		var resultText strings.Builder
+		var resultRole provider.MessageRole
+		var resultReason provider.CompletionR
