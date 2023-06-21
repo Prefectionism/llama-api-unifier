@@ -133,4 +133,17 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				continue
 			}
 
-			data = bytes.T
+			data = bytes.TrimPrefix(data, []byte("data:"))
+			data = bytes.TrimSpace(data)
+
+			if len(data) == 0 {
+				continue
+			}
+
+			var event MessagesEvent
+
+			if err := json.Unmarshal([]byte(data), &event); err != nil {
+				return nil, err
+			}
+
+			if event.Mes
