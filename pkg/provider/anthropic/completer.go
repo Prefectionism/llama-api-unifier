@@ -146,4 +146,15 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				return nil, err
 			}
 
-			if event.Mes
+			if event.Message != nil {
+				resultID = event.Message.ID
+			}
+
+			if event.Type == EventTypeMessageStop {
+				resultReason = provider.CompletionReasonStop
+				break
+			}
+
+			if event.Type != EventTypeContentBlockDelta || event.Delta == nil {
+				continue
+			}
