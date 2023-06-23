@@ -158,3 +158,16 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 			if event.Type != EventTypeContentBlockDelta || event.Delta == nil {
 				continue
 			}
+
+			var content = event.Delta.Text
+
+			if i == 0 {
+				content = strings.TrimLeftFunc(content, unicode.IsSpace)
+			}
+
+			resultText.WriteString(content)
+
+			resultRole = provider.MessageRoleAssistant
+
+			options.Stream <- provider.Completion{
+				ID:     resultID,
