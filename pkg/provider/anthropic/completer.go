@@ -171,3 +171,19 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 			options.Stream <- provider.Completion{
 				ID:     resultID,
+				Reason: resultReason,
+
+				Message: provider.Message{
+					Role:    resultRole,
+					Content: content,
+				},
+			}
+		}
+
+		return &provider.Completion{
+			ID:     resultID,
+			Reason: resultReason,
+
+			Message: provider.Message{
+				Role:    resultRole,
+				Content: re
