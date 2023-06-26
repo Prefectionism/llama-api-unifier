@@ -186,4 +186,15 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 			Message: provider.Message{
 				Role:    resultRole,
-				Content: re
+				Content: resultText.String(),
+			},
+		}, nil
+	}
+}
+
+func convertChatRequest(model string, messages []provider.Message, options *provider.CompleteOptions) (*MessagesRequest, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	stream := options
