@@ -211,4 +211,18 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 	}
 
 	if options.MaxTokens != nil {
-		req.MaxTokens = *options
+		req.MaxTokens = *options.MaxTokens
+	}
+
+	if options.Temperature != nil {
+		req.Temperature = options.Temperature
+	}
+
+	for _, m := range messages {
+		switch m.Role {
+		case provider.MessageRoleSystem:
+			req.System = m.Content
+
+		case provider.MessageRoleUser:
+			message := Message{
+				Role
