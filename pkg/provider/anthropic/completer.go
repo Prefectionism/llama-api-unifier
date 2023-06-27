@@ -197,4 +197,18 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 		options = new(provider.CompleteOptions)
 	}
 
-	stream := options
+	stream := options.Stream != nil
+
+	req := &MessagesRequest{
+		Model:  model,
+		Stream: stream,
+
+		MaxTokens: 1024,
+	}
+
+	if options.Stop != nil {
+		req.StopSequences = options.Stop
+	}
+
+	if options.MaxTokens != nil {
+		req.MaxTokens = *options
