@@ -239,4 +239,15 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 					},
 				}
 
-				for _, f := range m.Fi
+				for _, f := range m.Files {
+					data, err := io.ReadAll(f.Content)
+
+					if err != nil {
+						return nil, err
+					}
+
+					message.Contents = append(message.Contents, Content{
+						Type: ContentTypeImage,
+
+						Source: &ContentSource{
+							Type: "b
