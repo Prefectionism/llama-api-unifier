@@ -225,4 +225,18 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 
 		case provider.MessageRoleUser:
 			message := Message{
-				Role
+				Role:    MessageRoleUser,
+				Content: m.Content,
+			}
+
+			if len(m.Files) > 0 {
+				message.Content = ""
+
+				message.Contents = []Content{
+					{
+						Type: ContentTypeText,
+						Text: m.Content,
+					},
+				}
+
+				for _, f := range m.Fi
