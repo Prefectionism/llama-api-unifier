@@ -250,4 +250,16 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 						Type: ContentTypeImage,
 
 						Source: &ContentSource{
-							Type: "b
+							Type: "base64",
+
+							MediaType: http.DetectContentType(data),
+							Data:      base64.StdEncoding.EncodeToString(data),
+						},
+					})
+				}
+			}
+
+			req.Messages = append(req.Messages, message)
+
+		case provider.MessageRoleAssistant:
+			req.Messages = append(re
