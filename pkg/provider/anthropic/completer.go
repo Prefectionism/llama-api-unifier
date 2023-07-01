@@ -262,4 +262,20 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 			req.Messages = append(req.Messages, message)
 
 		case provider.MessageRoleAssistant:
-			req.Messages = append(re
+			req.Messages = append(req.Messages, Message{
+				Role:    MessageRoleAssistant,
+				Content: m.Content,
+			})
+
+		default:
+			return nil, errors.New("unsupported message role")
+		}
+	}
+
+	return req, nil
+}
+
+type MessageRole string
+
+var (
+	MessageRoleUser      MessageRole = 
