@@ -278,4 +278,16 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 type MessageRole string
 
 var (
-	MessageRoleUser      MessageRole = 
+	MessageRoleUser      MessageRole = "user"
+	MessageRoleAssistant MessageRole = "assistant"
+)
+
+type MessagesRequest struct {
+	Model string `json:"model"`
+
+	Stream bool   `json:"stream"`
+	System string `json:"system,omitempty"`
+
+	Messages []Message `json:"messages"`
+
+	MaxTokens     int    
