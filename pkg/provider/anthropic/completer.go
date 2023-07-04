@@ -290,4 +290,13 @@ type MessagesRequest struct {
 
 	Messages []Message `json:"messages"`
 
-	MaxTokens     int    
+	MaxTokens     int      `json:"max_tokens,omitempty"`
+	Temperature   *float32 `json:"temperature,omitempty"`
+	StopSequences []string `json:"stop_sequences,omitempty"`
+}
+
+type Message struct {
+	Role MessageRole `json:"role"`
+
+	Content  string    `json:"content"`
+	Con
