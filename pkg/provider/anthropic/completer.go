@@ -299,4 +299,14 @@ type Message struct {
 	Role MessageRole `json:"role"`
 
 	Content  string    `json:"content"`
-	Con
+	Contents []Content `json:"contents,omitempty"`
+}
+
+func (m *Message) MarshalJSON() ([]byte, error) {
+	if m.Content != "" && m.Contents != nil {
+		return nil, errors.New("cannot have both content and contents")
+	}
+
+	if len(m.Contents) > 0 {
+		msg := struct {
+			Role Mess
