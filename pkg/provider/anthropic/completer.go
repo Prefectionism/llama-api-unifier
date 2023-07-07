@@ -322,4 +322,18 @@ func (m *Message) MarshalJSON() ([]byte, error) {
 		Role MessageRole `json:"role"`
 
 		Content  string    `json:"content"`
-	
+		Contents []Content `json:"-"`
+	}(*m)
+
+	return json.Marshal(msg)
+}
+
+func (m *Message) UnmarshalJSON(data []byte) error {
+	m1 := struct {
+		Role MessageRole `json:"role"`
+
+		Content  string `json:"content"`
+		Contents []Content
+	}{}
+
+	if 
