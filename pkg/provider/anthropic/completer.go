@@ -336,4 +336,18 @@ func (m *Message) UnmarshalJSON(data []byte) error {
 		Contents []Content
 	}{}
 
-	if 
+	if err := json.Unmarshal(data, &m1); err == nil {
+		*m = Message(m1)
+		return nil
+	}
+
+	m2 := struct {
+		Role MessageRole `json:"role"`
+
+		Content  string
+		Contents []Content `json:"content"`
+	}{}
+
+	if err := json.Unmarshal(data, &m2); err == nil {
+		*m = Message(m2)
+	
