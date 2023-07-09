@@ -350,4 +350,19 @@ func (m *Message) UnmarshalJSON(data []byte) error {
 
 	if err := json.Unmarshal(data, &m2); err == nil {
 		*m = Message(m2)
-	
+		return err
+	}
+
+	return nil
+}
+
+type ContentType string
+
+var (
+	ContentTypeText      ContentType = "text"
+	ContentTypeTextDelta ContentType = "text_delta"
+	ContentTypeImage     ContentType = "image"
+)
+
+type Content struct {
+	Type ContentType `json:"type"`
