@@ -366,3 +366,16 @@ var (
 
 type Content struct {
 	Type ContentType `json:"type"`
+
+	Text   string         `json:"text,omitempty"`
+	Source *ContentSource `json:"source,omitempty"`
+}
+
+type ContentSource struct {
+	Type string `json:"type"`
+
+	MediaType string `json:"media_type"`
+	Data      string `json:"data"`
+}
+
+type ResponseType string
