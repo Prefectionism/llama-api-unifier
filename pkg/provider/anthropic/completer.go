@@ -379,3 +379,14 @@ type ContentSource struct {
 }
 
 type ResponseType string
+
+var (
+	ResponseTypeMessage ResponseType = "message"
+)
+
+type StopReason string
+
+var (
+	StopReasonEndTurn      StopReason = "end_turn"
+	StopReasonMaxTokens    StopReason = "max_tokens"
+	StopReasonStopSequence StopReason = "stop_sequence"
