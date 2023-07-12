@@ -390,3 +390,17 @@ var (
 	StopReasonEndTurn      StopReason = "end_turn"
 	StopReasonMaxTokens    StopReason = "max_tokens"
 	StopReasonStopSequence StopReason = "stop_sequence"
+)
+
+type MessagesResponse struct {
+	ID string `json:"id"`
+
+	Type  ResponseType `json:"type"`
+	Model string       `json:"model"`
+
+	Role MessageRole `json:"role"`
+
+	Content []Content `json:"content"`
+
+	StopReason   StopReason `json:"stop_reason,omitempty"`
+	StopSequence []str
