@@ -403,4 +403,14 @@ type MessagesResponse struct {
 	Content []Content `json:"content"`
 
 	StopReason   StopReason `json:"stop_reason,omitempty"`
-	StopSequence []str
+	StopSequence []string   `json:"stop_sequence,omitempty"`
+}
+
+type EventType string
+
+var (
+	EventTypePing EventType = "ping"
+
+	EventTypeMessageStart EventType = "message_start"
+	EventTypeMessageDelta EventType = "message_delta"
+	EventTypeMessageStop  Ev
