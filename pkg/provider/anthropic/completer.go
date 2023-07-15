@@ -413,4 +413,12 @@ var (
 
 	EventTypeMessageStart EventType = "message_start"
 	EventTypeMessageDelta EventType = "message_delta"
-	EventTypeMessageStop  Ev
+	EventTypeMessageStop  EventType = "message_stop"
+
+	EventTypeContentBlockStart EventType = "content_block_start"
+	EventTypeContentBlockDelta EventType = "content_block_delta"
+	EventTypeContentBlockStop  EventType = "content_block_stop"
+)
+
+type MessagesEvent struct {
+	Type EventType `j
