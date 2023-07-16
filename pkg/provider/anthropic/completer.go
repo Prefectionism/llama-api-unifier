@@ -421,4 +421,12 @@ var (
 )
 
 type MessagesEvent struct {
-	Type EventType `j
+	Type EventType `json:"type"`
+
+	Index int `json:"index"`
+
+	Message      *MessagesResponse `json:"message,omitempty"`
+	MessageDelta *MessagesResponse `json:"message_delta,omitempty"`
+
+	ContentBlock *Content `json:"content_block,omitempty"`
+	Delta        *Content `json:"delta,
