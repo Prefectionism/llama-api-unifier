@@ -429,4 +429,5 @@ type MessagesEvent struct {
 	MessageDelta *MessagesResponse `json:"message_delta,omitempty"`
 
 	ContentBlock *Content `json:"content_block,omitempty"`
-	Delta        *Content `json:"delta,
+	Delta        *Content `json:"delta,omitempty"`
+}
