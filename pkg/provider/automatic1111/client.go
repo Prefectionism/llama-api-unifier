@@ -13,4 +13,22 @@ type Client struct {
 }
 
 func New(options ...Option) (*Client, error) {
-	r, err := NewRenderer(options.
+	r, err := NewRenderer(options...)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &Client{
+		Renderer: r,
+	}, nil
+}
+
+func convertError(resp *http.Response) error {
+	data, _ := io.ReadAll(resp.Body)
+
+	if len(data) == 0 {
+		return errors.New(http.StatusText(resp.StatusCode))
+	}
+
+	return error
