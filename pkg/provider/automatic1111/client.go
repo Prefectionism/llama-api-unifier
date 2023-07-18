@@ -31,4 +31,15 @@ func convertError(resp *http.Response) error {
 		return errors.New(http.StatusText(resp.StatusCode))
 	}
 
-	return error
+	return errors.New(string(data))
+}
+
+func jsonReader(v any) io.Reader {
+	b := new(bytes.Buffer)
+
+	enc := json.NewEncoder(b)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+	return b
+}
