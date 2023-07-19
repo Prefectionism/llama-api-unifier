@@ -5,4 +5,21 @@ import (
 )
 
 type Config struct {
-	url s
+	url string
+
+	client *http.Client
+}
+
+type Option func(*Config)
+
+func WithClient(client *http.Client) Option {
+	return func(c *Config) {
+		c.client = client
+	}
+}
+
+func WithURL(url string) Option {
+	return func(c *Config) {
+		c.url = url
+	}
+}
