@@ -31,4 +31,15 @@ func NewRenderer(options ...Option) (*Renderer, error) {
 		option(c)
 	}
 
-	return &Rende
+	return &Renderer{
+		Config: c,
+	}, nil
+}
+
+func (r *Renderer) Render(ctx context.Context, input string, options *provider.RenderOptions) (*provider.Image, error) {
+	body := Text2ImageRequest{
+		Prompt: strings.TrimSpace(input),
+		//Steps:  20,
+	}
+
+	u, _ := url.JoinPath(r.url,
