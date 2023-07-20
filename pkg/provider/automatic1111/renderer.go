@@ -17,4 +17,18 @@ import (
 
 var _ provider.Renderer = (*Renderer)(nil)
 
-typ
+type Renderer struct {
+	*Config
+}
+
+func NewRenderer(options ...Option) (*Renderer, error) {
+	c := &Config{
+		url:    "http://127.0.0.1:7860",
+		client: http.DefaultClient,
+	}
+
+	for _, option := range options {
+		option(c)
+	}
+
+	return &Rende
