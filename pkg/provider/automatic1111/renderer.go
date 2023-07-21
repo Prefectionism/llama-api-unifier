@@ -42,4 +42,16 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 		//Steps:  20,
 	}
 
-	u, _ := url.JoinPath(r.url,
+	u, _ := url.JoinPath(r.url, "/sdapi/v1/txt2img")
+	resp, err := r.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
