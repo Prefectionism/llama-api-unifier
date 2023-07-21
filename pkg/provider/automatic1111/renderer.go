@@ -55,3 +55,14 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 		return nil, convertError(resp)
 	}
 
+	var result Text2ImageResponse
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	if len(result.Images) == 0 {
+		return nil, errors.New("invalid image data")
+	}
+
+	data, err := base64.StdEncoding.DecodeString(result.Images[0])
