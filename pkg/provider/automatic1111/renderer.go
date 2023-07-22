@@ -81,4 +81,11 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 	return image, nil
 }
 
-type Text2I
+type Text2ImageRequest struct {
+	Prompt string `json:"prompt"`
+	Steps  int    `json:"steps,omitempty"`
+}
+
+type Text2ImageResponse struct {
+	Images []string `json:"images"`
+}
