@@ -66,3 +66,19 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 	}
 
 	data, err := base64.StdEncoding.DecodeString(result.Images[0])
+
+	if err != nil {
+		return nil, errors.New("invalid image data")
+	}
+
+	name := strings.ReplaceAll(uuid.NewString(), "-", "") + ".png"
+
+	image := &provider.Image{
+		Name:    name,
+		Content: io.NopCloser(bytes.NewReader(data)),
+	}
+
+	return image, nil
+}
+
+type Text2I
