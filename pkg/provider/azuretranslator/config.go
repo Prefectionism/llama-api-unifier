@@ -21,4 +21,14 @@ func WithClient(client *http.Client) Option {
 	}
 }
 
-func Wi
+func WithToken(token string) Option {
+	return func(c *Config) {
+		c.token = token
+	}
+}
+
+func WithLanguage(language string) Option {
+	return func(c *Config) {
+		c.language = language
+	}
+}
