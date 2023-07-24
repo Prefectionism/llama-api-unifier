@@ -14,4 +14,14 @@ type Message struct {
 
 	Files []File
 
-	Fu
+	Function      string
+	FunctionCalls []FunctionCall
+}
+
+type MessageRole string
+
+const (
+	MessageRoleSystem    MessageRole = "system"
+	MessageRoleUser      MessageRole = "user"
+	MessageRoleAssistant MessageRole = "assistant"
+	MessageRoleFunction  MessageRole = "
