@@ -91,3 +91,14 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 	var result []resultType
 
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	if len(result) == 0 || len(result[0].Translations) == 0 {
+		return nil, errors.New("unable to translate content")
+	}
+
+	return &provider.Translation{
+		Content: result[0].Translations[0].Text,
+	}, nil
+}
