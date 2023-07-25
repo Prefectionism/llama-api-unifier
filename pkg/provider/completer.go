@@ -24,4 +24,21 @@ const (
 	MessageRoleSystem    MessageRole = "system"
 	MessageRoleUser      MessageRole = "user"
 	MessageRoleAssistant MessageRole = "assistant"
-	MessageRoleFunction  MessageRole = "
+	MessageRoleFunction  MessageRole = "function"
+)
+
+type FunctionCall struct {
+	ID string
+
+	Name      string
+	Arguments string
+}
+
+type CompleteOptions struct {
+	Stream chan<- Completion
+
+	Stop      []string
+	Functions []Function
+
+	MaxTokens   *int
+	Temperature *
