@@ -41,4 +41,23 @@ type CompleteOptions struct {
 	Functions []Function
 
 	MaxTokens   *int
-	Temperature *
+	Temperature *float32
+
+	Format CompletionFormat
+}
+
+type Completion struct {
+	ID string
+
+	Reason CompletionReason
+
+	Message Message
+}
+
+type CompletionFormat string
+
+const (
+	CompletionFormatJSON CompletionFormat = "json"
+)
+
+type CompletionReason strin
