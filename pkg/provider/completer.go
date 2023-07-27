@@ -60,4 +60,10 @@ const (
 	CompletionFormatJSON CompletionFormat = "json"
 )
 
-type CompletionReason strin
+type CompletionReason string
+
+const (
+	CompletionReasonStop     CompletionReason = "stop"
+	CompletionReasonLength   CompletionReason = "length"
+	CompletionReasonFunction CompletionReason = "function"
+)
