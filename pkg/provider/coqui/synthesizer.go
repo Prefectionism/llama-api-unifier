@@ -39,4 +39,9 @@ func NewSynthesizer(url string, options ...Option) (*Synthesizer, error) {
 	}, nil
 }
 
-func (s 
+func (s *Synthesizer) Synthesize(ctx context.Context, content string, options *provider.SynthesizeOptions) (*provider.Synthesis, error) {
+	if options == nil {
+		options = new(provider.SynthesizeOptions)
+	}
+
+	u, _ := url.Parse(strings.TrimRight(s
