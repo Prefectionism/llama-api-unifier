@@ -44,4 +44,15 @@ func (s *Synthesizer) Synthesize(ctx context.Context, content string, options *p
 		options = new(provider.SynthesizeOptions)
 	}
 
-	u, _ := url.Parse(strings.TrimRight(s
+	u, _ := url.Parse(strings.TrimRight(s.url, "/") + "/api/tts")
+
+	query := u.Query()
+
+	query.Set("text", content)
+	query.Set("speaker_id", "p376")
+
+	u.RawQuery = query.Encode()
+
+	req, _ := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
+
+	resp, err := s.client.Do
