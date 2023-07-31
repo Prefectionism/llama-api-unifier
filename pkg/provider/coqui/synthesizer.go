@@ -55,4 +55,22 @@ func (s *Synthesizer) Synthesize(ctx context.Context, content string, options *p
 
 	req, _ := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
 
-	resp, err := s.client.Do
+	resp, err := s.client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	id := uuid.NewString()
+
+	return &provider.Synthesis{
+		ID: id,
+
+		Name:    id + ".wav",
+		Content: resp.Body,
+	}, nil
+}
