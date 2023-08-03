@@ -400,3 +400,7 @@ func file_completer_proto_init() {
 		MessageInfos:      file_completer_proto_msgTypes,
 	}.Build()
 	File_completer_proto = out.File
+	file_completer_proto_rawDesc = nil
+	file_completer_proto_goTypes = nil
+	file_completer_proto_depIdxs = nil
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "github.com/adrianliechti/llama/pkg/provider/custom;custom";
+
+package completer;
+
+service completer {
+  rpc Complete (CompletionRequest) returns (stream Completion) {}
+}
+
+message Completion {
+  string id = 1;
+  Message me
