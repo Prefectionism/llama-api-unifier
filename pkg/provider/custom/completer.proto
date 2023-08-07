@@ -25,4 +25,12 @@ message CompletionRequest {
   repeated string stop = 5;
 
   optional int32 max_tokens = 4;
-  optional
+  optional float temperature = 3;
+}
+
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_SYSTEM = 1;
+  ROLE_USER = 2;
+  ROLE_ASSISTANT = 3;
+}
