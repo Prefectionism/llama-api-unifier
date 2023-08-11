@@ -22,4 +22,8 @@ const (
 	Completer_Complete_FullMethodName = "/completer.completer/Complete"
 )
 
-// CompleterClient is the client 
+// CompleterClient is the client API for Completer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CompleterClient interface {
+	Complete(c
