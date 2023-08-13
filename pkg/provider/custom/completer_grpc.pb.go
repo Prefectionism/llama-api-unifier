@@ -26,4 +26,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CompleterClient interface {
-	Complete(c
+	Complete(ctx context.Context, in *CompletionRequest, opts ...grpc.CallOption) (Completer_CompleteClient, error)
+}
+
+type completerClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCompleterClient(cc grpc.ClientConnInterface) Compl
