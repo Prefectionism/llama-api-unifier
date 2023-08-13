@@ -33,4 +33,9 @@ type completerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCompleterClient(cc grpc.ClientConnInterface) Compl
+func NewCompleterClient(cc grpc.ClientConnInterface) CompleterClient {
+	return &completerClient{cc}
+}
+
+func (c *completerClient) Complete(ctx context.Context, in *CompletionRequest, opts ...grpc.CallOption) (Completer_CompleteClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Completer_ServiceDesc.Streams[0], 
