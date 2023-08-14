@@ -38,4 +38,12 @@ func NewCompleterClient(cc grpc.ClientConnInterface) CompleterClient {
 }
 
 func (c *completerClient) Complete(ctx context.Context, in *CompletionRequest, opts ...grpc.CallOption) (Completer_CompleteClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Completer_ServiceDesc.Streams[0], 
+	stream, err := c.cc.NewStream(ctx, &Completer_ServiceDesc.Streams[0], Completer_Complete_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &completerCompleteClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.
