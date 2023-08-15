@@ -61,4 +61,13 @@ type completerCompleteClient struct {
 	grpc.ClientStream
 }
 
-func (x *completerCompleteClient)
+func (x *completerCompleteClient) Recv() (*Completion, error) {
+	m := new(Completion)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// CompleterServer is the server API for Completer service.
+// All implementations must embed UnimplementedCompl
