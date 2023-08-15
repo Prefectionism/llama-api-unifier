@@ -46,4 +46,19 @@ func (c *completerClient) Complete(ctx context.Context, in *CompletionRequest, o
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
-	if err := x.ClientStream.
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Completer_CompleteClient interface {
+	Recv() (*Completion, error)
+	grpc.ClientStream
+}
+
+type completerCompleteClient struct {
+	grpc.ClientStream
+}
+
+func (x *completerCompleteClient)
