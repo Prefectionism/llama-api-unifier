@@ -77,4 +77,11 @@ type CompleterServer interface {
 	mustEmbedUnimplementedCompleterServer()
 }
 
-// UnimplementedCompleterServer must be embedded to have forward co
+// UnimplementedCompleterServer must be embedded to have forward compatible implementations.
+type UnimplementedCompleterServer struct {
+}
+
+func (UnimplementedCompleterServer) Complete(*CompletionRequest, Completer_CompleteServer) error {
+	return status.Errorf(codes.Unimplemented, "method Complete not implemented")
+}
+func 
