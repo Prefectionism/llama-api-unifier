@@ -70,4 +70,11 @@ func (x *completerCompleteClient) Recv() (*Completion, error) {
 }
 
 // CompleterServer is the server API for Completer service.
-// All implementations must embed UnimplementedCompl
+// All implementations must embed UnimplementedCompleterServer
+// for forward compatibility
+type CompleterServer interface {
+	Complete(*CompletionRequest, Completer_CompleteServer) error
+	mustEmbedUnimplementedCompleterServer()
+}
+
+// UnimplementedCompleterServer must be embedded to have forward co
