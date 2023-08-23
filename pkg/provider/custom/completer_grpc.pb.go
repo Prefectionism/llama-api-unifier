@@ -84,4 +84,7 @@ type UnimplementedCompleterServer struct {
 func (UnimplementedCompleterServer) Complete(*CompletionRequest, Completer_CompleteServer) error {
 	return status.Errorf(codes.Unimplemented, "method Complete not implemented")
 }
-func 
+func (UnimplementedCompleterServer) mustEmbedUnimplementedCompleterServer() {}
+
+// UnsafeCompleterServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CompleterServ
