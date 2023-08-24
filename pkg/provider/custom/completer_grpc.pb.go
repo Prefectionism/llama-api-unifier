@@ -87,4 +87,14 @@ func (UnimplementedCompleterServer) Complete(*CompletionRequest, Completer_Compl
 func (UnimplementedCompleterServer) mustEmbedUnimplementedCompleterServer() {}
 
 // UnsafeCompleterServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CompleterServ
+// Use of this interface is not recommended, as added methods to CompleterServer will
+// result in compilation errors.
+type UnsafeCompleterServer interface {
+	mustEmbedUnimplementedCompleterServer()
+}
+
+func RegisterCompleterServer(s grpc.ServiceRegistrar, srv CompleterServer) {
+	s.RegisterService(&Completer_ServiceDesc, srv)
+}
+
+func _Complete
