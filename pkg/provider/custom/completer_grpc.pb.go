@@ -97,4 +97,12 @@ func RegisterCompleterServer(s grpc.ServiceRegistrar, srv CompleterServer) {
 	s.RegisterService(&Completer_ServiceDesc, srv)
 }
 
-func _Complete
+func _Completer_Complete_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CompletionRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CompleterServer).Complete(m, &completerCompleteServer{stream})
+}
+
+type Complet
