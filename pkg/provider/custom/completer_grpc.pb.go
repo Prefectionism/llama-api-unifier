@@ -118,4 +118,8 @@ func (x *completerCompleteServer) Send(m *Completion) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-//
+// Completer_ServiceDesc is the grpc.ServiceDesc for Completer service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Completer_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "comp
