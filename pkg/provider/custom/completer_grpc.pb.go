@@ -105,4 +105,17 @@ func _Completer_Complete_Handler(srv interface{}, stream grpc.ServerStream) erro
 	return srv.(CompleterServer).Complete(m, &completerCompleteServer{stream})
 }
 
-type Complet
+type Completer_CompleteServer interface {
+	Send(*Completion) error
+	grpc.ServerStream
+}
+
+type completerCompleteServer struct {
+	grpc.ServerStream
+}
+
+func (x *completerCompleteServer) Send(m *Completion) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+//
