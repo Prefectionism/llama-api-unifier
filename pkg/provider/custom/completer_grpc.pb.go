@@ -122,4 +122,14 @@ func (x *completerCompleteServer) Send(m *Completion) error {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Completer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "comp
+	ServiceName: "completer.completer",
+	HandlerType: (*CompleterServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Complete",
+			Handler:       _Completer_Complete_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "complet
