@@ -132,4 +132,5 @@ var Completer_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "complet
+	Metadata: "completer.proto",
+}
