@@ -17,4 +17,17 @@ func (t *Translator) Complete(ctx context.Context, messages []provider.Message, 
 	result, err := t.Translate(ctx, message.Content, nil)
 
 	if err != nil {
-		return nil, 
+		return nil, err
+	}
+
+	completion := provider.Completion{
+		ID:     uuid.New().String(),
+		Reason: provider.CompletionReasonStop,
+
+		Message: provider.Message{
+			Role:    provider.MessageRoleAssistant,
+			Content: result.Content,
+		},
+	}
+
+	return &compl
