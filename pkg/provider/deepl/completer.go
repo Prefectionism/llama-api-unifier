@@ -7,4 +7,14 @@ import (
 	"github.com/google/uuid"
 )
 
-func (t *Translator) Complete(ctx context.Context, messages []provider.Message, 
+func (t *Translator) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	message := messages[len(messages)-1]
+
+	result, err := t.Translate(ctx, message.Content, nil)
+
+	if err != nil {
+		return nil, 
