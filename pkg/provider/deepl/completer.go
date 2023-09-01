@@ -30,4 +30,5 @@ func (t *Translator) Complete(ctx context.Context, messages []provider.Message, 
 		},
 	}
 
-	return &compl
+	return &completion, nil
+}
