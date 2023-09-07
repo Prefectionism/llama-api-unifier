@@ -44,4 +44,20 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 	}
 
 	if options.Language == "" {
-		options.Language = t.langu
+		options.Language = t.language
+	}
+
+	type bodyType struct {
+		Text       []string `json:"text"`
+		TargetLang string   `json:"target_lang"`
+	}
+
+	body := bodyType{
+		Text: []string{
+			strings.TrimSpace(content),
+		},
+
+		TargetLang: options.Language,
+	}
+
+	u, _ := url.JoinPath(t.url, "/v2/tran
