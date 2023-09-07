@@ -38,4 +38,10 @@ func NewTranslator(url string, options ...Option) (*Translator, error) {
 	}, nil
 }
 
-func (t *Trans
+func (t *Translator) Translate(ctx context.Context, content string, options *provider.TranslateOptions) (*provider.Translation, error) {
+	if options == nil {
+		options = new(provider.TranslateOptions)
+	}
+
+	if options.Language == "" {
+		options.Language = t.langu
