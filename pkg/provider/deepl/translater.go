@@ -60,4 +60,12 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 		TargetLang: options.Language,
 	}
 
-	u, _ := url.JoinPath(t.url, "/v2/tran
+	u, _ := url.JoinPath(t.url, "/v2/translate")
+	r, _ := http.NewRequestWithContext(ctx, "POST", u, jsonReader(body))
+	r.Header.Add("Authorization", "DeepL-Auth-Key "+t.token)
+	r.Header.Add("Content-Type", "application/json")
+
+	resp, err := t.client.Do(r)
+
+	if err != nil {
+		retur
