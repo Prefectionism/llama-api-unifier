@@ -68,4 +68,16 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 	resp, err := t.client.Do(r)
 
 	if err != nil {
-		retur
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	type resultType struct {
+		Translations []struct {
+			DetectedSourceLanguage string `json:"detected_source_language"`
+			Text                   string `j
