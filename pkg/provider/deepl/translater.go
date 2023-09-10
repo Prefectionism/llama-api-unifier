@@ -80,4 +80,15 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 	type resultType struct {
 		Translations []struct {
 			DetectedSourceLanguage string `json:"detected_source_language"`
-			Text                   string `j
+			Text                   string `json:"text"`
+		} `json:"translations"`
+	}
+
+	var result resultType
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	if len(result.Translations) == 0 {
+		return nil, errors.New("unable to tr
