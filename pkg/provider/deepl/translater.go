@@ -91,4 +91,12 @@ func (t *Translator) Translate(ctx context.Context, content string, options *pro
 	}
 
 	if len(result.Translations) == 0 {
-		return nil, errors.New("unable to tr
+		return nil, errors.New("unable to translate content")
+	}
+
+	return &provider.Translation{
+		ID: uuid.New().String(),
+
+		Content: result.Translations[0].Text,
+	}, nil
+}
