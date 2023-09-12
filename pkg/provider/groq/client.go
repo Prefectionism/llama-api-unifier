@@ -11,4 +11,7 @@ func New(options ...Option) (*Client, error) {
 		return nil, err
 	}
 
-	return
+	return &Client{
+		Completer: c,
+	}, nil
+}
