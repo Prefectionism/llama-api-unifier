@@ -5,4 +5,7 @@ import (
 )
 
 type Embedder interface {
-	Embed(ctx context.Context, content s
+	Embed(ctx context.Context, content string) (Embeddings, error)
+}
+
+type Embeddings []float32
