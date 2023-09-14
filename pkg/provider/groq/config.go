@@ -18,4 +18,14 @@ func WithClient(client *http.Client) Option {
 	}
 }
 
-func WithToken(token string) O
+func WithToken(token string) Option {
+	return func(c *Config) {
+		c.options = append(c.options, openai.WithToken(token))
+	}
+}
+
+func WithModel(model string) Option {
+	return func(c *Config) {
+		c.options = append(c.options, openai.WithModel(model))
+	}
+}
