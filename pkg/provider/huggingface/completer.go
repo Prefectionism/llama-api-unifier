@@ -27,4 +27,25 @@ func NewCompleter(url string, options ...Option) (*Completer, error) {
 		return nil, errors.New("invalid url")
 	}
 
-	url = strings.TrimRight(url,
+	url = strings.TrimRight(url, "/")
+	url = strings.TrimSuffix(url, "/v1")
+
+	cfg := &Config{
+		url: url,
+
+		token: "-",
+		model: "tgi",
+
+		client: http.DefaultClient,
+	}
+
+	for _, option := range options {
+		option(cfg)
+	}
+
+	return &Completer{
+		Config: cfg,
+	}, nil
+}
+
+func (c *
