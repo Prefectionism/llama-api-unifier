@@ -48,4 +48,10 @@ func NewCompleter(url string, options ...Option) (*Completer, error) {
 	}, nil
 }
 
-func (c *
+func (c *Completer) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	id := uuid.NewString()
+
