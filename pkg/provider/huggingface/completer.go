@@ -55,3 +55,12 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 	id := uuid.NewString()
 
+	url, _ := url.JoinPath(c.url, "/v1/chat/completions")
+	body, err := convertChatRequest(c.model, messages, options)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if options.Stream == nil {
+		req, _ := http.NewRequestWithContext(ctx, "POST", url, jsonReader(
