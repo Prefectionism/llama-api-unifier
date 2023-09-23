@@ -63,4 +63,16 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 	}
 
 	if options.Stream == nil {
-		req, _ := http.NewRequestWithContext(ctx, "POST", url, jsonReader(
+		req, _ := http.NewRequestWithContext(ctx, "POST", url, jsonReader(body))
+		req.Header.Set("Authorization", "Bearer "+c.token)
+		req.Header.Set("Content-Type", "application/json")
+
+		resp, err := c.client.Do(req)
+
+		if err != nil {
+			return nil, err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.Sta
