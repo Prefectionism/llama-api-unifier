@@ -75,4 +75,16 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.Sta
+		if resp.StatusCode != http.StatusOK {
+			return nil, convertError(resp)
+		}
+
+		var completion ChatCompletion
+
+		if err := json.NewDecoder(resp.Body).Decode(&completion); err != nil {
+			return nil, err
+		}
+
+		return &provider.Completion{
+			ID:     id,
+			Reason: provider.CompletionReasonStop
