@@ -97,4 +97,11 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 	} else {
 		defer close(options.Stream)
 
-		req, _ := http.NewRequestWithCont
+		req, _ := http.NewRequestWithContext(ctx, "POST", url, jsonReader(body))
+		req.Header.Set("Authorization", "Bearer "+c.token)
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Accept", "application/x-ndjson")
+
+		resp, err := c.client.Do(req)
+
+		if err != nil
