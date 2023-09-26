@@ -87,4 +87,14 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 		return &provider.Completion{
 			ID:     id,
-			Reason: provider.CompletionReasonStop
+			Reason: provider.CompletionReasonStop,
+
+			Message: provider.Message{
+				Role:    provider.MessageRole(completion.Choices[0].Message.Role),
+				Content: completion.Choices[0].Message.Content,
+			},
+		}, nil
+	} else {
+		defer close(options.Stream)
+
+		req, _ := http.NewRequestWithCont
