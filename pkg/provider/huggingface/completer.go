@@ -118,4 +118,23 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 		var resultText strings.Builder
 		var resultRole provider.MessageRole
-		var resultReason provid
+		var resultReason provider.CompletionReason
+
+		for i := 0; ; i++ {
+			data, err := reader.ReadBytes('\n')
+
+			if err != nil {
+				if errors.Is(err, io.EOF) {
+					break
+				}
+
+				return nil, err
+			}
+
+			data = bytes.TrimSpace(data)
+
+			if bytes.HasPrefix(data, []byte("event:")) {
+				continue
+			}
+
+			
