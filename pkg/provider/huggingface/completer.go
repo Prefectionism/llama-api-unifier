@@ -137,4 +137,14 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				continue
 			}
 
-			
+			data = bytes.TrimPrefix(data, []byte("data:"))
+			data = bytes.TrimSpace(data)
+
+			if len(data) == 0 {
+				continue
+			}
+
+			var completion ChatCompletion
+
+			if err := json.Unmarshal([]byte(data), &completion); err != nil {
+				return 
