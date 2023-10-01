@@ -155,4 +155,16 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 			content = strings.ReplaceAll(content, "</s>", "")
 
 			if i == 0 {
-				content = strings.TrimLeftFunc(content, unico
+				content = strings.TrimLeftFunc(content, unicode.IsSpace)
+			}
+
+			resultText.WriteString(content)
+
+			resultRole = provider.MessageRoleAssistant
+			resultReason = toCompletionReason(completion)
+
+			options.Stream <- provider.Completion{
+				ID:     id,
+				Reason: resultReason,
+
+				Message: provider.Mes
