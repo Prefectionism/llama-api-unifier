@@ -147,4 +147,12 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 			var completion ChatCompletion
 
 			if err := json.Unmarshal([]byte(data), &completion); err != nil {
-				return 
+				return nil, err
+			}
+
+			var content = completion.Choices[0].Delta.Content
+			content = strings.ReplaceAll(content, "<s>", "")
+			content = strings.ReplaceAll(content, "</s>", "")
+
+			if i == 0 {
+				content = strings.TrimLeftFunc(content, unico
