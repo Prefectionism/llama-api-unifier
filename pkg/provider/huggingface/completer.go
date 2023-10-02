@@ -167,4 +167,20 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				ID:     id,
 				Reason: resultReason,
 
-				Message: provider.Mes
+				Message: provider.Message{
+					Role:    resultRole,
+					Content: content,
+				},
+			}
+		}
+
+		return &provider.Completion{
+			ID:     id,
+			Reason: resultReason,
+
+			Message: provider.Message{
+				Role:    resultRole,
+				Content: resultText.String(),
+			},
+		}, nil
+	
