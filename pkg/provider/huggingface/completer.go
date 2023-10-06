@@ -183,4 +183,14 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				Content: resultText.String(),
 			},
 		}, nil
-	
+	}
+}
+
+func convertChatRequest(model string, messages []provider.Message, options *provider.CompleteOptions) (*ChatCompletionRequest, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	stream := options.Stream != nil
+
+	req := &Ch
