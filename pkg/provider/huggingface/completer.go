@@ -193,4 +193,16 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 
 	stream := options.Stream != nil
 
-	req := &Ch
+	req := &ChatCompletionRequest{
+		Model: model,
+
+		Stop:   options.Stop,
+		Stream: stream,
+
+		MaxTokens:   options.MaxTokens,
+		Temperature: options.Temperature,
+	}
+
+	for _, m := range messages {
+		message := ChatCompletionMessage{
+			Role:    MessageRol
