@@ -205,4 +205,19 @@ func convertChatRequest(model string, messages []provider.Message, options *prov
 
 	for _, m := range messages {
 		message := ChatCompletionMessage{
-			Role:    MessageRol
+			Role:    MessageRole(m.Role),
+			Content: m.Content,
+		}
+
+		req.Messages = append(req.Messages, message)
+	}
+
+	return req, nil
+}
+
+func toCompletionReason(completion ChatCompletion) provider.CompletionReason {
+	if len(completion.Choices) == 0 {
+		return ""
+	}
+
+	var choice = com
