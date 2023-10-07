@@ -220,4 +220,18 @@ func toCompletionReason(completion ChatCompletion) provider.CompletionReason {
 		return ""
 	}
 
-	var choice = com
+	var choice = completion.Choices[0]
+
+	if choice.FinishReason == nil {
+		return ""
+	}
+
+	switch *choice.FinishReason {
+	case CompletionReasonEOS:
+		return provider.CompletionReasonStop
+
+	case CompletionReasonStop:
+		return provider.CompletionReasonStop
+
+	case CompletionReasonLength:
+		return provider.Complet
