@@ -234,4 +234,20 @@ func toCompletionReason(completion ChatCompletion) provider.CompletionReason {
 		return provider.CompletionReasonStop
 
 	case CompletionReasonLength:
-		return provider.Complet
+		return provider.CompletionReasonLength
+	}
+
+	return ""
+}
+
+type MessageRole string
+
+var (
+	MessageRoleSystem    MessageRole = "system"
+	MessageRoleUser      MessageRole = "user"
+	MessageRoleAssistant MessageRole = "assistant"
+)
+
+type CompletionReason string
+
+var (
