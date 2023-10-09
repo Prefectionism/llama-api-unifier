@@ -251,3 +251,12 @@ var (
 type CompletionReason string
 
 var (
+	CompletionReasonStop   CompletionReason = "stop"
+	CompletionReasonLength CompletionReason = "length"
+	CompletionReasonEOS    CompletionReason = "eos_token"
+)
+
+type ChatCompletionRequest struct {
+	Model string `json:"model"`
+
+	Messages []ChatCompletionMessage `json:
