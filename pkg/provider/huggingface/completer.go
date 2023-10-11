@@ -269,4 +269,17 @@ type ChatCompletionRequest struct {
 }
 
 type ChatCompletion struct {
-	Object string `json:"
+	Object string `json:"object"`
+
+	ID string `json:"id"`
+
+	Model   string `json:"model"`
+	Created int64  `json:"created"`
+
+	Choices []ChatCompletionChoice `json:"choices"`
+}
+
+type ChatCompletionChoice struct {
+	Index int `json:"index"`
+
+	Delta   *ChatCompletionMe
