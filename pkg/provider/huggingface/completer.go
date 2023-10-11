@@ -259,4 +259,14 @@ var (
 type ChatCompletionRequest struct {
 	Model string `json:"model"`
 
-	Messages []ChatCompletionMessage `json:
+	Messages []ChatCompletionMessage `json:"messages"`
+
+	Stop   []string `json:"stop,omitempty"`
+	Stream bool     `json:"stream,omitempty"`
+
+	MaxTokens   *int     `json:"max_tokens,omitempty"`
+	Temperature *float32 `json:"temperature,omitempty"`
+}
+
+type ChatCompletion struct {
+	Object string `json:"
