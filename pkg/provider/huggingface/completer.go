@@ -282,4 +282,13 @@ type ChatCompletion struct {
 type ChatCompletionChoice struct {
 	Index int `json:"index"`
 
-	Delta   *ChatCompletionMe
+	Delta   *ChatCompletionMessage `json:"delta,omitempty"`
+	Message *ChatCompletionMessage `json:"message,omitempty"`
+
+	FinishReason *CompletionReason `json:"finish_reason"`
+}
+
+type ChatCompletionMessage struct {
+	Role MessageRole `json:"role,omitempty"`
+
+	Content string `json:"con
