@@ -291,4 +291,10 @@ type ChatCompletionChoice struct {
 type ChatCompletionMessage struct {
 	Role MessageRole `json:"role,omitempty"`
 
-	Content string `json:"con
+	Content string `json:"content"`
+}
+
+type ChatCompletionContent struct {
+	Type string `json:"type,omitempty"`
+	Text string `json:"text,omitempty"`
+}
