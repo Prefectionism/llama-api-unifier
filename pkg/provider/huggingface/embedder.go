@@ -34,4 +34,18 @@ func NewEmbedder(url string, options ...Option) (*Embedder, error) {
 		client: http.DefaultClient,
 	}
 
-	for _, option := range opt
+	for _, option := range options {
+		option(cfg)
+	}
+
+	return &Embedder{
+		Config: cfg,
+	}, nil
+}
+
+func (e *Embedder) Embed(ctx context.Context, content string) (provider.Embeddings, error) {
+	body := map[string]any{
+		"inputs": strings.TrimSpace(content),
+	}
+
+	req, 
