@@ -18,4 +18,20 @@ type Embedder struct {
 }
 
 func NewEmbedder(url string, options ...Option) (*Embedder, error) {
-	if url 
+	if url == "" {
+		return nil, errors.New("invalid url")
+	}
+
+	url = strings.TrimRight(url, "/")
+	url = strings.TrimSuffix(url, "/v1")
+
+	cfg := &Config{
+		url: url,
+
+		token: "-",
+		model: "tei",
+
+		client: http.DefaultClient,
+	}
+
+	for _, option := range opt
