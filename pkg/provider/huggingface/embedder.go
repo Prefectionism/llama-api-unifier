@@ -58,4 +58,19 @@ func (e *Embedder) Embed(ctx context.Context, content string) (provider.Embeddin
 		return nil, err
 	}
 
-	defer 
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	data, err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var result1 []float32
+
+	if err := json.Unmarshal(data, &result1); err == nil {
+		re
