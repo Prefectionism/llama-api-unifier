@@ -48,4 +48,14 @@ func (e *Embedder) Embed(ctx context.Context, content string) (provider.Embeddin
 		"inputs": strings.TrimSpace(content),
 	}
 
-	req, 
+	req, _ := http.NewRequestWithContext(ctx, "POST", e.url, jsonReader(body))
+	req.Header.Set("Authorization", "Bearer "+e.token)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := e.client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer 
