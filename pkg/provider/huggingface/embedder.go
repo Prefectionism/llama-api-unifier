@@ -73,4 +73,14 @@ func (e *Embedder) Embed(ctx context.Context, content string) (provider.Embeddin
 	var result1 []float32
 
 	if err := json.Unmarshal(data, &result1); err == nil {
-		re
+		return result1, nil
+	}
+
+	var result2 [][]float32
+
+	if err := json.Unmarshal(data, &result2); err == nil && len(result2) > 0 {
+		return result2[0], nil
+	}
+
+	return nil, errors.New("unable to embed input")
+}
