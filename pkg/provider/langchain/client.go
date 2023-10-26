@@ -31,4 +31,5 @@ func convertError(resp *http.Response) error {
 		return errors.New(http.StatusText(resp.StatusCode))
 	}
 
-	return errors.New(st
+	return errors.New(string(data))
+}
