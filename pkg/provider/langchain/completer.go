@@ -244,3 +244,18 @@ func toRole(role provider.MessageRole) MessageType {
 	default:
 		return ""
 	}
+}
+
+func toMessageRole(run RunData) provider.MessageRole {
+	return provider.MessageRoleAssistant
+}
+
+func jsonReader(v any) io.Reader {
+	b := new(bytes.Buffer)
+
+	enc := json.NewEncoder(b)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+	return b
+}
