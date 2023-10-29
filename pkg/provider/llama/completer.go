@@ -20,3 +20,12 @@ func NewCompleter(url string, options ...Option) (*Completer, error) {
 	c := &Config{
 		options: []openai.Option{
 			openai.WithURL(url + "/v1"),
+		},
+	}
+
+	for _, option := range options {
+		option(c)
+	}
+
+	return openai.NewCompleter(c.options...)
+}
