@@ -10,4 +10,14 @@ type Config struct {
 	options []openai.Option
 }
 
-typ
+type Option func(*Config)
+
+func WithClient(client *http.Client) Option {
+	return func(c *Config) {
+		c.options = append(c.options, openai.WithClient(client))
+	}
+}
+
+func WithModel(model string) Option {
+	return func(c *Config) {
+		c.options = append(c.
