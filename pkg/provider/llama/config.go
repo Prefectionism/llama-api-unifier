@@ -20,4 +20,6 @@ func WithClient(client *http.Client) Option {
 
 func WithModel(model string) Option {
 	return func(c *Config) {
-		c.options = append(c.
+		c.options = append(c.options, openai.WithModel(model))
+	}
+}
