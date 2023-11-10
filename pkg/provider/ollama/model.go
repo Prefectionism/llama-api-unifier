@@ -31,4 +31,19 @@ func (c *Config) ensureModel() error {
 
 func (c *Config) pullModel() error {
 	body := PullRequest{
-		
+		Name:   c.model,
+		Stream: true,
+	}
+
+	u, _ := url.JoinPath(c.url, "/api/pull")
+	resp, err := c.client.Post(u, "application/json", jsonReader(body))
+
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return convertError(resp)
+	}
