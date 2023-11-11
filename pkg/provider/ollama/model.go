@@ -47,3 +47,20 @@ func (c *Config) pullModel() error {
 	if resp.StatusCode != http.StatusOK {
 		return convertError(resp)
 	}
+
+	reader := bufio.NewReader(resp.Body)
+
+	slog.Info("downloading model...", "model", c.model)
+
+	for i := 0; ; i++ {
+		data, err := reader.ReadBytes('\n')
+
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			return err
+		}
+
+		if len
