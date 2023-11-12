@@ -63,4 +63,21 @@ func (c *Config) pullModel() error {
 			return err
 		}
 
-		if len
+		if len(data) == 0 {
+			continue
+		}
+
+		var pull PullResponse
+
+		if err := json.Unmarshal([]byte(data), &pull); err != nil {
+			return err
+		}
+	}
+
+	slog.Info("downloaded model", "model", c.model)
+
+	return nil
+}
+
+type ModelRequest struct {
+	Nam
