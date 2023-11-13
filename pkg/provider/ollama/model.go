@@ -80,4 +80,14 @@ func (c *Config) pullModel() error {
 }
 
 type ModelRequest struct {
-	Nam
+	Name string `json:"name"`
+}
+
+type PullRequest struct {
+	Name   string `json:"name"`
+	Stream bool   `json:"stream"`
+}
+
+type PullResponse struct {
+	Status string `json:"status"`
+}
