@@ -34,4 +34,9 @@ func NewCompleter(options ...Option) (*Completer, error) {
 	}, nil
 }
 
-f
+func (c *Completer) Complete(ctx context.Context, messages []provider.Message, options *provider.CompleteOptions) (*provider.Completion, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	req, err := convertCompletionRequest(c.mod
