@@ -39,4 +39,20 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 		options = new(provider.CompleteOptions)
 	}
 
-	req, err := convertCompletionRequest(c.mod
+	req, err := convertCompletionRequest(c.model, messages, options)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if options.Stream == nil {
+		completion, err := c.client.CreateChatCompletion(ctx, *req)
+
+		if err != nil {
+			convertError(err)
+		}
+
+		choice := completion.Choices[0]
+
+		return &provider.Completion{
+			ID:    
