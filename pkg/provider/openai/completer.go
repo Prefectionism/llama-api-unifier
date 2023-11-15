@@ -55,4 +55,11 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 		choice := completion.Choices[0]
 
 		return &provider.Completion{
-			ID:    
+			ID:     completion.ID,
+			Reason: toCompletionResult(choice.FinishReason),
+
+			Message: provider.Message{
+				Role:    toMessageRole(choice.Message.Role),
+				Content: choice.Message.Content,
+
+				FunctionCalls: toFunctionCalls(choice.Message.ToolCalls),
