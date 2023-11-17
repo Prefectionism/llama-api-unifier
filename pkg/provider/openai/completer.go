@@ -63,3 +63,17 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				Content: choice.Message.Content,
 
 				FunctionCalls: toFunctionCalls(choice.Message.ToolCalls),
+			},
+		}, nil
+	} else {
+		defer close(options.Stream)
+
+		stream, err := c.client.CreateChatCompletionStream(ctx, *req)
+
+		if err != nil {
+			convertError(err)
+		}
+
+		result := provider.Completion{
+			Message: provider.Message{
+				Role:
