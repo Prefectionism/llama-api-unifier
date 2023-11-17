@@ -76,4 +76,21 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 
 		result := provider.Completion{
 			Message: provider.Message{
-				Role:
+				Role: provider.MessageRoleAssistant,
+			},
+		}
+
+		for {
+			completion, err := stream.Recv()
+
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			if err != nil {
+				return nil, err
+			}
+
+			choice := completion.Choices[0]
+
+			role := toMessageRole(choice.Del
