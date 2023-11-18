@@ -103,4 +103,12 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 			result.Reason = toCompletionResult(choice.FinishReason)
 
 			result.Message.Role = role
-			result.Message.Content += choice.D
+			result.Message.Content += choice.Delta.Content
+			result.Message.FunctionCalls = toFunctionCalls(choice.Delta.ToolCalls)
+
+			options.Stream <- provider.Completion{
+				ID:     result.ID,
+				Reason: result.Reason,
+
+				Message: provider.Message{
+					Rol
