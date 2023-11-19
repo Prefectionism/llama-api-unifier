@@ -111,4 +111,20 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 				Reason: result.Reason,
 
 				Message: provider.Message{
-					Rol
+					Role:    role,
+					Content: choice.Delta.Content,
+
+					FunctionCalls: toFunctionCalls(choice.Delta.ToolCalls),
+				},
+			}
+
+			if choice.FinishReason != "" {
+				break
+			}
+		}
+
+		return &result, nil
+	}
+}
+
+func convertCompletionReque
