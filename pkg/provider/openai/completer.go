@@ -127,4 +127,10 @@ func (c *Completer) Complete(ctx context.Context, messages []provider.Message, o
 	}
 }
 
-func convertCompletionReque
+func convertCompletionRequest(model string, messages []provider.Message, options *provider.CompleteOptions) (*openai.ChatCompletionRequest, error) {
+	if options == nil {
+		options = new(provider.CompleteOptions)
+	}
+
+	req := &openai.ChatCompletionRequest{
+		Model: model,
