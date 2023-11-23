@@ -134,3 +134,12 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 
 	req := &openai.ChatCompletionRequest{
 		Model: model,
+	}
+
+	if options.Format == provider.CompletionFormatJSON {
+		req.ResponseFormat = &openai.ChatCompletionResponseFormat{
+			Type: openai.ChatCompletionResponseFormatTypeJSONObject,
+		}
+	}
+
+	if model == "gpt-4-vision-preview" || model == "gpt-4-1106-v
