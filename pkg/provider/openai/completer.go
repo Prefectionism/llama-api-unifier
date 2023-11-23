@@ -142,4 +142,18 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 		}
 	}
 
-	if model == "gpt-4-vision-preview" || model == "gpt-4-1106-v
+	if model == "gpt-4-vision-preview" || model == "gpt-4-1106-vision-preview" {
+		req.MaxTokens = 4096
+	}
+
+	if options.Stop != nil {
+		req.Stop = options.Stop
+	}
+
+	for _, f := range options.Functions {
+		tool := openai.Tool{
+			Type: openai.ToolTypeFunction,
+
+			Function: &openai.FunctionDefinition{
+				Name:       f.Name,
+				
