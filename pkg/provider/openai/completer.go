@@ -156,4 +156,21 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 
 			Function: &openai.FunctionDefinition{
 				Name:       f.Name,
-				
+				Parameters: f.Parameters,
+
+				Description: f.Description,
+			},
+		}
+
+		req.Tools = append(req.Tools, tool)
+	}
+
+	if options.MaxTokens != nil {
+		req.MaxTokens = *options.MaxTokens
+	}
+
+	if options.Temperature != nil {
+		req.Temperature = *options.Temperature
+	}
+
+	for _, m :
