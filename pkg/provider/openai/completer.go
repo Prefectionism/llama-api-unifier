@@ -173,4 +173,15 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 		req.Temperature = *options.Temperature
 	}
 
-	for _, m :
+	for _, m := range messages {
+		message := openai.ChatCompletionMessage{
+			Role:    convertMessageRole(m.Role),
+			Content: m.Content,
+
+			ToolCallID: m.Function,
+		}
+
+		if len(m.Files) > 0 {
+			message.Content = ""
+
+			message.MultiContent
