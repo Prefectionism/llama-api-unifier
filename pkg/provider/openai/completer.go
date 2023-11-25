@@ -184,4 +184,15 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 		if len(m.Files) > 0 {
 			message.Content = ""
 
-			message.MultiContent
+			message.MultiContent = []openai.ChatMessagePart{
+				{
+					Type: openai.ChatMessagePartTypeText,
+					Text: m.Content,
+				},
+			}
+
+			for _, f := range m.Files {
+				data, err := io.ReadAll(f.Content)
+
+				if err != nil {
+					return nil, err
