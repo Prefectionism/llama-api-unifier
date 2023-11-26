@@ -196,3 +196,11 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 
 				if err != nil {
 					return nil, err
+				}
+
+				mime := http.DetectContentType(data)
+				content := base64.StdEncoding.EncodeToString(data)
+
+				message.MultiContent = append(message.MultiContent, openai.ChatMessagePart{
+					Type: openai.ChatMessagePartTypeImageURL,
+				
