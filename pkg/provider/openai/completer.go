@@ -203,4 +203,16 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 
 				message.MultiContent = append(message.MultiContent, openai.ChatMessagePart{
 					Type: openai.ChatMessagePartTypeImageURL,
-				
+					ImageURL: &openai.ChatMessageImageURL{
+						URL: "data:" + mime + ";base64," + content,
+					},
+				})
+			}
+		}
+
+		for _, f := range m.FunctionCalls {
+			call := openai.ToolCall{
+				ID:   f.ID,
+				Type: openai.ToolTypeFunction,
+
+				Function
