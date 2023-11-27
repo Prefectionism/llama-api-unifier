@@ -230,4 +230,14 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 	return req, nil
 }
 
-func convertMessageRole(r prov
+func convertMessageRole(r provider.MessageRole) string {
+	switch r {
+
+	case provider.MessageRoleSystem:
+		return openai.ChatMessageRoleSystem
+
+	case provider.MessageRoleUser:
+		return openai.ChatMessageRoleUser
+
+	case provider.MessageRoleAssistant:
+		return openai.ChatMessageRole
