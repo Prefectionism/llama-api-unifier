@@ -215,4 +215,19 @@ func convertCompletionRequest(model string, messages []provider.Message, options
 				ID:   f.ID,
 				Type: openai.ToolTypeFunction,
 
-				Function
+				Function: openai.FunctionCall{
+					Name:      f.Name,
+					Arguments: f.Arguments,
+				},
+			}
+
+			message.ToolCalls = append(message.ToolCalls, call)
+		}
+
+		req.Messages = append(req.Messages, message)
+	}
+
+	return req, nil
+}
+
+func convertMessageRole(r prov
