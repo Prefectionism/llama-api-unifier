@@ -240,4 +240,18 @@ func convertMessageRole(r provider.MessageRole) string {
 		return openai.ChatMessageRoleUser
 
 	case provider.MessageRoleAssistant:
-		return openai.ChatMessageRole
+		return openai.ChatMessageRoleAssistant
+
+	case provider.MessageRoleFunction:
+		return openai.ChatMessageRoleTool
+
+	default:
+		return ""
+	}
+}
+
+func toMessageRole(role string) provider.MessageRole {
+	switch role {
+
+	case openai.ChatMessageRoleSystem:
+		return provider.M
