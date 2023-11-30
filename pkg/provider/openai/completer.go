@@ -254,4 +254,15 @@ func toMessageRole(role string) provider.MessageRole {
 	switch role {
 
 	case openai.ChatMessageRoleSystem:
-		return provider.M
+		return provider.MessageRoleSystem
+
+	case openai.ChatMessageRoleUser:
+		return provider.MessageRoleUser
+
+	case openai.ChatMessageRoleAssistant:
+		return provider.MessageRoleAssistant
+
+	case openai.ChatMessageRoleTool:
+		return provider.MessageRoleFunction
+
+	
