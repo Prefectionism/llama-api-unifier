@@ -265,4 +265,14 @@ func toMessageRole(role string) provider.MessageRole {
 	case openai.ChatMessageRoleTool:
 		return provider.MessageRoleFunction
 
-	
+	default:
+		return ""
+	}
+}
+
+func toFunctionCalls(calls []openai.ToolCall) []provider.FunctionCall {
+	var result []provider.FunctionCall
+
+	for _, c := range calls {
+		if c.Type == openai.ToolTypeFunction {
+			result = append(result, provider.
