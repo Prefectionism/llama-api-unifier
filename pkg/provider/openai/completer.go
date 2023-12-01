@@ -275,4 +275,18 @@ func toFunctionCalls(calls []openai.ToolCall) []provider.FunctionCall {
 
 	for _, c := range calls {
 		if c.Type == openai.ToolTypeFunction {
-			result = append(result, provider.
+			result = append(result, provider.FunctionCall{
+				ID: c.ID,
+
+				Name:      c.Function.Name,
+				Arguments: c.Function.Arguments,
+			})
+		}
+	}
+
+	return result
+}
+
+func toCompletionResult(val openai.FinishReason) provider.CompletionReason {
+	switch val {
+	case openai.Fi
