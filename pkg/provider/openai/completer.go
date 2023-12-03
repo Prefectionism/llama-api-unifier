@@ -289,4 +289,13 @@ func toFunctionCalls(calls []openai.ToolCall) []provider.FunctionCall {
 
 func toCompletionResult(val openai.FinishReason) provider.CompletionReason {
 	switch val {
-	case openai.Fi
+	case openai.FinishReasonStop:
+		return provider.CompletionReasonStop
+
+	case openai.FinishReasonLength:
+		return provider.CompletionReasonLength
+
+	case openai.FinishReasonToolCalls:
+		return provider.CompletionReasonFunction
+
+	default:
