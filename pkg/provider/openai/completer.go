@@ -299,3 +299,6 @@ func toCompletionResult(val openai.FinishReason) provider.CompletionReason {
 		return provider.CompletionReasonFunction
 
 	default:
+		return ""
+	}
+}
