@@ -37,4 +37,20 @@ func WithToken(token string) Option {
 }
 
 func WithModel(model string) Option {
-	return func(c 
+	return func(c *Config) {
+		c.model = model
+	}
+}
+
+func (c *Config) newClient() *openai.Client {
+	config := openai.DefaultConfig(c.token)
+
+	if c.url != "" {
+		config.BaseURL = c.url
+	}
+
+	if c.client != nil {
+		config.HTTPClient = c.client
+	}
+
+	i
