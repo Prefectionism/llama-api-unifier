@@ -36,4 +36,13 @@ func NewRenderer(options ...Option) (*Renderer, error) {
 	}, nil
 }
 
-func (r *R
+func (r *Renderer) Render(ctx context.Context, input string, options *provider.RenderOptions) (*provider.Image, error) {
+	if options == nil {
+		options = new(provider.RenderOptions)
+	}
+
+	req := openai.ImageRequest{
+		Prompt: input,
+		Model:  r.model,
+
+		Res
