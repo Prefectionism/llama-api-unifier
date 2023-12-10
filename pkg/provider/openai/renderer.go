@@ -58,4 +58,16 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 		return nil, errors.New("unable to render image")
 	}
 
-	data, err := base64.StdEnc
+	data, err := base64.StdEncoding.DecodeString(result.Data[0].B64JSON)
+
+	if err != nil {
+		return nil, errors.New("invalid image data")
+	}
+
+	name := strings.ReplaceAll(uuid.NewString(), "-", "") + ".png"
+
+	return &provider.Image{
+		Name:    name,
+		Content: io.NopCloser(bytes.NewReader(data)),
+	}, nil
+}
