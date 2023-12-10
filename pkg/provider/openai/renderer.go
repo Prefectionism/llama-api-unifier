@@ -45,4 +45,17 @@ func (r *Renderer) Render(ctx context.Context, input string, options *provider.R
 		Prompt: input,
 		Model:  r.model,
 
-		Res
+		ResponseFormat: openai.CreateImageResponseFormatB64JSON,
+	}
+
+	result, err := r.client.CreateImage(ctx, req)
+
+	if err != nil {
+		convertError(err)
+	}
+
+	if len(result.Data) == 0 {
+		return nil, errors.New("unable to render image")
+	}
+
+	data, err := base64.StdEnc
