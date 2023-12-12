@@ -31,4 +31,11 @@ func NewSynthesizer(options ...Option) (*Synthesizer, error) {
 	}, nil
 }
 
-f
+func (s *Synthesizer) Synthesize(ctx context.Context, content string, options *provider.SynthesizeOptions) (*provider.Synthesis, error) {
+	req := openai.CreateSpeechRequest{
+		Input: content,
+
+		Model: openai.SpeechModel(s.model),
+		Voice: openai.VoiceAlloy,
+
+		ResponseFormat: openai.SpeechRespo
