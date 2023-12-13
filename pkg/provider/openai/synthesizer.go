@@ -38,4 +38,21 @@ func (s *Synthesizer) Synthesize(ctx context.Context, content string, options *p
 		Model: openai.SpeechModel(s.model),
 		Voice: openai.VoiceAlloy,
 
-		ResponseFormat: openai.SpeechRespo
+		ResponseFormat: openai.SpeechResponseFormatWav,
+	}
+
+	result, err := s.client.CreateSpeech(ctx, req)
+
+	if err != nil {
+		convertError(err)
+	}
+
+	id := uuid.New().String()
+
+	return &provider.Synthesis{
+		ID: id,
+
+		Name:    id + ".wav",
+		Content: result,
+	}, nil
+}
