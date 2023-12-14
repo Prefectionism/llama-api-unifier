@@ -16,4 +16,19 @@ type Transcriber struct {
 	client *openai.Client
 }
 
-func NewTr
+func NewTranscriber(options ...Option) (*Transcriber, error) {
+	cfg := &Config{
+		model: openai.Whisper1,
+	}
+
+	for _, option := range options {
+		option(cfg)
+	}
+
+	return &Transcriber{
+		Config: cfg,
+		client: cfg.newClient(),
+	}, nil
+}
+
+func (c 
