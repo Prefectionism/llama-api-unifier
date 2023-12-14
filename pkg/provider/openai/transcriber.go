@@ -31,4 +31,11 @@ func NewTranscriber(options ...Option) (*Transcriber, error) {
 	}, nil
 }
 
-func (c 
+func (c *Transcriber) Transcribe(ctx context.Context, input provider.File, options *provider.TranscribeOptions) (*provider.Transcription, error) {
+	if options == nil {
+		options = new(provider.TranscribeOptions)
+	}
+
+	id := uuid.NewString()
+
+	req := openai.Audi
