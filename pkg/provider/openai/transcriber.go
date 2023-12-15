@@ -38,4 +38,19 @@ func (c *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 
 	id := uuid.NewString()
 
-	req := openai.Audi
+	req := openai.AudioRequest{
+		Model: c.model,
+
+		Language: options.Language,
+
+		Reader:   input.Content,
+		FilePath: input.Name,
+	}
+
+	transcription, err := c.client.CreateTranscription(ctx, req)
+
+	if err != nil {
+		convertError(err)
+	}
+
+	result := provider.
