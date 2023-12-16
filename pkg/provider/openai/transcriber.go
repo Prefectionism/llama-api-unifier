@@ -53,4 +53,11 @@ func (c *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 		convertError(err)
 	}
 
-	result := provider.
+	result := provider.Transcription{
+		ID: id,
+
+		Content: transcription.Text,
+	}
+
+	return &result, nil
+}
