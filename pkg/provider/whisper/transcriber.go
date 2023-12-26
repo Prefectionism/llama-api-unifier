@@ -18,3 +18,17 @@ import (
 var (
 	_ provider.Transcriber = (*Transcriber)(nil)
 )
+
+type Transcriber struct {
+	*Config
+}
+
+func NewTranscriber(url string, options ...Option) (*Transcriber, error) {
+	if url == "" {
+		return nil, errors.New("invalid url")
+	}
+
+	cfg := &Config{
+		url: url,
+
+		client: http
