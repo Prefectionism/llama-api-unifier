@@ -43,4 +43,18 @@ func NewTranscriber(url string, options ...Option) (*Transcriber, error) {
 	}, nil
 }
 
-func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, options *provider.TranscribeOptions) (*provider.Transcrip
+func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, options *provider.TranscribeOptions) (*provider.Transcription, error) {
+	if options == nil {
+		options = new(provider.TranscribeOptions)
+	}
+
+	id := uuid.NewString()
+
+	url, _ := url.JoinPath(t.url, "/inference")
+
+	if options.Language == "" {
+		options.Language = "auto"
+	}
+
+	var body bytes.Buffer
+	w := multipart.New
