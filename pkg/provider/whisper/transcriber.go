@@ -31,4 +31,16 @@ func NewTranscriber(url string, options ...Option) (*Transcriber, error) {
 	cfg := &Config{
 		url: url,
 
-		client: http
+		client: http.DefaultClient,
+	}
+
+	for _, option := range options {
+		option(cfg)
+	}
+
+	return &Transcriber{
+		Config: cfg,
+	}, nil
+}
+
+func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, options *provider.TranscribeOptions) (*provider.Transcrip
