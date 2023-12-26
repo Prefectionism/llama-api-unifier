@@ -57,4 +57,15 @@ func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 	}
 
 	var body bytes.Buffer
-	w := multipart.New
+	w := multipart.NewWriter(&body)
+	w.WriteField("id", id)
+	w.WriteField("language", options.Language)
+	w.WriteField("response_format", "verbose_json")
+
+	file, err := w.CreateFormFile("file", input.Name)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if _, err := io.Copy(file
