@@ -68,4 +68,16 @@ func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 		return nil, err
 	}
 
-	if _, err := io.Copy(file
+	if _, err := io.Copy(file, input.Content); err != nil {
+		return nil, err
+	}
+
+	w.Close()
+
+	req, _ := http.NewRequestWithContext(ctx, "POST", url, &body)
+	req.Header.Set("Content-Type", w.FormDataContentType())
+
+	resp, err := t.client.Do(req)
+
+	if err != nil {
+		ret
