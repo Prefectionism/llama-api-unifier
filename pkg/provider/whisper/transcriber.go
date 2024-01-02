@@ -80,4 +80,19 @@ func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 	resp, err := t.client.Do(req)
 
 	if err != nil {
-		ret
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, convertError(resp)
+	}
+
+	var inference InferenceResponse
+
+	if err := json.NewDecoder(resp.Body).Decode(&inference); err != nil {
+		return nil, err
+	}
+
+	content
