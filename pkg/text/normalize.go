@@ -10,4 +10,7 @@ func Normalize(text string) string {
 	text = regexp.MustCompile(`\n\s*\n\s*`).ReplaceAllString(text, "\a\a")
 	text = regexp.MustCompile(`\n\s*`).ReplaceAllString(text, "\a")
 	text = strings.Join(strings.Fields(text), " ")
-	tex
+	text = strings.ReplaceAll(text, "\a", "\n")
+
+	return text
+}
