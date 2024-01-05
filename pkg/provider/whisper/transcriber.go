@@ -112,3 +112,12 @@ func (t *Transcriber) Transcribe(ctx context.Context, input provider.File, optio
 
 	return &result, nil
 }
+
+type InferenceResponse struct {
+	Task string `json:"task"`
+
+	Language string  `json:"language"`
+	Duration float64 `json:"duration"`
+
+	Text string `json:"text"`
+}
