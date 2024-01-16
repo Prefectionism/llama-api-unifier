@@ -6,4 +6,23 @@ package tool;
 
 service Tool {
   rpc Info (InfoRequest) returns (Definition) {}
-  rpc Execute (ExecuteRequest) returns (Result
+  rpc Execute (ExecuteRequest) returns (Result) {}
+}
+
+message InfoRequest {
+}
+
+message Definition {
+  string name = 1;
+  string description = 2;
+
+  string schema = 3;
+}
+
+message ExecuteRequest {
+  string parameter = 1;
+}
+
+message Result {
+  string content = 1;
+}
