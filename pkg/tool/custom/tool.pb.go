@@ -319,3 +319,34 @@ func file_tool_proto_init() {
 			}
 		}
 		file_tool_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Result); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
+	type x struct{}
+	out := protoimpl.TypeBuilder{
+		File: protoimpl.DescBuilder{
+			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
+			RawDescriptor: file_tool_proto_rawDesc,
+			NumEnums:      0,
+			NumMessages:   4,
+			NumExtensions: 0,
+			NumServices:   1,
+		},
+		GoTypes:           file_tool_proto_goTypes,
+		DependencyIndexes: file_tool_proto_depIdxs,
+		MessageInfos:      file_tool_proto_msgTypes,
+	}.Build()
+	File_tool_proto = out.File
+	file_tool_proto_rawDesc = nil
+	file_tool_proto_goTypes = nil
+	file_tool_proto_depIdxs = nil
+}

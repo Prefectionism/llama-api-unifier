@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option go_package = "github.com/adrianliechti/llama/pkg/tool/custom;custom";
+
+package tool;
+
+service Tool {
+  rpc Info (InfoRequest) returns (Definition) {}
+  rpc Execute (ExecuteRequest) returns (Result
