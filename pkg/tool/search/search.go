@@ -20,4 +20,21 @@ type Tool struct {
 
 func New(index index.Provider) (*Tool, error) {
 	t := &Tool{
-		name:    
+		name:        "search_tool",
+		description: "Get information on recent events from the web.",
+
+		index: index,
+	}
+
+	return t, nil
+}
+
+type Option func(*Tool)
+
+func WithName(name string) Option {
+	return func(t *Tool) {
+		t.name = name
+	}
+}
+
+func With
