@@ -51,4 +51,11 @@ func (t *Tool) Description() string {
 	return t.description
 }
 
-func (*Tool) Parameters() jsonschema.Defin
+func (*Tool) Parameters() jsonschema.Definition {
+	return jsonschema.Definition{
+		Type: jsonschema.DataTypeObject,
+
+		Properties: map[string]jsonschema.Definition{
+			"query": {
+				Type:        jsonschema.DataTypeString,
+				Description: "The search query to use. For example: \"Latest news on N
