@@ -58,4 +58,16 @@ func (*Tool) Parameters() jsonschema.Definition {
 		Properties: map[string]jsonschema.Definition{
 			"query": {
 				Type:        jsonschema.DataTypeString,
-				Description: "The search query to use. For example: \"Latest news on N
+				Description: "The search query to use. For example: \"Latest news on Nvidia stock performance\"",
+			},
+		},
+
+		Required: []string{"query"},
+	}
+}
+
+func (t *Tool) Execute(ctx context.Context, parameters map[string]any) (any, error) {
+	val, ok := parameters["query"]
+
+	if !ok {
+		return ni
