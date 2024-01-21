@@ -37,4 +37,18 @@ func WithName(name string) Option {
 	}
 }
 
-func With
+func WithDescription(description string) Option {
+	return func(t *Tool) {
+		t.description = description
+	}
+}
+
+func (t *Tool) Name() string {
+	return t.name
+}
+
+func (t *Tool) Description() string {
+	return t.description
+}
+
+func (*Tool) Parameters() jsonschema.Defin
