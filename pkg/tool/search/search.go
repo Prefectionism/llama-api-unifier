@@ -70,4 +70,19 @@ func (t *Tool) Execute(ctx context.Context, parameters map[string]any) (any, err
 	val, ok := parameters["query"]
 
 	if !ok {
-		return ni
+		return nil, errors.New("missing query parameter")
+	}
+
+	query, ok := val.(string)
+
+	if !ok {
+		return nil, errors.New("invalid query parameter")
+	}
+
+	documents, err := t.index.Query(ctx, query, nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]Result
