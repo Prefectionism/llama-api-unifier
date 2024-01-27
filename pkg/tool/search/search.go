@@ -85,4 +85,20 @@ func (t *Tool) Execute(ctx context.Context, parameters map[string]any) (any, err
 		return nil, err
 	}
 
-	result := make([]Result
+	result := make([]Result, 0)
+
+	for _, d := range documents {
+		result = append(result, Result{
+			Title:    d.Title,
+			Content:  d.Content,
+			Location: d.Location,
+		})
+	}
+
+	return result, nil
+}
+
+type Result struct {
+	Title    string
+	Content  string
+	Location strin
