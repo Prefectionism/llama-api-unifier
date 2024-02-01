@@ -101,4 +101,5 @@ func (t *Tool) Execute(ctx context.Context, parameters map[string]any) (any, err
 type Result struct {
 	Title    string
 	Content  string
-	Location strin
+	Location string
+}
