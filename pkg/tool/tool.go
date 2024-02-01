@@ -12,4 +12,5 @@ type Tool interface {
 
 	Parameters() jsonschema.Definition
 
-	Execute(ctx context.Context, parameters map[
+	Execute(ctx context.Context, parameters map[string]any) (any, error)
+}
