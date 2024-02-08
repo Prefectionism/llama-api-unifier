@@ -9,4 +9,17 @@ import (
 )
 
 func (s *Server) handleExtract(w http.ResponseWriter, r *http.Request) {
-	e, er
+	e, err := s.Extractor(chi.URLParam(r, "extractor"))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	file := extractor.File{
+		Name:    detectFileName(r),
+		Content: r.Body,
+	}
+
+	if file.Name == "" {
+		http.Error(w, "invalid content type", 
