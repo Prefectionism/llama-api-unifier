@@ -22,4 +22,18 @@ func (s *Server) handleExtract(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if file.Name == "" {
-		http.Error(w, "invalid content type", 
+		http.Error(w, "invalid content type", http.StatusBadRequest)
+		return
+	}
+
+	data, err := e.Extract(r.Context(), file, nil)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var result []Document
+
+	for _, b := range data.Blocks {
+		metadata := map[s
