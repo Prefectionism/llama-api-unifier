@@ -24,3 +24,8 @@ func (s *Server) handleIndexDeletion(w http.ResponseWriter, r *http.Request) {
 
 	if err := i.Delete(r.Context(), ids...); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
