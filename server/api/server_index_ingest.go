@@ -19,4 +19,15 @@ func (s *Server) handleIndexIngest(w http.ResponseWriter, r *http.Request) {
 
 	var request []Document
 
-	if err := 
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var documents []index.Document
+
+	for _, d := range request {
+		document := index.Document{
+			ID: d.ID,
+
+			C
