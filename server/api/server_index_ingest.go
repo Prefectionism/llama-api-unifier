@@ -30,4 +30,17 @@ func (s *Server) handleIndexIngest(w http.ResponseWriter, r *http.Request) {
 		document := index.Document{
 			ID: d.ID,
 
-			C
+			Content:  d.Content,
+			Metadata: d.Metadata,
+		}
+
+		documents = append(documents, document)
+	}
+
+	if err := i.Index(r.Context(), documents...); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
