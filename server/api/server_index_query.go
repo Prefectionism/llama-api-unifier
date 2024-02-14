@@ -35,4 +35,16 @@ func (s *Server) handleIndexQuery(w http.ResponseWriter, r *http.Request) {
 		Distance: query.Distance,
 	}
 
-	result, err := i.Query(r.Context()
+	result, err := i.Query(r.Context(), query.Text, options)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	results := make([]Result, 0)
+
+	for _, r := range result {
+		results = append(results, Result{
+			Document: Document{
+				ID: r.ID,
