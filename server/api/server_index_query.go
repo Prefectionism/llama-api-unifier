@@ -48,3 +48,14 @@ func (s *Server) handleIndexQuery(w http.ResponseWriter, r *http.Request) {
 		results = append(results, Result{
 			Document: Document{
 				ID: r.ID,
+
+				Content:  r.Content,
+				Metadata: r.Metadata,
+			},
+
+			Distance: to.Ptr(r.Distance),
+		})
+	}
+
+	writeJson(w, results)
+}
