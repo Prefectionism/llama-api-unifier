@@ -21,4 +21,18 @@ func (s *Server) handleIndexQuery(w http.ResponseWriter, r *http.Request) {
 	var query Query
 
 	if err := json.NewDecoder(r.Body).Decode(&query); err != nil {
-		http.Error(w, e
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if len(query.Text) == 0 {
+		writeError(w, http.StatusBadRequest, nil)
+		return
+	}
+
+	options := &index.QueryOptions{
+		Limit:    query.Limit,
+		Distance: query.Distance,
+	}
+
+	result, err := i.Query(r.Context()
