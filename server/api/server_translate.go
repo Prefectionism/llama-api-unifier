@@ -31,4 +31,9 @@ func (s *Server) handleTranslate(w http.ResponseWriter, r *http.Request) {
 
 	result := Result{
 		Document: Document{
-			Content: tra
+			Content: translation.Content,
+		},
+	}
+
+	writeJson(w, result)
+}
