@@ -205,3 +205,121 @@ func (m *ChatCompletionMessage) MarshalJSON() ([]byte, error) {
 }
 
 func (m *ChatCompletionMessage) UnmarshalJSON(data []byte) error {
+	type1 := struct {
+		Role MessageRole `json:"role"`
+
+		Content  string `json:"content"`
+		Contents []MessageContent
+
+		ToolCalls  []ToolCall `json:"tool_calls,omitempty"`
+		ToolCallID string     `json:"tool_call_id,omitempty"`
+	}{}
+
+	if err := json.Unmarshal(data, &type1); err == nil {
+		*m = ChatCompletionMessage(type1)
+		return nil
+	}
+
+	type2 := struct {
+		Role MessageRole `json:"role"`
+
+		Content  string
+		Contents []MessageContent `json:"content"`
+
+		ToolCalls  []ToolCall `json:"tool_calls,omitempty"`
+		ToolCallID string     `json:"tool_call_id,omitempty"`
+	}{}
+
+	if err := json.Unmarshal(data, &type2); err == nil {
+		*m = ChatCompletionMessage(type2)
+		return err
+	}
+
+	return nil
+}
+
+// https://platform.openai.com/docs/api-reference/chat/object
+type ToolType string
+
+var (
+	ToolTypeFunction ToolType = "function"
+)
+
+type Tool struct {
+	Type ToolType `json:"type"`
+
+	ToolFunction *Function `json:"function"`
+}
+
+// https://platform.openai.com/docs/api-reference/chat/object
+type ToolCall struct {
+	ID string `json:"id"`
+
+	Type ToolType `json:"type"`
+
+	//Index *int `json:"index,omitempty"`
+
+	Function *FunctionCall `json:"function,omitempty"`
+}
+
+type Function struct {
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	Parameters any `json:"parameters"`
+}
+
+// https://platform.openai.com/docs/api-reference/chat/object
+type FunctionCall struct {
+	Name      string `json:"name,omitempty"`
+	Arguments string `json:"arguments,omitempty"`
+}
+
+// https://platform.openai.com/docs/api-reference/audio/createSpeech
+type SpeechRequest struct {
+	Model string `json:"model"`
+
+	Input string `json:"input"`
+	Voice string `json:"voice"`
+}
+
+type Transcription struct {
+	Task string `json:"task"`
+
+	Language string  `json:"language"`
+	Duration float64 `json:"duration"`
+
+	Text string `json:"text"`
+}
+
+// https://platform.openai.com/docs/api-reference/images/create
+type ImageCreateRequest struct {
+	Model string `json:"model"`
+
+	Prompt string `json:"prompt"`
+	Style  string `json:"style,omitempty"`
+
+	ResponseFormat string `json:"response_format,omitempty"`
+}
+
+// https://platform.openai.com/docs/api-reference/images/create
+type ImageList struct {
+	Images []Image `json:"data"`
+}
+
+// https://platform.openai.com/docs/api-reference/images/object
+type Image struct {
+	URL     string `json:"url,omitempty"`
+	B64JSON string `json:"b64_json,omitempty"`
+
+	RevisedPrompt string `json:"revised_prompt,omitempty"`
+}
+
+type ErrorResponse struct {
+	Error Error `json:"error,omitempty"`
+}
+
+type Error struct {
+	Type    string `json:"type"`
+	Message string `json:"message"`
+}
