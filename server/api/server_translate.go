@@ -18,4 +18,17 @@ func (s *Server) handleTranslate(w http.ResponseWriter, r *http.Request) {
 	var request Document
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		http
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	translation, err := t.Translate(r.Context(), request.Content, nil)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	result := Result{
+		Document: Document{
+			Content: tra
