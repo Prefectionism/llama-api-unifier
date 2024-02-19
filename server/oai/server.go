@@ -10,4 +10,21 @@ import (
 )
 
 type Server struct {
-	*co
+	*config.Config
+	http.Handler
+}
+
+func New(cfg *config.Config) (*Server, error) {
+	r := chi.NewRouter()
+
+	s := &Server{
+		Config:  cfg,
+		Handler: r,
+	}
+
+	r.Get("/v1/models", s.handleModels)
+	r.Get("/v1/models/{id}", s.handleModel)
+
+	r.Post("/v1/embeddings", s.handleEmbeddings)
+
+	r.Post
