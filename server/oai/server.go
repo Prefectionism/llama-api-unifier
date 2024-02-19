@@ -37,4 +37,14 @@ func New(cfg *config.Config) (*Server, error) {
 	return s, nil
 }
 
-func writeJson(w http.Respo
+func writeJson(w http.ResponseWriter, v any) {
+	w.Header().Set("Content-Type", "application/json")
+
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(v)
+}
+
+func writeError(w http.ResponseWriter, code int, err error) {
+	w.Header().Set("Content-Type", "appli
