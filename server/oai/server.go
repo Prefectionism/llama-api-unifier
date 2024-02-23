@@ -64,3 +64,7 @@ func writeError(w http.ResponseWriter, code int, err error) {
 	}
 
 	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(resp)
+}
