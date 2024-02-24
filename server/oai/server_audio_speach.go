@@ -23,4 +23,17 @@ func (s *Server) handleAudioSpeech(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	options := &provider.Synthesi
+	options := &provider.SynthesizeOptions{
+		Voice: req.Voice,
+	}
+
+	synthesis, err := synthesizer.Synthesize(r.Context(), req.Input, options)
+
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	defer synthesis.Content.Close()
+
+	w.Header().Set("Content-Type"
