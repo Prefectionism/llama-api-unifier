@@ -36,4 +36,6 @@ func (s *Server) handleAudioSpeech(w http.ResponseWriter, r *http.Request) {
 
 	defer synthesis.Content.Close()
 
-	w.Header().Set("Content-Type"
+	w.Header().Set("Content-Type", "audio/wav")
+	io.Copy(w, synthesis.Content)
+}
