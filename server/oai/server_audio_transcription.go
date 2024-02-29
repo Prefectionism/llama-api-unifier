@@ -38,4 +38,16 @@ func (s *Server) handleAudioTranscription(w http.ResponseWriter, r *http.Request
 
 	input := provider.File{
 		Content: file,
-		Name:    he
+		Name:    header.Filename,
+	}
+
+	options := &provider.TranscribeOptions{}
+
+	transcription, err := transcriber.Transcribe(r.Context(), input, options)
+
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	result := Transcr
