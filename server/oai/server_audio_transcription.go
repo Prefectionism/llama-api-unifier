@@ -50,4 +50,14 @@ func (s *Server) handleAudioTranscription(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	result := Transcr
+	result := Transcription{
+		Task: "transcribe",
+
+		Language: transcription.Language,
+		Duration: transcription.Duration,
+
+		Text: transcription.Content,
+	}
+
+	writeJson(w, result)
+}
