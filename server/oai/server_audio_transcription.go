@@ -21,4 +21,21 @@ func (s *Server) handleAudioTranscription(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	prompt := r.FormValue("p
+	prompt := r.FormValue("prompt")
+	language := r.FormValue("language")
+
+	_ = prompt
+	_ = language
+
+	file, header, err := r.FormFile("file")
+
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	defer file.Close()
+
+	input := provider.File{
+		Content: file,
+		Name:    he
