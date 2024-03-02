@@ -385,3 +385,6 @@ func oaiToolCalls(calls []provider.FunctionCall) []ToolCall {
 			},
 		})
 	}
+
+	return result
+}
