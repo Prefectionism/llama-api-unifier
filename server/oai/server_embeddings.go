@@ -28,3 +28,19 @@ func (s *Server) handleEmbeddings(w http.ResponseWriter, r *http.Request) {
 	case []string:
 		inputs = v
 	}
+
+	if len(inputs) == 0 {
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	result := &EmbeddingList{
+		Object: "list",
+
+		Model: req.Model,
+	}
+
+	for i, input := range inputs {
+		data, err := embedder.Embed(r.Context(), input)
+
+		if err != 
