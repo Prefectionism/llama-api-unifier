@@ -43,4 +43,18 @@ func (s *Server) handleEmbeddings(w http.ResponseWriter, r *http.Request) {
 	for i, input := range inputs {
 		data, err := embedder.Embed(r.Context(), input)
 
-		if err != 
+		if err != nil {
+			writeError(w, http.StatusBadRequest, err)
+			return
+		}
+
+		result.Data = append(result.Data, Embedding{
+			Object: "embedding",
+
+			Index:     i,
+			Embedding: data,
+		})
+	}
+
+	writeJson(w, result)
+}
