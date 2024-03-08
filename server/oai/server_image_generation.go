@@ -54,4 +54,16 @@ func (s *Server) handleImageGeneration(w http.ResponseWriter, r *http.Request) {
 	} else {
 		mime := mime.TypeByExtension(path.Ext(image.Name))
 
-		if mime == ""
+		if mime == "" {
+			mime = "image/png"
+		}
+
+		result.Images = []Image{
+			{
+				URL: "data:" + mime + ";base64," + base64.StdEncoding.EncodeToString(data),
+			},
+		}
+	}
+
+	writeJson(w, result)
+}
