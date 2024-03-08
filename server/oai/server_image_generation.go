@@ -27,3 +27,15 @@ func (s *Server) handleImageGeneration(w http.ResponseWriter, r *http.Request) {
 	}
 
 	options := &provider.RenderOptions{}
+
+	image, err := renderer.Render(r.Context(), req.Prompt, options)
+
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	data, err := io.ReadAll(image.Content)
+
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err
