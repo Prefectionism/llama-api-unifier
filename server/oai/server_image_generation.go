@@ -38,4 +38,20 @@ func (s *Server) handleImageGeneration(w http.ResponseWriter, r *http.Request) {
 	data, err := io.ReadAll(image.Content)
 
 	if err != nil {
-		writeError(w, http.StatusBadRequest, err
+		writeError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	result := ImageList{}
+
+	if req.ResponseFormat == "b64_json" {
+		result.Images = []Image{
+			{
+				B64JSON: base64.StdEncoding.EncodeToString(data),
+			},
+		}
+
+	} else {
+		mime := mime.TypeByExtension(path.Ext(image.Name))
+
+		if mime == ""
