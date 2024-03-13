@@ -29,4 +29,17 @@ func (s *Server) handleModel(w http.ResponseWriter, r *http.Request) {
 	model, err := s.Model(chi.URLParam(r, "id"))
 
 	if err != nil {
-		
+		writeError(w, http.StatusNotFound, err)
+		return
+	}
+
+	result := &Model{
+		Object: "model",
+
+		ID:      model.ID,
+		Created: time.Now().Unix(),
+		OwnedBy: "openai",
+	}
+
+	writeJson(w, result)
+}
