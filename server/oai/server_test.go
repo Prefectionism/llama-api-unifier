@@ -311,3 +311,20 @@ func TestChatCompletionWithTool(t *testing.T) {
 	assert.NotEmpty(t, resp.Model)
 	assert.NotEmpty(t, resp.Created)
 	assert.Len(t, resp.Choices, 1)
+
+	if len(resp.Choices) == 0 {
+		t.FailNow()
+	}
+
+	choice = resp.Choices[0]
+	assert.Equal(t, 0, choice.Index)
+	assert.Equal(t, openai.FinishReasonStop, choice.FinishReason)
+
+	assert.Equal(t, openai.ChatMessageRoleAssistant, choice.Message.Role)
+	assert.NotEmpty(t, choice.Message.Content)
+
+	dialoge = append(dialoge, choice.Message)
+
+	output, _ := json.MarshalIndent(dialoge, "", "  ")
+	t.Log(string(output))
+}
