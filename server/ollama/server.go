@@ -10,4 +10,19 @@ import (
 )
 
 type Server struct {
-	*c
+	*config.Config
+	http.Handler
+}
+
+func New(cfg *config.Config) (*Server, error) {
+	r := chi.NewRouter()
+
+	s := &Server{
+		Config:  cfg,
+		Handler: r,
+	}
+
+	r.Head("/", s.handleHeartbeat)
+	r.Get("/", s.handleIndex)
+
+	r.Get("/api/tags", s.handleTa
