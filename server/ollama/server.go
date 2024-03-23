@@ -25,4 +25,15 @@ func New(cfg *config.Config) (*Server, error) {
 	r.Head("/", s.handleHeartbeat)
 	r.Get("/", s.handleIndex)
 
-	r.Get("/api/tags", s.handleTa
+	r.Get("/api/tags", s.handleTags)
+
+	r.Post("/api/chat", s.handleChat)
+	r.Post("/api/embeddings", s.handleEmbeddings)
+
+	return s, nil
+}
+
+func writeJson(w http.ResponseWriter, v any) {
+	w.Header().Set("Content-Type", "application/json")
+
+	enc := json.New
