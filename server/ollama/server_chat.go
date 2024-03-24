@@ -154,3 +154,52 @@ func toMessages(s []Message) ([]provider.Message, error) {
 			if name == "" {
 				return nil, fmt.Errorf("invalid image data")
 			}
+
+			files = append(files, provider.File{
+				Name:    name,
+				Content: bytes.NewReader(data),
+			})
+		}
+
+		result = append(result, provider.Message{
+			Role:    toMessageRole(m.Role),
+			Content: m.Content,
+
+			Files: files,
+		})
+	}
+
+	return result, nil
+}
+
+func toMessageRole(r MessageRole) provider.MessageRole {
+	switch r {
+	case MessageRoleSystem:
+		return provider.MessageRoleSystem
+
+	case MessageRoleUser:
+		return provider.MessageRoleUser
+
+	case MessageRoleAssistant:
+		return provider.MessageRoleAssistant
+
+	default:
+		return ""
+	}
+}
+
+func ollamaMessageRole(r provider.MessageRole) MessageRole {
+	switch r {
+	case provider.MessageRoleSystem:
+		return MessageRoleSystem
+
+	case provider.MessageRoleUser:
+		return MessageRoleUser
+
+	case provider.MessageRoleAssistant:
+		return MessageRoleAssistant
+
+	default:
+		return ""
+	}
+}
