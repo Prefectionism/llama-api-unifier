@@ -49,4 +49,11 @@ func writeError(w http.ResponseWriter, code int, err error) {
 	resp := StatusError{
 		StatusCode: code,
 
-		ErrorMessage: er
+		ErrorMessage: err.Error(),
+	}
+
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+
+	enc.Encode(resp)
+}
