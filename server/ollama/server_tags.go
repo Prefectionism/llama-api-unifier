@@ -15,4 +15,13 @@ func (s *Server) handleTags(w http.ResponseWriter, r *http.Request) {
 			Name:  m.ID,
 			Model: m.ID,
 
-	
+			ModifiedAt: timestamp,
+
+			Details: ModelDetails{
+				Format: "gguf",
+			},
+		})
+	}
+
+	writeJson(w, result)
+}
